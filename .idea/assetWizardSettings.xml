@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="logo_1" />
-                            <entry key="sourceFile" value="C:\포세션 UIUX\Ellipse 1.svg" />
+                            <entry key="outputName" value="logo" />
+                            <entry key="sourceFile" value="C:\Union.svg" />
                           </map>
                         </option>
                       </PersistentState>
