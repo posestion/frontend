@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="logo" />
-                            <entry key="sourceFile" value="C:\Union.svg" />
+                            <entry key="outputName" value="appname" />
+                            <entry key="sourceFile" value="C:\POSESTION.svg" />
                           </map>
                         </option>
                       </PersistentState>
