@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activity_First">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/AFirst_logo"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"
@@ -17,13 +16,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
-    <ImageView
-        android:id="@+id/AFirst_appname"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        app:layout_constraintEnd_toEndOf="@+id/AFirst_logo"
-        app:layout_constraintStart_toStartOf="@+id/AFirst_logo"
-        app:layout_constraintTop_toBottomOf="@+id/AFirst_logo"
-        app:srcCompat="@drawable/appname" />
-
+        android:fontFamily="@font/amatica_sc_bold"
+        android:text="POSESTION"
+        android:textColor="@color/main_color"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
