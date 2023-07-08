@@ -50,10 +50,10 @@
             android:layout_height="60dp"
             android:id="@+id/tabs"
             android:background="@color/white"
-            app:tabIndicatorColor="#03A9F4"
-            app:tabRippleColor="#03A9F4"
-            app:tabSelectedTextColor="#03A9F4"
-            app:tabTextColor="@color/black"/>
+            app:tabIndicatorColor="@color/black"
+            app:tabRippleColor="@color/black"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/black" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
