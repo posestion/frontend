@@ -12,5 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <!-- font style-->
+        <item name="android:fontFamily">@font/sf_arabic_rounded</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>
