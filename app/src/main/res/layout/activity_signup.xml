@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_Signup">
+    tools:context=".ActivitySignup">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/Asignup_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+        app:layout_constraintTop_toBottomOf="@+id/Asignup_toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
@@ -145,7 +145,7 @@
         android:id="@+id/Asignup_edit_pw_check"
         android:layout_width="330dp"
         android:layout_height="48dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="36dp"
         android:backgroundTint="#EDEDED"
         android:ems="10"
         android:hint="8-30 자리 영 대/소문자, 숫자, 특수문자 조합"
@@ -174,9 +174,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
         android:text="text"
-        android:visibility="invisible"
         android:textColor="#9E9E9E"
         android:textSize="10sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw_check"
         app:layout_constraintTop_toTopOf="@+id/Asignup_edit_pw_check" />
 
@@ -209,7 +209,7 @@
     <Button
         android:id="@+id/button"
         android:layout_width="90dp"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:background="@drawable/button_shape_gray"
         android:text="중복 확인"
         android:textColor="#9E9E9E"
@@ -248,12 +248,66 @@
     <Spinner
         android:id="@+id/Asignup_spinner"
         android:layout_width="88dp"
-        android:layout_height="48dp"
+        android:layout_height="33dp"
         android:layout_marginStart="2dp"
-        android:background="@drawable/spinner_shape"
+        android:background="@drawable/spinner_background"
+        android:contentDescription="통신사 선택"
+        android:dropDownVerticalOffset="28dp"
+        android:popupBackground="@drawable/spinner_popup_background"
         app:layout_constraintBottom_toBottomOf="@+id/Asignup_edit_num"
         app:layout_constraintStart_toEndOf="@+id/Asignup_edit_num"
-        app:layout_constraintTop_toTopOf="@+id/Asignup_edit_num"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/Asignup_edit_num" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="330dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/box_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Asignup_edit_num">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/Asignup_text9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="3분 이내로 인증번호 6자리를 입력해주세요.\n인증번호가 전송되지 않은 경우 &quot;재전송&quot;을 눌러주세요."
+        android:textColor="#9E9E9E"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+    <Button
+        android:id="@+id/Asignup_btn_next"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/button_shape"
+        android:text="다음"
+        android:textColor="@color/middle_string_color"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Asignup_text9" />
+
+    <TextView
+        android:id="@+id/Asignup_text_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:text="text"
+        android:textColor="#9e9e9e"
+        android:textSize="10sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw"
+        app:layout_constraintTop_toTopOf="@+id/Asignup_edit_pw" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

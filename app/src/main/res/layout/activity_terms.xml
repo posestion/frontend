@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_terms">
+    tools:context=".Activityterms">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/Aterms_toolbar"
@@ -41,7 +41,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="328dp"
         android:layout_marginTop="21dp"
-        android:background="@drawable/terms_shape"
+        android:background="@drawable/box_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">

@@ -19,8 +19,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="check_x" />
-                            <entry key="sourceFile" value="C:\check_x.svg" />
+                            <entry key="outputName" value="pen" />
+                            <entry key="sourceFile" value="C:\pen.svg" />
                           </map>
                         </option>
                       </PersistentState>

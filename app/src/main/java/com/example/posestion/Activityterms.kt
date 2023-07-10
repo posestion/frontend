@@ -9,11 +9,13 @@ import android.text.SpannableStringBuilder
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import com.example.posestion.databinding.ActivityTermsBinding
 
-class Activity_terms : AppCompatActivity() {
+class Activityterms : AppCompatActivity() {
 
     private val binding: ActivityTermsBinding by lazy { ActivityTermsBinding.inflate(layoutInflater) }
     private lateinit var checkbox1 : CheckBox
@@ -25,6 +27,11 @@ class Activity_terms : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.AtermsToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         checkbox1 = binding.AtermsCheck1
         checkbox2 = binding.AtermsCheck2
@@ -63,7 +70,7 @@ class Activity_terms : AppCompatActivity() {
                 && binding.AtermsCheck3.isChecked
                 && binding.AtermsCheck4.isChecked
                 && binding.AtermsCheck5.isChecked){
-                val intent = Intent(this, Activity_Signup::class.java)
+                val intent = Intent(this, ActivitySignup::class.java)
                 startActivity(intent)
             }
         }
@@ -113,5 +120,21 @@ class Activity_terms : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.login_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(this, ActivityLogin::class.java)
+                startActivity(intent)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
