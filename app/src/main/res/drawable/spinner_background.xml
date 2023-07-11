@@ -5,11 +5,12 @@
             <item android:left="5dp">
                 <shape android:shape = "rectangle">
                     <corners android:radius = "6dp" />
-                    <stroke android:color = "#D9D9D9"
+                    <stroke android:color = "@color/designgray"
                         android:width ="1dp"/>
                     <padding
                         android:left = "5dp"
                         android:right = "10dp"/>
+                    <solid android:color="@color/white"/>
                 </shape>
             </item>
             <item
