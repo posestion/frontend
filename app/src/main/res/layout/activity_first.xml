@@ -22,7 +22,7 @@
         android:layout_height="70dp"
         android:fontFamily="@font/amatica_sc_bold"
         android:text="POSESTION"
-        android:textColor="@color/main_color"
+        android:textColor="@color/maincolor"
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/Afirst_logo"
@@ -35,6 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="화면을 터치해 포세션을 시작해보세요!"
+        android:textColor="@color/designgray"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Afirst_text1" />
