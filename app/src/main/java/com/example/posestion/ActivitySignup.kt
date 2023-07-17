@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -13,7 +14,11 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import com.example.posestion.databinding.ActivitySignupBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ActivitySignup : AppCompatActivity() {
 
@@ -85,13 +90,13 @@ class ActivitySignup : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        val dpValue = 88
+        val dpValue = 66
         val pixels = (dpValue * Resources.getSystem().displayMetrics.density).toInt()
 
         spinner_phone = binding.AsignupSpinner
         spinner_phone.setDropDownWidth(pixels)
 
-        ArrayAdapter.createFromResource(this, R.array.phone_spinner_item, android.R.layout.simple_spinner_item
+        ArrayAdapter.createFromResource(this, R.array.phone_spinner_item, R.layout.spinner_text
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner_phone.adapter = adapter
@@ -100,6 +105,34 @@ class ActivitySignup : AppCompatActivity() {
         binding.AsignupBtnNext.setOnClickListener {
             val intent = Intent(this, ActivityMakeProfile::class.java)
             startActivity(intent)
+        }
+
+        binding.AsignupBtnCheckid.setOnClickListener {
+            val id = binding.AsignupEditId.text.toString()
+            val call = RetrofitObject.getRetrofitService.checkid(id)
+            call.enqueue(object : Callback<Responsecheckid> {
+                override fun onResponse(call: Call<Responsecheckid>, response: Response<Responsecheckid>) {
+                    if (response.isSuccessful) {
+                        val response = response.body()
+                        if(response != null){
+                            val idcheck = binding.AsignupTextIdcheck
+                            if(response.message.toString() == "성공"){
+                                idcheck.text = "사용가능한 아이디 입니다."
+                                idcheck.visibility = View.VISIBLE
+                            }
+                            else{
+                                idcheck.text = "이미 사용중인 아이디 입니다."
+                                idcheck.visibility = View.VISIBLE
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<Responsecheckid>, t: Throwable) {
+                    val errorMessage = "Call Failed: ${t.message}"
+                    Log.d("Retrofit", errorMessage)
+                }
+            })
         }
     }
 

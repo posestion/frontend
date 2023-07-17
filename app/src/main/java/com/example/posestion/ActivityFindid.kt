@@ -24,13 +24,13 @@ class ActivityFindid : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        val dpValue = 88
+        val dpValue = 66
         val pixels = (dpValue * Resources.getSystem().displayMetrics.density).toInt()
 
         spinner_phone = binding.AfindidSpinner
         spinner_phone.setDropDownWidth(pixels)
 
-        ArrayAdapter.createFromResource(this, R.array.phone_spinner_item, android.R.layout.simple_spinner_item
+        ArrayAdapter.createFromResource(this, R.array.phone_spinner_item, R.layout.spinner_text
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner_phone.adapter = adapter

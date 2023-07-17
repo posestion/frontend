@@ -10,7 +10,7 @@
         android:id="@+id/Afindpw_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@drawable/toolbar_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,75 +23,13 @@
             android:layout_gravity="center"
             android:fontFamily="@font/amatica_sc_bold"
             android:text="@string/app_name"
-            android:textColor="@color/main_color"
+            android:textColor="@color/maincolor"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="150dp"
             tools:layout_editor_absoluteY="11dp" />
 
     </androidx.appcompat.widget.Toolbar>
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#D9D9D9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Afindpw_toolbar" />
-
-    <EditText
-        android:id="@+id/Afindpw_edit_num"
-        android:layout_width="240dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="#EDEDED"
-        android:ems="10"
-        android:hint="휴대 전화 번호를 입력해주세요."
-        android:inputType="phone"
-        android:textColorHint="#D9D9D9"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_id" />
-
-    <TextView
-        android:id="@+id/Afindpw_text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginBottom="40dp"
-        android:text="휴대 전화 번호 인증"
-        android:textColor="#767676"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_num"
-        app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_num" />
-
-    <Spinner
-        android:id="@+id/Afindpw_spinner"
-        android:layout_width="88dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="2dp"
-        android:background="@drawable/spinner_background"
-        android:contentDescription="통신사 선택"
-        android:dropDownVerticalOffset="28dp"
-        android:popupBackground="@drawable/spinner_popup_background"
-        app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_num"
-        app:layout_constraintStart_toEndOf="@+id/Afindpw_edit_num"
-        app:layout_constraintTop_toTopOf="@+id/Afindpw_edit_num" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="330dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/box_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.53"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_num">
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout6"
@@ -100,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view">
+        app:layout_constraintTop_toBottomOf="@+id/Afindpw_toolbar">
 
         <TextView
             android:id="@+id/Afindpw_text_id"
@@ -121,6 +59,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="PW 찾기"
+            android:textColor="@color/maincolor"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -129,125 +68,310 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/Afindpw_edit_id"
-        android:layout_width="330dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="아이디를 입력해주세요."
-        android:inputType="text"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+        app:layout_constraintVertical_bias="1.0">
 
-    <TextView
-        android:id="@+id/Afindpw_text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginBottom="40dp"
-        android:text="아이디"
-        app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_id"
-        app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_id" />
 
-    <EditText
-        android:id="@+id/Afindpw_edit_name"
-        android:layout_width="330dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="이름을 입력해주세요."
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/Afindpw_text3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginBottom="40dp"
-        android:text="이름"
-        app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_name"
-        app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_name" />
+            <EditText
+                android:id="@+id/Afindpw_edit_phonenum"
+                android:layout_width="210dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="59dp"
+                android:layout_marginTop="28dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="휴대 전화 번호를 입력해주세요."
+                android:inputType="phone"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_name"
+                app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_id" />
 
-    <EditText
-        android:id="@+id/Afindpw_edit_pw"
-        android:layout_width="330dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="#EDEDED"
-        android:ems="10"
-        android:hint="8-30 자리 영 대/소문자, 숫자, 특수문자 조합"
-        android:inputType="textPassword"
-        android:textColorHint="#D9D9D9"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_name" />
+            <TextView
+                android:id="@+id/Afindpw_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="42dp"
+                android:text="휴대 전화 번호 인증"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_phonenum"
+                app:layout_constraintStart_toStartOf="@+id/Afindpw_text3" />
 
-    <EditText
-        android:id="@+id/Afindpw_edit_pwcheck"
-        android:layout_width="330dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="#EDEDED"
-        android:ems="10"
-        android:hint="8-30 자리 영 대/소문자, 숫자, 특수문자 조합"
-        android:inputType="textPassword"
-        android:textColorHint="#D9D9D9"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_pw" />
+            <Spinner
+                android:id="@+id/Afindpw_spinner"
+                android:layout_width="66dp"
+                android:layout_height="29dp"
+                android:background="@drawable/spinner_background"
+                android:contentDescription="통신사 선택"
+                android:dropDownVerticalOffset="25dp"
+                android:popupBackground="@drawable/spinner_popup_background"
+                app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_phonenum"
+                app:layout_constraintEnd_toStartOf="@+id/Afindpw_edit_phonenum"
+                app:layout_constraintTop_toTopOf="@+id/Afindpw_edit_phonenum"
+                app:layout_constraintVertical_bias="0.363" />
 
-    <TextView
-        android:id="@+id/Afindpw_text4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="40dp"
-        android:text="비밀번호"
-        app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_pw"
-        app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_pw" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="330dp"
+                android:layout_height="66dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/box_line_designgray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.53"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_phonenum">
 
-    <TextView
-        android:id="@+id/Afindpw_text5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="40dp"
-        android:text="비밀번호 재입력"
-        app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_pwcheck"
-        app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_pwcheck" />
+                <TextView
+                    android:id="@+id/Afindpw_text6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="인증번호"
+                    android:textColor="@color/deepgray"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/Afindpw_text_pwcheck2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:text="text"
-        android:textColor="#9E9E9E"
-        android:textSize="10sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_pwcheck"
-        app:layout_constraintTop_toTopOf="@+id/Afindpw_edit_pwcheck" />
+                <EditText
+                    android:id="@+id/Afindpw_edit_num"
+                    android:layout_width="170dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="-5dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="인증번호 6자리 입력"
+                    android:inputType="numberSigned"
+                    android:textColorHint="@color/designgray"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/Afindpw_text6"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/Afindpw_text_pwcheck1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
-        android:text="text"
-        android:textColor="#9e9e9e"
-        android:textSize="10sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_pw"
-        app:layout_constraintTop_toTopOf="@+id/Afindpw_edit_pw" />
+                <TextView
+                    android:id="@+id/Afindpw_text_num"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="03:00"
+                    android:textColor="@color/highlight"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/Afindpw_btn_checknum"
+                    app:layout_constraintTop_toTopOf="@+id/Afindpw_edit_num" />
+
+                <Button
+                    android:id="@+id/Afindpw_btn_checknum"
+                    android:layout_width="62dp"
+                    android:layout_height="26dp"
+                    android:layout_marginEnd="13dp"
+                    android:background="@drawable/button_shape_gray"
+                    android:text="확인"
+                    android:textColor="@color/deepgray"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/Afindpw_text_num"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/Afindpw_text_num" />
+
+                <ImageButton
+                    android:id="@+id/Afindpw_btn_x"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="7dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/Afindpw_text_num"
+                    app:layout_constraintEnd_toStartOf="@+id/Afindpw_text_num"
+                    app:layout_constraintTop_toTopOf="@+id/Afindpw_text_num"
+                    app:srcCompat="@drawable/btnx" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <EditText
+                android:id="@+id/Afindpw_edit_id"
+                android:layout_width="330dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="아이디를 입력해주세요."
+                android:inputType="text"
+                android:textColorHint="@color/designgray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.531"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Afindpw_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="40dp"
+                android:text="아이디"
+                android:textColor="@color/deepgray"
+                app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_id"
+                app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_id" />
+
+            <EditText
+                android:id="@+id/Afindpw_edit_name"
+                android:layout_width="330dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="60dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="이름을 입력해주세요."
+                android:inputType="text"
+                android:textColorHint="@color/designgray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+            <TextView
+                android:id="@+id/Afindpw_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="40dp"
+                android:text="이름"
+                android:textColor="@color/deepgray"
+                app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_name"
+                app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_name" />
+
+            <EditText
+                android:id="@+id/Afindpw_edit_pw"
+                android:layout_width="330dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="8-30 자리 영 대/소문자, 숫자, 특수문자 조합"
+                android:inputType="textPassword"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_name" />
+
+            <EditText
+                android:id="@+id/Afindpw_edit_pwcheck"
+                android:layout_width="330dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="8-30 자리 영 대/소문자, 숫자, 특수문자 조합"
+                android:inputType="textPassword"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_pw" />
+
+            <TextView
+                android:id="@+id/Afindpw_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="40dp"
+                android:text="비밀번호"
+                android:textColor="@color/deepgray"
+                app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_pw"
+                app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_pw" />
+
+            <TextView
+                android:id="@+id/Afindpw_text5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="40dp"
+                android:text="비밀번호 재입력"
+                android:textColor="@color/deepgray"
+                app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_pwcheck"
+                app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_pwcheck" />
+
+            <TextView
+                android:id="@+id/Afindpw_text_pwcheck2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="44dp"
+                android:text="text"
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_pwcheck"
+                app:layout_constraintTop_toTopOf="@+id/Afindpw_edit_pwcheck" />
+
+            <TextView
+                android:id="@+id/Afindpw_text_pwcheck1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="44dp"
+                android:text="text"
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/Afindpw_edit_pw"
+                app:layout_constraintTop_toTopOf="@+id/Afindpw_edit_pw" />
+
+            <TextView
+                android:id="@+id/Afindpw_text7"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="10dp"
+                android:text="3분 이내로 인증번호 6자리를 입력해주세요.\n인증번호가 전송되지 않은 경우 &quot;재전송&quot;을 눌러주세요."
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+            <TextView
+                android:id="@+id/Afindpw_text_resend"
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="재전송"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/Afindpw_text7"
+                app:layout_constraintEnd_toStartOf="@+id/Afindpw_text7"
+                app:layout_constraintTop_toTopOf="@+id/Afindpw_text7" />
+
+            <Button
+                android:id="@+id/Afindpw_btn_changepw"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_shape"
+                android:text="비밀번호 재설정"
+                android:textColor="@color/deepgray"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_pwcheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

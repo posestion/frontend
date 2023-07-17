@@ -20,6 +20,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.startActivity
 import com.example.posestion.databinding.ActivityLoginBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ActivityLogin : AppCompatActivity() {
 
@@ -72,7 +75,7 @@ class ActivityLogin : AppCompatActivity() {
 
             override fun updateDrawState(tt: TextPaint) {
                 super.updateDrawState(tt)
-                tt.color = Color.parseColor("#9C9C9C")
+                tt.color = Color.parseColor("#ABABAB")
             }
         }
 
@@ -86,7 +89,7 @@ class ActivityLogin : AppCompatActivity() {
 
             override fun updateDrawState(tt: TextPaint) {
                 super.updateDrawState(tt)
-                tt.color = Color.parseColor("#9C9C9C")
+                tt.color = Color.parseColor("#ABABAB")
             }
         }
 
@@ -101,6 +104,26 @@ class ActivityLogin : AppCompatActivity() {
         spanfindpw.setSpan(clickfindpw, 0, spanfindpw.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         findpw.text = spanfindpw
         findpw.movementMethod = LinkMovementMethod.getInstance()
+
+        binding.AloginBtnLogin.setOnClickListener {
+            val id = binding.AloginId.text.toString()
+            val pw = binding.AloginPw.text.toString()
+
+            val call = RetrofitObject.getRetrofitService.login(Requestlogin(id, pw))
+            call.enqueue(object : Callback<Responselogin> {
+                override fun onResponse(call: Call<Responselogin>, response: Response<Responselogin>) {
+                    Toast.makeText(applicationContext, "Call Success", Toast.LENGTH_SHORT).show()
+                    if (response.isSuccessful) {
+                       Log.d("login", response.body()?.message.toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<Responselogin>, t: Throwable) {
+                    val errorMessage = "Call Failed: ${t.message}"
+                    Log.d("Retrofit", errorMessage)
+                }
+            })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
