@@ -211,6 +211,7 @@
                 android:hint="아이디를 입력해주세요."
                 android:inputType="text"
                 android:textColorHint="@color/designgray"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.531"
                 app:layout_constraintStart_toStartOf="parent"
@@ -237,6 +238,7 @@
                 android:hint="이름을 입력해주세요."
                 android:inputType="text"
                 android:textColorHint="@color/designgray"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />

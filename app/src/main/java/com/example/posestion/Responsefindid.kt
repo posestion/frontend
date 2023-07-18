@@ -10,7 +10,7 @@ data class Responsefindid(
     @SerializedName("message")
     val message: String?,
     @SerializedName("result")
-    val result: FindidResult
+    val result: List<FindidResult>
 )
 
 data class FindidResult(

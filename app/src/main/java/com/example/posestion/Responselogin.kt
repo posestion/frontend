@@ -10,7 +10,7 @@ data class Responselogin(
     @SerializedName("message")
     val message: String?,
     @SerializedName("result")
-    val result: LoginResult
+    val result: List<LoginResult>
 )
 
 data class LoginResult(

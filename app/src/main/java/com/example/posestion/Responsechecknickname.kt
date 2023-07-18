@@ -10,7 +10,7 @@ data class Responsenickname(
     @SerializedName("message")
     val message: String?,
     @SerializedName("result")
-    val result: NicknameResult
+    val result: List<NicknameResult>
 )
 
 data class NicknameResult(
