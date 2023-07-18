@@ -3,14 +3,21 @@ package com.example.posestion
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ActivityFirst : AppCompatActivity() , View.OnTouchListener {
+
+    private val user = MyApplication.user
+    private val editor = user.edit()
+    private var id = ""
+    private var pw = ""
 
     private val callback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -20,8 +27,42 @@ class ActivityFirst : AppCompatActivity() , View.OnTouchListener {
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
-            val intent = Intent(this, ActivityLogin::class.java)
-            startActivity(intent)
+            if(user.getBoolean("autologin", false)){
+                id = user.getString("id", "").toString()
+                pw = user.getString("pw", "").toString()
+                if(id == "" || pw == ""){
+                    val intent = Intent(this, ActivityLogin::class.java)
+                    startActivity(intent)
+                }
+                else{
+                    val call = RetrofitObject.getRetrofitService.login(Requestlogin(id, pw))
+                    call.enqueue(object : Callback<Responselogin> {
+                        override fun onResponse(call: Call<Responselogin>, response: Response<Responselogin>) {
+                            if (response.isSuccessful) {
+                                val response = response.body()
+                                if(response != null){
+                                    if(response.isSuccess){
+                                        val auto = user.getBoolean("autologin", false)
+                                        if(auto){
+                                            val intent = Intent(this@ActivityFirst, loginsuccess::class.java)
+                                            startActivity(intent)
+                                            finish()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Responselogin>, t: Throwable) {
+                            val errorMessage = "Call Failed: ${t.message}"
+                            Log.d("Retrofit", errorMessage)
+                        }
+                    })
+                }
+            }else{
+                val intent = Intent(this, ActivityLogin::class.java)
+                startActivity(intent)
+            }
             return true
         }
         return false

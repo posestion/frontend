@@ -27,6 +27,12 @@ import retrofit2.Response
 class ActivityLogin : AppCompatActivity() {
 
     private val binding: ActivityLoginBinding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
+
+    //자동 로그인
+    private val user = MyApplication.user
+    private val editor = user.edit()
+
+    //뒤로가기 버튼 동작 제어
     private var backKeyPressedTime = 0
     private val callback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -43,13 +49,26 @@ class ActivityLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        //자동로그인 check여부 파악
+        binding.AloginAuto.setOnCheckedChangeListener { check, isChecked ->
+            if (isChecked) {
+                editor.putBoolean("autologin", true)
+            } else {
+                editor.putBoolean("autologin", false)
+            }
+            editor.apply()
+        }
+
+        //뒤로가기 버튼 이벤트
         this.onBackPressedDispatcher.addCallback(this, callback)
 
+        //toolbar 설정
         setSupportActionBar(binding.AloginToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        //간편 가입하기 text클릭 이벤트 처리
         val Singup = binding.AloginTextSignup
         val spanup = SpannableStringBuilder("간편 가입하기")
         val clickSingup = object : ClickableSpan() {
@@ -65,6 +84,11 @@ class ActivityLogin : AppCompatActivity() {
             }
         }
 
+        spanup.setSpan(clickSingup, 0, spanup.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        Singup.text = spanup
+        Singup.movementMethod = LinkMovementMethod.getInstance()
+
+        //ID 찾기 text클릭 이벤트 처리
         val findid = binding.AloginFindId
         val spanfindid = SpannableStringBuilder("ID 찾기")
         val clickfindid = object : ClickableSpan() {
@@ -79,6 +103,11 @@ class ActivityLogin : AppCompatActivity() {
             }
         }
 
+        spanfindid.setSpan(clickfindid, 0, spanfindid.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        findid.text = spanfindid
+        findid.movementMethod = LinkMovementMethod.getInstance()
+
+        //PW 찾기 text클릭 이벤트 처리
         val findpw = binding.AloginFindPw
         val spanfindpw = SpannableStringBuilder("PW 찾기")
         val clickfindpw = object : ClickableSpan() {
@@ -93,18 +122,11 @@ class ActivityLogin : AppCompatActivity() {
             }
         }
 
-        spanup.setSpan(clickSingup, 0, spanup.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        Singup.text = spanup
-        Singup.movementMethod = LinkMovementMethod.getInstance()
-
-        spanfindid.setSpan(clickfindid, 0, spanfindid.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        findid.text = spanfindid
-        findid.movementMethod = LinkMovementMethod.getInstance()
-
         spanfindpw.setSpan(clickfindpw, 0, spanfindpw.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         findpw.text = spanfindpw
         findpw.movementMethod = LinkMovementMethod.getInstance()
 
+        //로그인 버튼 클릭 이벤트 처리
         binding.AloginBtnLogin.setOnClickListener {
             val id = binding.AloginId.text.toString()
             val pw = binding.AloginPw.text.toString()
@@ -112,9 +134,23 @@ class ActivityLogin : AppCompatActivity() {
             val call = RetrofitObject.getRetrofitService.login(Requestlogin(id, pw))
             call.enqueue(object : Callback<Responselogin> {
                 override fun onResponse(call: Call<Responselogin>, response: Response<Responselogin>) {
-                    Toast.makeText(applicationContext, "Call Success", Toast.LENGTH_SHORT).show()
                     if (response.isSuccessful) {
-                       Log.d("login", response.body()?.message.toString())
+                        val response = response.body()
+                        if(response != null){
+                            if(response.isSuccess){
+                                val auto = user.getBoolean("autologin", false)
+                                val token = response.result.jwt
+                                if(auto){
+                                    editor.putString("id", id)
+                                    editor.putString("pw", pw)
+                                    editor.putString("jwt", token)
+                                    editor.apply()
+                                }
+                                val intent = Intent(this@ActivityLogin, loginsuccess::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
                     }
                 }
 
@@ -126,16 +162,19 @@ class ActivityLogin : AppCompatActivity() {
         }
     }
 
+    //toolbar menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.login_menu, menu)
         return true
     }
 
+    //toolbar menu처리
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
                 val intent = Intent(this, ActivityFirst::class.java)
                 startActivity(intent)
+                finish()
                 return true
             }
         }
