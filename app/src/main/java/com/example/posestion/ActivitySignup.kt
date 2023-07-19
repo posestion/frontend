@@ -2,10 +2,16 @@ package com.example.posestion
 
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.TextPaint
 import android.text.TextWatcher
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -14,11 +20,12 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import com.example.posestion.databinding.ActivitySignupBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Timer
+import kotlin.concurrent.timer
 
 class ActivitySignup : AppCompatActivity() {
 
@@ -28,6 +35,8 @@ class ActivitySignup : AppCompatActivity() {
     private lateinit var pw : EditText
     private lateinit var pwchecktext : TextView
     private lateinit var pwtext : TextView
+    private lateinit var timerTask : Timer
+    private var timer = 0
 
     private val pwcheckwatcherListener = object : TextWatcher {
 
@@ -134,6 +143,37 @@ class ActivitySignup : AppCompatActivity() {
                 }
             })
         }
+
+        //인증번호 받기 눌렀을 때 동작
+        binding.AsignupBtnSendnum.setOnClickListener{
+            setTimer()
+        }
+
+        //재전송 눌렀을 때 동작
+        val resend = binding.AsignupTextResend
+        val spanresend = SpannableStringBuilder("재전송")
+        val clickresend = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                timerTask.cancel()
+                setTimer()
+            }
+
+            override fun updateDrawState(tt: TextPaint) {
+                super.updateDrawState(tt)
+                tt.color = Color.parseColor("#5F5F5F")
+            }
+        }
+
+        spanresend.setSpan(clickresend, 0, spanresend.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        resend.text = spanresend
+        resend.movementMethod = LinkMovementMethod.getInstance()
+
+        //인증번호 확인 버튼 눌렀을 때 동작
+        binding.AsignupBtnChecknum.setOnClickListener {
+            timerTask.cancel()
+            binding.AsignupTextNum.text = "03:00"
+            //binding.AsignupBtnChecknum.isClickable = false
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -150,5 +190,31 @@ class ActivitySignup : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setTimer() {
+        timer = 180
+        timerTask = timer(period = 1000, initialDelay = 1000) {
+            runOnUiThread {
+                timer_text()
+            }
+            timer -= 1
+            if (timer == 0) {
+                cancel()
+                runOnUiThread {
+                    binding.AsignupTextNum.text = "03:00"
+                }
+            }
+        }
+    }
+
+    private fun timer_text() {
+
+        var tm = timer / 60
+        var ts = timer % 60
+        var tmtext = String.format("%02d", tm)
+        var tstext = String.format("%02d", ts)
+
+        binding.AsignupTextNum.text = "${tmtext}:${tstext}"
     }
 }

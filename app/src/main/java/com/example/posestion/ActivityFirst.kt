@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +14,6 @@ import retrofit2.Response
 class ActivityFirst : AppCompatActivity() , View.OnTouchListener {
 
     private val user = MyApplication.user
-    private val editor = user.edit()
     private var id = ""
     private var pw = ""
 
