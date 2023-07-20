@@ -72,6 +72,7 @@ class Activityterms : AppCompatActivity() {
                 && binding.AtermsCheck5.isChecked){
                 val intent = Intent(this, ActivitySignup::class.java)
                 startActivity(intent)
+                finish()
             }
         }
 

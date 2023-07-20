@@ -91,6 +91,7 @@
                 android:hint="아이디를 입력해주세요."
                 android:textColorHint="@color/designgray"
                 android:textSize="14sp"
+                android:maxLength="10"
                 app:layout_constraintBottom_toTopOf="@+id/Asignup_edit_pw"
                 app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw" />
 
@@ -105,6 +106,7 @@
                 android:inputType="textPassword"
                 android:textColorHint="@color/designgray"
                 android:textSize="14sp"
+                android:maxLength="30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
@@ -157,6 +159,7 @@
                 android:inputType="textPassword"
                 android:textColorHint="@color/designgray"
                 android:textSize="14sp"
+                android:maxLength="30"
                 app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw"
                 app:layout_constraintTop_toBottomOf="@+id/Asignup_edit_pw" />
 
@@ -196,6 +199,7 @@
                 android:inputType="textPersonName"
                 android:textColorHint="@color/designgray"
                 android:textSize="14sp"
+                android:maxLength="30"
                 app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw_check"
                 app:layout_constraintTop_toBottomOf="@+id/Asignup_edit_pw_check" />
 
@@ -236,6 +240,7 @@
                 android:inputType="phone"
                 android:textColorHint="@color/designgray"
                 android:textSize="14sp"
+                android:maxLength="11"
                 app:layout_constraintStart_toStartOf="@+id/Asignup_edit_name"
                 app:layout_constraintTop_toBottomOf="@+id/Asignup_edit_name" />
 
@@ -298,6 +303,7 @@
                     android:inputType="numberSigned"
                     android:textColorHint="@color/designgray"
                     android:textSize="14sp"
+                    android:maxLength="6"
                     app:layout_constraintStart_toStartOf="@+id/Asignup_text10"
                     app:layout_constraintTop_toTopOf="parent" />
 

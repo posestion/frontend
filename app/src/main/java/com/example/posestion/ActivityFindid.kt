@@ -44,7 +44,6 @@ class ActivityFindid : AppCompatActivity() {
         binding.AfindidBtnFind.setOnClickListener {
             findidsuccess()
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
