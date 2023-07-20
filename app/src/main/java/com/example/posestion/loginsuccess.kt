@@ -3,6 +3,7 @@ package com.example.posestion
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.posestion.databinding.ActivityLoginsuccessBinding
 
 class loginsuccess : AppCompatActivity() {
@@ -17,8 +18,10 @@ class loginsuccess : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             editor.putBoolean("autologin", false)
+            editor.apply()
             val intent = Intent(this, ActivityLogin::class.java)
             startActivity(intent)
+            Log.d("autologin", user.getBoolean("autologin", false).toString())
             finish()
         }
     }
