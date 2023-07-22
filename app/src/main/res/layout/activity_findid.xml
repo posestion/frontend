@@ -247,13 +247,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/Afindid_edit_name" />
 
             <TextView
-                android:id="@+id/Afindid_text5"
+                android:id="@+id/Afindid_text_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
                 android:layout_marginBottom="50dp"
-                android:text="로그인하러가기"
+                android:text="text"
                 android:textColor="@color/deepgray"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

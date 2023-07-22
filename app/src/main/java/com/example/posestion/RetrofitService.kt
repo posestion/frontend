@@ -5,6 +5,8 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -29,7 +31,7 @@ interface RetrofitService {
     @POST("/app/login")
     fun login(@Body request:Requestlogin): Call<Responselogin>
 
-    @POST("/app/users/find/id")
+    @POST("/app/users/findId")
     fun findid(@Body request:Requestfindid): Call<Responsefindid>
 
     @PATCH("/app/users/find/pwReset")

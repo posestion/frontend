@@ -72,7 +72,7 @@ class ActivityMakeProfile : AppCompatActivity() {
                 val file = File(path)
                 val mediaType = "image/*".toMediaTypeOrNull()
                 val imageRequestBody = file.asRequestBody(mediaType)
-                imagePart = MultipartBody.Part.createFormData("image", "userprofile", imageRequestBody)
+                imagePart = MultipartBody.Part.createFormData("image", file.name, imageRequestBody)
 
                 //okhttp3.MultipartBody$Part@22626f
                 Log.d("Retrofit", path.toString())

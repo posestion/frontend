@@ -46,6 +46,7 @@ class ActivitySignup : AppCompatActivity() {
     private var pwcheck = false
     private var timer = 0
 
+    //비밀번호 일치하는지 확인
     private val pwcheckwatcherListener = object : TextWatcher {
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -69,6 +70,7 @@ class ActivitySignup : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {}
     }
 
+    //비밀번호 양식 확인
     private val pwwatcherListener = object : TextWatcher {
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -79,7 +81,7 @@ class ActivitySignup : AppCompatActivity() {
                 pwtext.visibility = View.INVISIBLE
             } else {
                 pwtext.visibility = View.VISIBLE
-                val pattern = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#\$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?]).{8,}$".toRegex()
+                val pattern = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#\$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?]).{8,30}$".toRegex()
 
                 if (inputText.matches(pattern)) {
                     pwtext.visibility = View.INVISIBLE
@@ -92,6 +94,7 @@ class ActivitySignup : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {}
     }
 
+    //아이디 중복 확인 text
     private val idcheckwatcherListener = object : TextWatcher {
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
