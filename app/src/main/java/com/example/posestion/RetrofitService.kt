@@ -1,6 +1,7 @@
 package com.example.posestion
 
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,14 +16,14 @@ interface RetrofitService {
     @Multipart
     @POST("/app/users")
     fun signup(
-        @Part marketing_agreement: MultipartBody.Part?,
-        @Part user_id: MultipartBody.Part?,
-        @Part password: MultipartBody.Part?,
-        @Part phone_num: MultipartBody.Part?,
-        @Part birth: MultipartBody.Part?,
-        @Part nickname: MultipartBody.Part?,
-        @Part username: MultipartBody.Part?,
-        @Part imageFile: MultipartBody.Part?
+        @Part("marketing_agreement") marketingAgreement: RequestBody,
+        @Part("user_id") userId: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("phone_num") phoneNumber: RequestBody,
+        @Part("birth") birth: RequestBody,
+        @Part("nickname") nickname: RequestBody,
+        @Part("username") username: RequestBody,
+        @Part image: MultipartBody.Part
     ): Call<ResponseSignup>
 
     @POST("/app/login")

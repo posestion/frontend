@@ -97,10 +97,11 @@ class ActivitySignup : AppCompatActivity() {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val inputText = s.toString()
-            if (inputText.isEmpty() && idchecktext.visibility == View.VISIBLE) {
+            idchecktext = binding.AsignupTextIdcheck
+            if (idchecktext.visibility == View.VISIBLE) {
                 idchecktext.visibility = View.INVISIBLE
             }
+            idcheck = false
         }
 
         override fun afterTextChanged(s: Editable?) {}
@@ -164,7 +165,6 @@ class ActivitySignup : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val response = response.body()
                         if(response != null){
-                            idchecktext = binding.AsignupTextIdcheck
                             if(response.message.toString() == "성공"){
                                 idcheck = true
                                 idchecktext.text = "사용가능한 아이디 입니다."

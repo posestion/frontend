@@ -73,6 +73,7 @@
                 android:ems="10"
                 android:hint="초대코드를 입력해주세요."
                 android:textColorHint="@color/designgray"
+                android:maxLines="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_image" />
@@ -86,6 +87,7 @@
                 android:ems="10"
                 android:hint="닉네임을 입력해주세요."
                 android:textColorHint="@color/designgray"
+                android:maxLines="1"
                 app:layout_constraintStart_toStartOf="@+id/Amakeprofile_edit_code"
                 app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_image" />
 
@@ -142,12 +144,13 @@
                 android:id="@+id/Amakeprofile_birth"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="242dp"
+                android:layout_marginTop="240dp"
                 android:backgroundTint="@color/designgray"
                 android:ems="10"
-                android:hint="생년월일 6자리를 입력해주세요."
+                android:hint="생년월일 8자리를 입력해주세요."
                 android:inputType="number"
                 android:textColorHint="@color/designgray"
+                android:maxLines="1"
                 app:layout_constraintStart_toStartOf="@+id/Amakeprofile_edit_code"
                 app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_image" />
 
@@ -217,6 +220,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_image" />
+
+            <TextView
+                android:id="@+id/Amakeprofile_text6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  ex) 2003년 2월 26일 > 20030226"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/Amakeprofile_birth"
+                app:layout_constraintStart_toEndOf="@+id/Amakeprofile_text3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

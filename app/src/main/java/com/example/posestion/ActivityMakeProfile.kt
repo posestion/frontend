@@ -1,11 +1,13 @@
 package com.example.posestion
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -13,32 +15,45 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.example.posestion.databinding.ActivityMakeProfileBinding
+import de.hdodenhof.circleimageview.CircleImageView
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class ActivityMakeProfile : AppCompatActivity() {
 
     private val binding by lazy { ActivityMakeProfileBinding.inflate(layoutInflater) }
-    private var profile: ImageView? = null
+    private var profile: CircleImageView? = null
     private var nickcheck = false
+    private var y = "0000"
+    private var m2 = "00"
+    private var d2 = "00"
     private lateinit var changeprofileimage: ImageButton
-    private lateinit var nickchecktext : TextView
+    private lateinit var nickchecktext: TextView
+    private lateinit var profilenickname: String
+    private lateinit var imagePart: MultipartBody.Part
 
     private val nickcheckwatcherListener = object : TextWatcher {
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val inputText = s.toString()
-            if (inputText.isEmpty() && nickchecktext.visibility == View.VISIBLE) {
+            nickchecktext = binding.AmakeprofileTextNick
+            if (nickchecktext.visibility == View.VISIBLE) {
                 nickchecktext.visibility = View.INVISIBLE
             }
         }
@@ -52,9 +67,19 @@ class ActivityMakeProfile : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             val profileimage: Uri? = data?.data
             if (profileimage != null) {
-                profile = binding.AmakeprofileImage
                 profile!!.setImageURI(profileimage)
+                val path = getRealPathFromUri(profileimage)
+                val file = File(path)
+                val mediaType = "image/*".toMediaTypeOrNull()
+                val imageRequestBody = file.asRequestBody(mediaType)
+                imagePart = MultipartBody.Part.createFormData("image", "userprofile", imageRequestBody)
 
+                //okhttp3.MultipartBody$Part@22626f
+                Log.d("Retrofit", path.toString())
+                Log.d("Retrofit", file.toString())
+                Log.d("Retrofit", mediaType.toString())
+                Log.d("Retrofit", imageRequestBody.toString())
+                Log.d("Retrofit", imagePart.toString())
             } else {
                 Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -68,6 +93,55 @@ class ActivityMakeProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        profile = binding.AmakeprofileImage
+        val uri = Uri.parse("android.resource://com.example.posestion/${R.drawable.profile}")
+        profile!!.setImageURI(uri)
+
+        //프로필 생성 버튼 눌렀을 때 동작
+        binding.AmakeprofileBtnEnd.setOnClickListener {
+            if(binding.AmakeprofileBirth.text.length == 8){
+                val birthday = binding.AmakeprofileBirth.text.toString().toInt()
+                y = (birthday/10000).toString()
+                val m = (birthday%10000)/100
+                val d = (birthday%10000)%100
+                m2 = String.format("%02d", m)
+                d2 = String.format("%02d", d)
+            }
+
+            val marketingAgreement = "true".toRequestBody("text/plain".toMediaTypeOrNull())
+            val userId = intent.getStringExtra("id").toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            val password = intent.getStringExtra("pw").toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            val phoneNumber = intent.getStringExtra("phonenum").toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            val birth = "${y}-${m2}-${d2}".toRequestBody("text/plain".toMediaTypeOrNull())
+            val nickname = profilenickname.toRequestBody("text/plain".toMediaTypeOrNull())
+            val username = intent.getStringExtra("name").toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
+            val call = RetrofitObject.getRetrofitService
+            call.signup(marketingAgreement, userId, password, phoneNumber, birth, nickname, username, imagePart)
+                .enqueue(object : Callback<ResponseSignup> {
+                    override fun onResponse(call: Call<ResponseSignup>, response: Response<ResponseSignup>) {
+                        if (response.isSuccessful) {
+                            Log.d("Retrofit", "success")
+                            val result = response.body()
+                            Log.d("Retrofit", result.toString())
+                            if(result != null){
+                                Log.d("Retrofit", result.message.toString())
+                                val intent = Intent(this@ActivityMakeProfile, ActivityLogin::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        } else {
+                            val errorBody = response.errorBody()?.string()
+                            Log.d("Retrofit", "Response Error: $errorBody")
+                        }
+                    }
+                    override fun onFailure(call: Call<ResponseSignup>, t: Throwable) {
+                        val errorMessage = "Call Failed: ${t.message}"
+                        Log.d("Retrofit", errorMessage)
+                    }
+                })
+        }
+
         initImageViewProfile()
 
         setSupportActionBar(binding.AmakeprofileToolbar)
@@ -78,8 +152,8 @@ class ActivityMakeProfile : AppCompatActivity() {
         binding.AmakeprofileEditNick.addTextChangedListener(nickcheckwatcherListener)
 
         binding.AmakeprofileBtnNickname.setOnClickListener {
-            val nickname = binding.AmakeprofileEditNick.text.toString()
-            val call = RetrofitObject.getRetrofitService.checknickname(nickname)
+            profilenickname = binding.AmakeprofileEditNick.text.toString()
+            val call = RetrofitObject.getRetrofitService.checknickname(profilenickname)
             call.enqueue(object : Callback<Responsenickname> {
                 override fun onResponse(call: Call<Responsenickname>, response: Response<Responsenickname>) {
                     if (response.isSuccessful) {
@@ -182,5 +256,18 @@ class ActivityMakeProfile : AppCompatActivity() {
             .setNegativeButton("취소하기") { _, _ -> }
             .create()
             .show()
+    }
+
+    private fun getRealPathFromUri(uri: Uri): String? {
+        val context = applicationContext
+        val contentResolver = context.contentResolver
+        val cursor = contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                return it.getString(columnIndex)
+            }
+        }
+        return null
     }
 }
