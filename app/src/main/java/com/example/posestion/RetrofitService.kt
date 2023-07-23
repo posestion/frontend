@@ -35,7 +35,7 @@ interface RetrofitService {
     fun findid(@Body request:Requestfindid): Call<Responsefindid>
 
     @PATCH("/app/users/find/pwReset")
-    fun findpw(@Body request:Requestlogin): Call<ResponseSignup>
+    fun resetpw(@Body request:Requestpwreset): Call<Responsepwreset>
 
     @GET("/app/users/checkid/{id}")
     fun checkid(
