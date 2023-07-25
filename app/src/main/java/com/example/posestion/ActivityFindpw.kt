@@ -69,7 +69,7 @@ class ActivityFindpw : AppCompatActivity() {
                 pwtext.visibility = View.INVISIBLE
             } else {
                 pwtext.visibility = View.VISIBLE
-                val pattern = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#\$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?]).{8,30}$".toRegex()
+                val pattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?]).{8,30}$".toRegex()
 
                 if (inputText.matches(pattern)) {
                     pwtext.visibility = View.INVISIBLE
@@ -122,11 +122,14 @@ class ActivityFindpw : AppCompatActivity() {
                 .enqueue(object : Callback<Responsepwreset> {
                     override fun onResponse(call: Call<Responsepwreset>, response: Response<Responsepwreset>) {
                         if (response.isSuccessful) {
+                            Log.d("Retrofit", "왜안돼")
                             val result = response.body()
                             if(result != null){
                                 if(result.isSuccess == true){
+                                    Log.d("Retrofit", "비밀번호")
                                     resetpw()
                                 }
+                                Log.d("Retrofit", result.message.toString())
                             }
                         } else {
                             val errorBody = response.errorBody()?.string()

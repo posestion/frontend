@@ -81,7 +81,7 @@ class ActivitySignup : AppCompatActivity() {
                 pwtext.visibility = View.INVISIBLE
             } else {
                 pwtext.visibility = View.VISIBLE
-                val pattern = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#\$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?]).{8,30}$".toRegex()
+                val pattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\$%^&*()\\-_=+\\\\|\\[{\\]};:'\",<.>/?]).{8,30}$".toRegex()
 
                 if (inputText.matches(pattern)) {
                     pwtext.visibility = View.INVISIBLE
