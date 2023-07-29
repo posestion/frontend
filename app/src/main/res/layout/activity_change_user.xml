@@ -28,7 +28,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/middleprofile" />
+                app:srcCompat="@drawable/profile" />
 
             <ImageButton
                 android:id="@+id/fchange_btn_profile"
@@ -107,7 +107,7 @@
                 android:id="@+id/fchange_text_checknick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="35dp"
                 android:text="TextView"
                 android:textColor="@color/gray"

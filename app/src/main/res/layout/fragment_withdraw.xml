@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentWithdraw">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/fwithdraw_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/withdraw"
+                app:layout_constraintStart_toStartOf="@+id/radioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="300dp"
+                android:background="@drawable/box_line_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/radioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+                <EditText
+                    android:id="@+id/fwithdraw_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/edittext"
+                    android:ems="10"
+                    android:hint="더 나은 포제션이 될 수 있도록 의견을 들려주세요"
+                    android:inputType="text"
+                    android:maxLines="5"
+                    android:scrollbar="vertical"
+                    android:textColorHint="@color/gray"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/fwithdraw_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="46dp"
+                android:text="탈퇴하는 이유를 알려주세요"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/radioGroup"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fwithdraw_text1">
+
+                <RadioButton
+                    android:id="@+id/fwithdraw_btn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="앱 사용이 불편해요" />
+
+                <RadioButton
+                    android:id="@+id/fwithdraw_btn2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="광고성 알림이 너무 많이 와요" />
+
+                <RadioButton
+                    android:id="@+id/fwithdraw_btn3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="쓰지 않는 앱이에요" />
+
+                <RadioButton
+                    android:id="@+id/fwithdraw_btn4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="재가입할 거에요" />
+
+                <RadioButton
+                    android:id="@+id/fwithdraw_btn5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="기타" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/fwithdraw_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="꼭 확인해주세요"
+                android:textColor="@color/deepgray"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/fwithdraw_image"
+                app:layout_constraintStart_toEndOf="@+id/fwithdraw_image"
+                app:layout_constraintTop_toTopOf="@+id/fwithdraw_image" />
+
+            <TextView
+                android:id="@+id/fwithdraw_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="회원탈퇴 시 계정과 연관된 정보는 복구가 불가능합니다.\n동일한 이메일이나 휴대폰 번호로는 30일 후 재가입이 가능합니다.\n현재 보요중인 쿠폰, 포인트는 모두 소멸되며 재가입 후에도 복수할 수 없습니다.\n재가입시에는 첫 혜택을 받을 수 없습니다."
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/radioGroup"
+                app:layout_constraintTop_toBottomOf="@+id/fwithdraw_image" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
