@@ -6,36 +6,15 @@ import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import com.example.posestion.databinding.PoseshopmainBinding
-import com.google.android.material.tabs.TabLayoutMediator
+import com.example.posestion.databinding.PoseshopBinding
 
-class PoseShopMain : AppCompatActivity() {
-    private lateinit var binding: PoseshopmainBinding
+class PoseshopFilter : AppCompatActivity() {
+    private lateinit var binding: PoseshopBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= PoseshopmainBinding.inflate(layoutInflater)
+        binding = PoseshopBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.viewpager.apply{
-            adapter=MyPagerAdapter(context as FragmentActivity)
-        }
-
-        val tabTitles = listOf("좋아요", "연령별", "HOT")
-
-        TabLayoutMediator(binding.tabs, binding.viewpager) { tab, position ->
-            tab.text = tabTitles[position]
-        }.attach()
-
-        binding.sbutton.setOnClickListener({
-            val intent = Intent(this, PoseShopingactiv::class.java)
-            startActivity(intent)
-        })
-        binding.filter.setOnClickListener({
-            val intent = Intent(this, PoseshopFilter::class.java)
-            startActivity(intent)
-        })
 
         binding.edittext.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, keyCode: Int, event: KeyEvent?): Boolean {

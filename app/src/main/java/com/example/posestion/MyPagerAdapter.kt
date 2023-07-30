@@ -10,9 +10,9 @@ class MyPagerAdapter(fa:FragmentActivity) :FragmentStateAdapter(fa) {
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0->{MyFragment.newInstance("상황별 포즈들","")}
-            1->{MyFragment.newInstance("연령대 별 포즈들","")}
-            else->{MyFragment.newInstance("HOT 포즈들","")}
+            0->MyFragment1()
+            1->MyFragment2()
+            else->MyFragment3()
         }
     }
 
