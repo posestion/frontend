@@ -8,13 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="main_color">#FFDE79</color> <!-- 전반적으로 사용 -->
-    <color name="accent_color">#E7AE00</color> <!-- ID찾기, PW찾기 사용 -->
-    <color name="sub_color">#FFF0C2</color> <!-- 연한 노란색 -->
-    <color name="important_color">#FFCA27</color> <!-- 카메라에서 사용 -->
-    <color name="highlight_string_color">#2B949B</color> <!-- *있는 글에서 사용 -->
-    <color name="main_string_color">#000000</color>
-    <color name="middle_string_color">#5F5F5F</color>
-    <color name="sub_string_color">#ABABAB</color>
+    <color name="highlight">#E7AE00</color>
+    <color name="maincolor">#FFCA27</color>
+    <color name="subcolor">#FFF0C2</color>
+    <color name="basic">#000000</color>
+    <color name="deepgray">#5F5F5F</color>
+    <color name="gray">#ABABAB</color>
+    <color name="designgray">#ECECEC</color>
+    <color name="lightgray">#F5F5F5</color>
 
 </resources>
