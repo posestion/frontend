@@ -15,8 +15,16 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.video.MediaStoreOutputOptions
+import androidx.camera.video.Quality
+import androidx.camera.video.QualitySelector
+import androidx.camera.video.Recorder
+import androidx.camera.video.Recording
+import androidx.camera.video.VideoCapture
+import androidx.camera.video.VideoRecordEvent
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
 import com.example.posestion.R
 import com.example.posestion.databinding.ActivityCameraMainBinding
 import java.text.SimpleDateFormat
@@ -33,6 +41,9 @@ class CameraMainActivity : AppCompatActivity() {
 
     private var isFlashOn: Boolean = false
 
+    private var isImageCapture: Boolean = true
+    private var videoCapture: VideoCapture<Recorder>? = null
+    private var recording: Recording? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +53,7 @@ class CameraMainActivity : AppCompatActivity() {
         // Request camera permissions
         if (allPermissionsGranted()) {
             startCamera()
+
         } else {
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
@@ -52,6 +64,13 @@ class CameraMainActivity : AppCompatActivity() {
         // Set up the listeners for take photo and video capture buttons
         viewBinding.captureButton.setOnClickListener { takePhoto() }
         viewBinding.flashButton.setOnClickListener { setFlashStatus(!isFlashOn) }
+        viewBinding.poseZoom.addOnChangeListener { slider, value, fromUser ->
+            Log.d(TAG, "onCreate: Slider: $value")
+        }
+        viewBinding.leftMode.setOnClickListener {
+            isImageCapture = !isImageCapture
+            setCaptureMode(isImageCapture)
+        }
     }
 
     override fun onDestroy() {
@@ -94,11 +113,22 @@ class CameraMainActivity : AppCompatActivity() {
                     it.setSurfaceProvider(viewBinding.viewFinder.surfaceProvider)
                 }
 
-            imageCapture = ImageCapture.Builder()
+            if(isImageCapture){
+                viewBinding.leftMode.text = "동영상"
+                viewBinding.rightMode.text = "사진"
+                imageCapture = ImageCapture.Builder()
 //                .setJpegQuality(jpegQuality)
 //                .setTargetAspectRatio(if (is16_9) AspectRatio.RATIO_16_9 else AspectRatio.RATIO_4_3)
-                .setFlashMode(if (isFlashOn) ImageCapture.FLASH_MODE_ON else ImageCapture.FLASH_MODE_OFF)
-                .build()
+                    .setFlashMode(if (isFlashOn) ImageCapture.FLASH_MODE_ON else ImageCapture.FLASH_MODE_OFF)
+                    .build()
+            }else{
+                viewBinding.leftMode.text = "사진"
+                viewBinding.rightMode.text = "동영상"
+                val recorder = Recorder.Builder()
+                    .setQualitySelector(QualitySelector.from(Quality.HIGHEST))
+                    .build()
+                videoCapture = VideoCapture.withOutput(recorder)
+            }
 
 //            viewBinding.flashButton.text = if (isFlashOn) "플래시 켜짐" else "플래시 꺼짐"
 
@@ -110,8 +140,13 @@ class CameraMainActivity : AppCompatActivity() {
                 cameraProvider.unbindAll()
 
                 // Bind use cases to camera
-                var camera = cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview, imageCapture)
+                var camera = if(isImageCapture){
+                    cameraProvider.bindToLifecycle(
+                        this, cameraSelector, preview, imageCapture)
+                }else{
+                    // Bind use cases to camera
+                    cameraProvider.bindToLifecycle(this, cameraSelector, preview, videoCapture)
+                }
 
                 val scaleGestureDetector = ScaleGestureDetector(this,
                     object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
@@ -182,6 +217,81 @@ class CameraMainActivity : AppCompatActivity() {
         )
     }
 
+    private fun captureVideo(){
+        Log.d(TAG, "captureVideo: caputer srart")
+        val videoCapture = videoCapture ?: return
+        viewBinding.captureButton.isEnabled = false
+        val curRecording = recording
+        if (curRecording != null) {
+            // Stop the current recording session.
+            curRecording.stop()
+            recording = null
+            return
+        }
+
+        // create and start a new recording session
+        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
+            .format(System.currentTimeMillis())
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
+            put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                put(MediaStore.Video.Media.RELATIVE_PATH, "Movies/POSESTION")
+            }
+        }
+
+        val mediaStoreOutputOptions = MediaStoreOutputOptions
+            .Builder(contentResolver, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+            .setContentValues(contentValues)
+            .build()
+        recording = videoCapture.output
+            .prepareRecording(this, mediaStoreOutputOptions)
+            .apply {
+                if (PermissionChecker.checkSelfPermission(this@CameraMainActivity,
+                        android.Manifest.permission.RECORD_AUDIO) ==
+                    PermissionChecker.PERMISSION_GRANTED)
+                {
+                    withAudioEnabled()
+                }
+            }
+            .start(ContextCompat.getMainExecutor(this)) { recordEvent ->
+                when(recordEvent) {
+                    is VideoRecordEvent.Start -> {
+                        viewBinding.captureButton.apply {
+                            text = "stop"
+                            isEnabled = true
+                        }
+                    }
+                    is VideoRecordEvent.Finalize -> {
+                        if (!recordEvent.hasError()) {
+                            val msg = "비디오 촬영 완료: " +
+                                    "${recordEvent.outputResults.outputUri}"
+                            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT)
+                                .show()
+                            Log.d(TAG, msg)
+                        } else {
+                            recording?.close()
+                            recording = null
+                            Log.e(TAG, "Video capture ends with error: " +
+                                    "${recordEvent.error}")
+                        }
+                        viewBinding.captureButton.apply {
+                            text = "start"
+                            isEnabled = true
+                        }
+                    }
+                }
+            }
+
+
+    }
+
+    private fun setFlashStatus(newStatus: Boolean){
+        isFlashOn = newStatus
+        setFlashIcon(newStatus)
+        startCamera()
+    }
+
     private fun setFlashIcon(nowStatus: Boolean){
         if(nowStatus){
             viewBinding.flashButton.setImageResource(R.drawable.camera_flash_on)
@@ -191,10 +301,20 @@ class CameraMainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setFlashStatus(newStatus: Boolean){
-        isFlashOn = newStatus
-        setFlashIcon(newStatus)
-        startCamera()
+    private fun setCaptureMode(isImageCapture: Boolean){
+        if(isImageCapture){
+            viewBinding.captureButton.setOnClickListener {
+                takePhoto()
+            }
+            viewBinding.captureButton.text = "take picture"
+            startCamera()
+        }else{
+            viewBinding.captureButton.setOnClickListener {
+                captureVideo()
+            }
+            viewBinding.captureButton.text = "record"
+            startCamera()
+        }
     }
 
     companion object {
