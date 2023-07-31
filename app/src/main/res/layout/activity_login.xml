@@ -72,7 +72,7 @@
                 app:layout_constraintStart_toStartOf="@+id/Alogin_id"
                 app:layout_constraintTop_toBottomOf="@+id/Alogin_id" />
 
-            <CheckBox
+            <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/Alogin_auto"
                 android:layout_width="90dp"
                 android:layout_height="22dp"
@@ -85,7 +85,7 @@
                 app:layout_constraintStart_toStartOf="@+id/Alogin_pw"
                 app:layout_constraintTop_toBottomOf="@+id/Alogin_pw" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/Alogin_btn_login"
                 android:layout_width="328dp"
                 android:layout_height="50dp"

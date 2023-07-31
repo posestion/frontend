@@ -126,7 +126,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/Amakeprofile_edit_code"
                 app:layout_constraintStart_toStartOf="@+id/Amakeprofile_edit_code" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/Amakeprofile_btn_nickname"
                 android:layout_width="87dp"
                 android:layout_height="38dp"
@@ -206,7 +206,7 @@
                 app:layout_constraintStart_toStartOf="@+id/Amakeprofile_birth"
                 app:layout_constraintTop_toTopOf="@+id/Amakeprofile_birth" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/Amakeprofile_btn_end"
                 android:layout_width="330dp"
                 android:layout_height="50dp"

@@ -173,7 +173,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/Afindpw_btn_checknum"
                     app:layout_constraintTop_toTopOf="@+id/Afindpw_edit_num" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/Afindpw_btn_checknum"
                     android:layout_width="62dp"
                     android:layout_height="26dp"
@@ -357,7 +357,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/Afindpw_text7"
                 app:layout_constraintTop_toTopOf="@+id/Afindpw_text7" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/Afindpw_btn_changepw"
                 android:layout_width="330dp"
                 android:layout_height="50dp"
@@ -369,8 +369,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.506"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_pwcheck" />
+                app:layout_constraintTop_toBottomOf="@+id/Afindpw_edit_pwcheck"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

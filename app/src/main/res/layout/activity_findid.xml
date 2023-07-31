@@ -131,7 +131,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/Afindid_btn_checknum"
                     app:layout_constraintTop_toTopOf="@+id/Afindid_edit_num" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/Afindid_btn_checknum"
                     android:layout_width="62dp"
                     android:layout_height="26dp"
@@ -182,7 +182,7 @@
                 app:layout_constraintStart_toStartOf="@+id/Afindid_text6"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/Afindid_btn_sendnum"
                 android:layout_width="60dp"
                 android:layout_height="26dp"
@@ -233,7 +233,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/Afindid_edit_name"
                 app:layout_constraintStart_toStartOf="@+id/Afindid_edit_name" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/Afindid_btn_find"
                 android:layout_width="330dp"
                 android:layout_height="50dp"
