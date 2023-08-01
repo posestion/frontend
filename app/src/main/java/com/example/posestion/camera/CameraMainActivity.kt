@@ -3,12 +3,16 @@ package com.example.posestion.camera
 import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.provider.MediaStore
 import android.util.Log
 import android.view.ScaleGestureDetector
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.AspectRatio
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -30,20 +34,26 @@ import com.example.posestion.databinding.ActivityCameraMainBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.ExecutorService
+import kotlin.concurrent.thread
+
 
 class CameraMainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding: ActivityCameraMainBinding
 
     private var imageCapture: ImageCapture? = null
+    private var videoCapture: VideoCapture<Recorder>? = null
+    private var recording: Recording? = null
 
     private lateinit var cameraExecutor: ExecutorService
 
-    private var isFlashOn: Boolean = false
-
     private var isImageCapture: Boolean = true
-    private var videoCapture: VideoCapture<Recorder>? = null
-    private var recording: Recording? = null
+    private var isFlashOn: Boolean = false
+    private var ratioStatus: RatioType = RatioType.Ratio9_16
+    private var jpegQuality: Int = 75 //1%~100% Int
+    private var timerFlag: TimerType = TimerType.OFF
+    private var timerCount = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,17 +70,22 @@ class CameraMainActivity : AppCompatActivity() {
         }
 
         setFlashIcon(isFlashOn)
+        setRatioIcon()
+        setTimerIcon()
 
         // Set up the listeners for take photo and video capture buttons
-        viewBinding.captureButton.setOnClickListener { takePhoto() }
+        viewBinding.captureButton.setOnClickListener { pressShutter() }
         viewBinding.flashButton.setOnClickListener { setFlashStatus(!isFlashOn) }
         viewBinding.poseZoom.addOnChangeListener { slider, value, fromUser ->
             Log.d(TAG, "onCreate: Slider: $value")
         }
         viewBinding.leftMode.setOnClickListener {
             isImageCapture = !isImageCapture
-            setCaptureMode(isImageCapture)
+            setCaptureMode()
         }
+        viewBinding.ratioButton.setOnClickListener { setNextRatio() }
+        viewBinding.timerButton.setOnClickListener { setNextTimer() }
+
     }
 
     override fun onDestroy() {
@@ -117,8 +132,8 @@ class CameraMainActivity : AppCompatActivity() {
                 viewBinding.leftMode.text = "동영상"
                 viewBinding.rightMode.text = "사진"
                 imageCapture = ImageCapture.Builder()
-//                .setJpegQuality(jpegQuality)
-//                .setTargetAspectRatio(if (is16_9) AspectRatio.RATIO_16_9 else AspectRatio.RATIO_4_3)
+                .setJpegQuality(jpegQuality)
+                .setTargetAspectRatio(if (ratioStatus == RatioType.Ratio9_16) AspectRatio.RATIO_16_9 else AspectRatio.RATIO_4_3)
                     .setFlashMode(if (isFlashOn) ImageCapture.FLASH_MODE_ON else ImageCapture.FLASH_MODE_OFF)
                     .build()
             }else{
@@ -257,12 +272,14 @@ class CameraMainActivity : AppCompatActivity() {
             .start(ContextCompat.getMainExecutor(this)) { recordEvent ->
                 when(recordEvent) {
                     is VideoRecordEvent.Start -> {
+                        setButtonOffOnRecoding(true)
                         viewBinding.captureButton.apply {
                             text = "stop"
                             isEnabled = true
                         }
                     }
                     is VideoRecordEvent.Finalize -> {
+                        setButtonOffOnRecoding(false)
                         if (!recordEvent.hasError()) {
                             val msg = "비디오 촬영 완료: " +
                                     "${recordEvent.outputResults.outputUri}"
@@ -276,14 +293,17 @@ class CameraMainActivity : AppCompatActivity() {
                                     "${recordEvent.error}")
                         }
                         viewBinding.captureButton.apply {
-                            text = "start"
+                            text = "record"
                             isEnabled = true
                         }
                     }
                 }
             }
+    }
 
-
+    private fun setButtonOffOnRecoding(isRecording: Boolean){
+        viewBinding.ratioButton.isEnabled = !isRecording
+        viewBinding.flashButton.isEnabled = !isRecording
     }
 
     private fun setFlashStatus(newStatus: Boolean){
@@ -301,7 +321,7 @@ class CameraMainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setCaptureMode(isImageCapture: Boolean){
+    private fun setCaptureMode(){
         if(isImageCapture){
             viewBinding.captureButton.setOnClickListener {
                 takePhoto()
@@ -314,6 +334,82 @@ class CameraMainActivity : AppCompatActivity() {
             }
             viewBinding.captureButton.text = "record"
             startCamera()
+        }
+    }
+
+    private fun setNextRatio(){
+        ratioStatus = ratioStatus.next()
+        setRatioIcon()
+        startCamera()
+    }
+
+    private fun setRatioIcon(){
+        when (ratioStatus) {
+            RatioType.Ratio9_16 -> {
+                viewBinding.ratioButton.setImageResource(R.drawable.ratio_916)
+            }
+            RatioType.Ratio4_3 -> {
+                viewBinding.ratioButton.setImageResource(R.drawable.ratio_34)
+            }
+            RatioType.Ratio1_1 -> {
+                viewBinding.ratioButton.setImageResource(R.drawable.ratio_11)
+            }
+            RatioType.Ratio_full -> {
+                viewBinding.ratioButton.setImageResource(R.drawable.ratio_full)
+            }
+        }
+    }
+
+    private fun setNextTimer(){
+        timerFlag = timerFlag.next()
+        setTimerIcon()
+        startCamera()
+    }
+
+    private fun setTimerIcon(){
+        when (timerFlag) {
+            TimerType.OFF -> {
+                viewBinding.timerButton.setImageResource(R.drawable.camera_timer_off)
+            }
+            TimerType.S3 -> {
+                viewBinding.timerButton.setImageResource(R.drawable.camera_timer_3)
+            }
+            TimerType.S5 -> {
+                viewBinding.timerButton.setImageResource(R.drawable.camera_timer_5)
+            }
+            TimerType.S10 -> {
+                viewBinding.timerButton.setImageResource(R.drawable.camera_timer_10)
+            }
+        }
+    }
+
+    private fun pressShutter(){
+        if(timerFlag == TimerType.OFF){
+            if(isImageCapture) takePhoto() else captureVideo()
+        }else{
+            timerCount = timerFlag.second()
+            thread (start = true){
+                while (timerCount >= 0){
+                    handler.sendEmptyMessage(0)
+                    Thread.sleep(1000)
+                }
+            }
+        }
+    }
+
+    // Timer Handler
+    private val handler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+//            viewBinding.txtTimerCount.visibility = View.VISIBLE
+//            viewBinding.txtTimerCount.text = timerCount.toString()
+            Log.d(TAG, "handleMessage: leftTime: $timerCount")
+            timerCount--
+            if(timerCount == -1) {
+                if(isImageCapture) takePhoto() else captureVideo()
+//                viewBinding.txtTimerCount.visibility = View.INVISIBLE
+                timerCount = timerFlag.second()
+
+            }
         }
     }
 
