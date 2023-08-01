@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import com.example.posestion.connection.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,9 +34,9 @@ class ActivityFirst : AppCompatActivity() , View.OnTouchListener {
                     startActivity(intent)
                 }
                 else{
-                    val call = RetrofitObject.getRetrofitService.login(Requestlogin(id, pw))
-                    call.enqueue(object : Callback<Responselogin> {
-                        override fun onResponse(call: Call<Responselogin>, response: Response<Responselogin>) {
+                    val call = RetrofitObject.getRetrofitService.login(RetrofitClient.Requestlogin(id, pw))
+                    call.enqueue(object : Callback<RetrofitClient.Responselogin> {
+                        override fun onResponse(call: Call<RetrofitClient.Responselogin>, response: Response<RetrofitClient.Responselogin>) {
                             if (response.isSuccessful) {
                                 val response = response.body()
                                 if(response != null){
@@ -51,7 +52,7 @@ class ActivityFirst : AppCompatActivity() , View.OnTouchListener {
                             }
                         }
 
-                        override fun onFailure(call: Call<Responselogin>, t: Throwable) {
+                        override fun onFailure(call: Call<RetrofitClient.Responselogin>, t: Throwable) {
                             val errorMessage = "Call Failed: ${t.message}"
                             Log.d("Retrofit", errorMessage)
                         }

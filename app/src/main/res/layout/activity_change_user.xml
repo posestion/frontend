@@ -28,7 +28,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/profile" />
+                app:srcCompat="@drawable/iamge_profile" />
 
             <ImageButton
                 android:id="@+id/fchange_btn_profile"
@@ -36,7 +36,7 @@
                 android:layout_height="30dp"
                 app:layout_constraintBottom_toBottomOf="@+id/fchange_image_profile"
                 app:layout_constraintEnd_toEndOf="@+id/fchange_image_profile"
-                app:srcCompat="@drawable/profilepen" />
+                app:srcCompat="@drawable/image_pen_30dp" />
 
             <EditText
                 android:id="@+id/fchange_edit_pw"
@@ -90,12 +90,12 @@
                 app:layout_constraintBottom_toBottomOf="@+id/fchange_edit_nick"
                 app:layout_constraintStart_toStartOf="@+id/fchange_text2" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fchange_btn_checknick"
                 android:layout_width="87dp"
                 android:layout_height="38dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/mypage_btn_shape"
+                android:background="@drawable/solid_maincolor_6dp"
                 android:text="중복 확인"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
@@ -207,10 +207,10 @@
                 android:id="@+id/fchange_spinner"
                 android:layout_width="66dp"
                 android:layout_height="29dp"
-                android:background="@drawable/spinner"
+                android:background="@drawable/custom_spinner"
                 android:contentDescription="통신사 선택"
                 android:dropDownVerticalOffset="25dp"
-                android:popupBackground="@drawable/spinner_popup"
+                android:popupBackground="@drawable/custom_spinner_popup"
                 app:layout_constraintBottom_toBottomOf="@+id/fchange_edit_phone"
                 app:layout_constraintEnd_toStartOf="@+id/fchange_edit_phone"
                 app:layout_constraintTop_toTopOf="@+id/fchange_edit_phone" />
@@ -231,11 +231,11 @@
                 app:layout_constraintStart_toStartOf="@+id/fchange_edit_birth"
                 app:layout_constraintTop_toBottomOf="@+id/fchange_text5" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fchange_btn_num"
                 android:layout_width="60dp"
                 android:layout_height="26dp"
-                android:background="@drawable/btn_box_gray"
+                android:background="@drawable/solid_designgray_6dp"
                 android:text="인증번호"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
@@ -249,7 +249,7 @@
                 android:layout_width="330dp"
                 android:layout_height="66dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/box_line_gray"
+                android:background="@drawable/line_designgray6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fchange_spinner">
@@ -294,12 +294,12 @@
                     app:layout_constraintEnd_toStartOf="@+id/fchange_btn_checknum"
                     app:layout_constraintTop_toTopOf="@+id/fchange_edit_num" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/fchange_btn_checknum"
                     android:layout_width="62dp"
                     android:layout_height="26dp"
                     android:layout_marginEnd="13dp"
-                    android:background="@drawable/btn_box_gray"
+                    android:background="@drawable/solid_designgray_6dp"
                     android:clickable="false"
                     android:text="확인"
                     android:textColor="@color/deepgray"
@@ -317,7 +317,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/fchange_text_num"
                     app:layout_constraintEnd_toStartOf="@+id/fchange_text_num"
                     app:layout_constraintTop_toTopOf="@+id/fchange_text_num"
-                    app:srcCompat="@drawable/btnx" />
+                    app:srcCompat="@drawable/image_x" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -364,7 +364,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="68dp"
-                android:background="@drawable/mypage_btn_shape"
+                android:background="@drawable/solid_maincolor_6dp"
                 android:text="회원정보 수정"
                 android:textColor="@color/deepgray"
                 android:textStyle="bold"

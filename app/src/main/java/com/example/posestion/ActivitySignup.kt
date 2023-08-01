@@ -21,6 +21,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.ActivitySignupBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -125,7 +126,7 @@ class ActivitySignup : AppCompatActivity() {
 
         setSupportActionBar(binding.AsignupToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val dpValue = 66
@@ -163,8 +164,8 @@ class ActivitySignup : AppCompatActivity() {
         binding.AsignupBtnCheckid.setOnClickListener {
             id = binding.AsignupEditId.text.toString()
             val call = RetrofitObject.getRetrofitService.checkid(id)
-            call.enqueue(object : Callback<Responsecheckid> {
-                override fun onResponse(call: Call<Responsecheckid>, response: Response<Responsecheckid>) {
+            call.enqueue(object : Callback<RetrofitClient.Responsecheckid> {
+                override fun onResponse(call: Call<RetrofitClient.Responsecheckid>, response: Response<RetrofitClient.Responsecheckid>) {
                     if (response.isSuccessful) {
                         val response = response.body()
                         if(response != null){
@@ -182,7 +183,7 @@ class ActivitySignup : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<Responsecheckid>, t: Throwable) {
+                override fun onFailure(call: Call<RetrofitClient.Responsecheckid>, t: Throwable) {
                     val errorMessage = "Call Failed: ${t.message}"
                     Log.d("Retrofit", errorMessage)
                 }
@@ -222,7 +223,7 @@ class ActivitySignup : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.login_menu, menu)
+        menuInflater.inflate(R.menu.empty_menu, menu)
         return true
     }
 

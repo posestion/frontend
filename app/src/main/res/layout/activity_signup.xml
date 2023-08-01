@@ -10,11 +10,11 @@
         android:id="@+id/Asignup_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_background"
+        android:background="@drawable/custom_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/login_menu">
+        app:menu="@menu/empty_menu">
 
         <TextView
             android:id="@+id/Asingup_bartitle"
@@ -273,7 +273,7 @@
                 android:layout_width="330dp"
                 android:layout_height="66dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/box_line_designgray"
+                android:background="@drawable/line_designgray6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Asignup_spinner">
@@ -319,7 +319,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/Asignup_btn_checknum"
                     app:layout_constraintTop_toTopOf="@+id/Asignup_edit_num" />
 
-                <androidx.appcompat.widget.AppCompatButton:id="@+id/Asignup_btn_checknum"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/Asignup_btn_checknum"
                     android:layout_width="62dp"
                     android:layout_height="26dp"
                     android:layout_marginEnd="13dp"
@@ -341,7 +342,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/Asignup_text_num"
                     app:layout_constraintEnd_toStartOf="@+id/Asignup_text_num"
                     app:layout_constraintTop_toTopOf="@+id/Asignup_text_num"
-                    app:srcCompat="@drawable/btnx" />
+                    app:srcCompat="@drawable/image_x" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -362,7 +363,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="52dp"
                 android:layout_marginBottom="28dp"
-                android:background="@drawable/button_shape"
+                android:background="@drawable/solid_maincolor_6dp"
                 android:text="다음"
                 android:textColor="@color/deepgray"
                 android:textStyle="bold"

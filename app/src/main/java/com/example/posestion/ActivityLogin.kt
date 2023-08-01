@@ -4,8 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
@@ -17,8 +15,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,7 +62,7 @@ class ActivityLogin : AppCompatActivity() {
         //toolbar 설정
         setSupportActionBar(binding.AloginToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         //간편 가입하기 text클릭 이벤트 처리
@@ -131,9 +128,9 @@ class ActivityLogin : AppCompatActivity() {
             val id = binding.AloginId.text.toString()
             val pw = binding.AloginPw.text.toString()
 
-            val call = RetrofitObject.getRetrofitService.login(Requestlogin(id, pw))
-            call.enqueue(object : Callback<Responselogin> {
-                override fun onResponse(call: Call<Responselogin>, response: Response<Responselogin>) {
+            val call = RetrofitObject.getRetrofitService.login(RetrofitClient.Requestlogin(id, pw))
+            call.enqueue(object : Callback<RetrofitClient.Responselogin> {
+                override fun onResponse(call: Call<RetrofitClient.Responselogin>, response: Response<RetrofitClient.Responselogin>) {
                     if (response.isSuccessful) {
                         val response = response.body()
                         if(response != null){
@@ -154,7 +151,7 @@ class ActivityLogin : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<Responselogin>, t: Throwable) {
+                override fun onFailure(call: Call<RetrofitClient.Responselogin>, t: Throwable) {
                     val errorMessage = "Call Failed: ${t.message}"
                     Log.d("Retrofit", errorMessage)
                 }
@@ -164,7 +161,7 @@ class ActivityLogin : AppCompatActivity() {
 
     //toolbar menu
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.login_menu, menu)
+        menuInflater.inflate(R.menu.empty_menu, menu)
         return true
     }
 

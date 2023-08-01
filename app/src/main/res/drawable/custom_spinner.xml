@@ -14,7 +14,7 @@
                 </shape>
             </item>
             <item
-                android:drawable = "@drawable/icon_spinner"
+                android:drawable = "@drawable/image_down"
                 android:gravity = "center_vertical|end"/>
         </layer-list>
     </item>

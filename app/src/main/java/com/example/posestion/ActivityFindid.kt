@@ -21,6 +21,7 @@ import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.ActivityFindidBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,7 +40,7 @@ class ActivityFindid : AppCompatActivity() {
 
         setSupportActionBar(binding.AfindidToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val dpValue = 66
@@ -58,9 +59,9 @@ class ActivityFindid : AppCompatActivity() {
             name = binding.AfindidEditName.text.toString()
             phonenum = binding.AfindidEditPhonenum.text.toString()
             val call = RetrofitObject.getRetrofitService
-            call.findid(Requestfindid(name, phonenum))
-                .enqueue(object : Callback<Responsefindid> {
-                    override fun onResponse(call: Call<Responsefindid>, response: Response<Responsefindid>) {
+            call.findid(RetrofitClient.Requestfindid(name, phonenum))
+                .enqueue(object : Callback<RetrofitClient.Responsefindid> {
+                    override fun onResponse(call: Call<RetrofitClient.Responsefindid>, response: Response<RetrofitClient.Responsefindid>) {
                         if (response.isSuccessful) {
                             val result = response.body()
                             if(result != null){
@@ -80,7 +81,7 @@ class ActivityFindid : AppCompatActivity() {
                             Log.d("Retrofit", "Response Error: $errorBody")
                         }
                     }
-                    override fun onFailure(call: Call<Responsefindid>, t: Throwable) {
+                    override fun onFailure(call: Call<RetrofitClient.Responsefindid>, t: Throwable) {
                         val errorMessage = "Call Failed: ${t.message}"
                         Log.d("Retrofit", errorMessage)
                     }
@@ -89,7 +90,7 @@ class ActivityFindid : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.login_menu, menu)
+        menuInflater.inflate(R.menu.empty_menu, menu)
         return true
     }
 

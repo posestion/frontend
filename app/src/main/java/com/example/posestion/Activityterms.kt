@@ -30,7 +30,7 @@ class Activityterms : AppCompatActivity() {
 
         setSupportActionBar(binding.AtermsToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         checkbox1 = binding.AtermsCheck1
@@ -124,7 +124,7 @@ class Activityterms : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.login_menu, menu)
+        menuInflater.inflate(R.menu.empty_menu, menu)
         return true
     }
 

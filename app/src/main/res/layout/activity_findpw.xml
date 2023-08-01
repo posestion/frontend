@@ -10,11 +10,11 @@
         android:id="@+id/Afindpw_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_background"
+        android:background="@drawable/custom_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/login_menu">
+        app:menu="@menu/empty_menu">
 
         <TextView
             android:id="@+id/Afindpw_bartitle"
@@ -114,10 +114,10 @@
                 android:id="@+id/Afindpw_spinner"
                 android:layout_width="66dp"
                 android:layout_height="29dp"
-                android:background="@drawable/spinner_background"
+                android:background="@drawable/custom_spinner"
                 android:contentDescription="통신사 선택"
                 android:dropDownVerticalOffset="25dp"
-                android:popupBackground="@drawable/spinner_popup_background"
+                android:popupBackground="@drawable/custom_spinner_popup"
                 app:layout_constraintBottom_toBottomOf="@+id/Afindpw_edit_phonenum"
                 app:layout_constraintEnd_toStartOf="@+id/Afindpw_edit_phonenum"
                 app:layout_constraintTop_toTopOf="@+id/Afindpw_edit_phonenum"
@@ -128,7 +128,7 @@
                 android:layout_width="330dp"
                 android:layout_height="66dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/box_line_designgray"
+                android:background="@drawable/line_designgray6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.53"
                 app:layout_constraintStart_toStartOf="parent"
@@ -178,7 +178,7 @@
                     android:layout_width="62dp"
                     android:layout_height="26dp"
                     android:layout_marginEnd="13dp"
-                    android:background="@drawable/button_shape_gray"
+                    android:background="@drawable/solid_designgray_6dp"
                     android:text="확인"
                     android:textColor="@color/deepgray"
                     android:textSize="12sp"
@@ -195,7 +195,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/Afindpw_text_num"
                     app:layout_constraintEnd_toStartOf="@+id/Afindpw_text_num"
                     app:layout_constraintTop_toTopOf="@+id/Afindpw_text_num"
-                    app:srcCompat="@drawable/btnx" />
+                    app:srcCompat="@drawable/image_x" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -363,7 +363,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/button_shape"
+                android:background="@drawable/solid_maincolor_6dp"
                 android:text="비밀번호 재설정"
                 android:textColor="@color/deepgray"
                 android:textStyle="bold"

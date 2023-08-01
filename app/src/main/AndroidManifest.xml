@@ -13,17 +13,23 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Posestion"
         android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ActivityMain"
+            android:exported="false" />
+        <activity
+            android:name=".connection.ActivityMain"
+            android:exported="false" />
         <activity
             android:name=".ActivityChangeUser"
             android:exported="false" />
         <activity
             android:name=".camera.GlideExampleActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".loginsuccess"
             android:exported="false" />

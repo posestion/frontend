@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -16,10 +15,10 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.ActivityFindpwBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -88,7 +87,7 @@ class ActivityFindpw : AppCompatActivity() {
 
         setSupportActionBar(binding.AfindpwToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         pwcheckedit = binding.AfindpwEditPwcheck
@@ -118,9 +117,9 @@ class ActivityFindpw : AppCompatActivity() {
             val phone = binding.AfindpwEditPhonenum.text.toString()
 
             val call = RetrofitObject.getRetrofitService
-            call.resetpw(Requestpwreset(id, name, phone, pw))
-                .enqueue(object : Callback<Responsepwreset> {
-                    override fun onResponse(call: Call<Responsepwreset>, response: Response<Responsepwreset>) {
+            call.resetpw(RetrofitClient.Requestpwreset(id, name, phone, pw))
+                .enqueue(object : Callback<RetrofitClient.Responsepwreset> {
+                    override fun onResponse(call: Call<RetrofitClient.Responsepwreset>, response: Response<RetrofitClient.Responsepwreset>) {
                         if (response.isSuccessful) {
                             Log.d("Retrofit", "왜안돼")
                             val result = response.body()
@@ -136,7 +135,7 @@ class ActivityFindpw : AppCompatActivity() {
                             Log.d("Retrofit", "Response Error: $errorBody")
                         }
                     }
-                    override fun onFailure(call: Call<Responsepwreset>, t: Throwable) {
+                    override fun onFailure(call: Call<RetrofitClient.Responsepwreset>, t: Throwable) {
                         val errorMessage = "Call Failed: ${t.message}"
                         Log.d("Retrofit", errorMessage)
                     }
@@ -145,7 +144,7 @@ class ActivityFindpw : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.login_menu, menu)
+        menuInflater.inflate(R.menu.empty_menu, menu)
         return true
     }
 

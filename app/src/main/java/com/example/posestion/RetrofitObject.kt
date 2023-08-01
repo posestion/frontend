@@ -1,5 +1,6 @@
 package com.example.posestion
 
+import com.example.posestion.connection.RetrofitAPI
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,6 +26,6 @@ object RetrofitObject {
             .build()
     }
 
-    val getRetrofitService : RetrofitService by lazy { getRetrofit.create(RetrofitService::class.java) }
+    val getRetrofitService : RetrofitAPI by lazy { getRetrofit.create(RetrofitAPI::class.java) }
 
 }

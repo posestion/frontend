@@ -76,8 +76,8 @@
         <option value="Kotlin Object" />
         <option value="Kotlin Class" />
         <option value="Kotlin Data Class" />
-        <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -118,6 +118,10 @@
   <component name="RecentsManager">
     <key name="android.template.-261986544">
       <recent name="com.example.posestion" />
+    </key>
+    <key name="android.template.2106549021">
+      <recent name="com.example.posestion" />
+      <recent name="com.example.posestion.connection" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">

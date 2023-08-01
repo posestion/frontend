@@ -10,11 +10,11 @@
         android:id="@+id/Amakeprofile_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_background"
+        android:background="@drawable/custom_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/login_menu">
+        app:menu="@menu/empty_menu">
 
         <TextView
             android:id="@+id/Amakeprofile_bartitle"
@@ -49,7 +49,7 @@
                 android:layout_width="143dp"
                 android:layout_height="143dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/profile"
+                android:src="@drawable/iamge_profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout8" />
@@ -62,7 +62,7 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/Amakeprofile_image"
                 app:layout_constraintEnd_toEndOf="@+id/Amakeprofile_image"
-                app:srcCompat="@drawable/pen" />
+                app:srcCompat="@drawable/image_pen_36dp" />
 
             <EditText
                 android:id="@+id/Amakeprofile_edit_code"
@@ -131,7 +131,7 @@
                 android:layout_width="87dp"
                 android:layout_height="38dp"
                 android:layout_marginStart="5dp"
-                android:background="@drawable/button_shape"
+                android:background="@drawable/solid_maincolor_6dp"
                 android:text="중복 확인"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
@@ -212,7 +212,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="409dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/button_shape"
+                android:background="@drawable/solid_maincolor_6dp"
                 android:text="프로필 생성"
                 android:textColor="@color/deepgray"
                 android:textStyle="bold"

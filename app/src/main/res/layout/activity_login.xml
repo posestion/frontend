@@ -10,11 +10,11 @@
         android:id="@+id/Alogin_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/toolbar_background"
+        android:background="@drawable/custom_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/login_menu">
+        app:menu="@menu/empty_menu">
 
         <TextView
             android:id="@+id/Alogin_bartitle"
@@ -78,7 +78,7 @@
                 android:layout_height="22dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="20dp"
-                android:button="@drawable/terms_checkbox"
+                android:button="@drawable/custom_checkbox"
                 android:gravity="center_vertical|end"
                 android:text="자동 로그인"
                 android:textSize="12sp"
@@ -90,7 +90,7 @@
                 android:layout_width="328dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="33dp"
-                android:background="@drawable/button_shape"
+                android:background="@drawable/solid_maincolor_6dp"
                 android:text="로그인"
                 android:textColor="@color/deepgray"
                 android:textSize="14sp"
@@ -136,7 +136,7 @@
                 android:layout_width="283dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="100dp"
-                android:background="@drawable/box_line_loginpage"
+                android:background="@drawable/line_designgray20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Alogin_text1">

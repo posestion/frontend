@@ -1,7 +1,6 @@
 package com.example.posestion
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -20,13 +19,11 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.ActivityMakeProfileBinding
 import de.hdodenhof.circleimageview.CircleImageView
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
@@ -94,8 +91,14 @@ class ActivityMakeProfile : AppCompatActivity() {
         setContentView(binding.root)
 
         profile = binding.AmakeprofileImage
-        val uri = Uri.parse("android.resource://com.example.posestion/${R.drawable.profile}")
-        profile!!.setImageURI(uri)
+
+        //프로필 설정하지 않았을 때 기본 프로필
+        val uri = Uri.parse("android.resource://com.example.posestion/${R.drawable.profilejpg}")
+        val path = getRealPathFromUri(uri)
+        val file = File(path)
+        val mediaType = "image/*".toMediaTypeOrNull()
+        val imageRequestBody = file.asRequestBody(mediaType)
+        imagePart = MultipartBody.Part.createFormData("image", file.name, imageRequestBody)
 
         //프로필 생성 버튼 눌렀을 때 동작
         binding.AmakeprofileBtnEnd.setOnClickListener {
@@ -118,8 +121,8 @@ class ActivityMakeProfile : AppCompatActivity() {
 
             val call = RetrofitObject.getRetrofitService
             call.signup(marketingAgreement, userId, password, phoneNumber, birth, nickname, username, imagePart)
-                .enqueue(object : Callback<ResponseSignup> {
-                    override fun onResponse(call: Call<ResponseSignup>, response: Response<ResponseSignup>) {
+                .enqueue(object : Callback<RetrofitClient.ResponseSignup> {
+                    override fun onResponse(call: Call<RetrofitClient.ResponseSignup>, response: Response<RetrofitClient.ResponseSignup>) {
                         if (response.isSuccessful) {
                             Log.d("Retrofit", "success")
                             val result = response.body()
@@ -135,7 +138,7 @@ class ActivityMakeProfile : AppCompatActivity() {
                             Log.d("Retrofit", "Response Error: $errorBody")
                         }
                     }
-                    override fun onFailure(call: Call<ResponseSignup>, t: Throwable) {
+                    override fun onFailure(call: Call<RetrofitClient.ResponseSignup>, t: Throwable) {
                         val errorMessage = "Call Failed: ${t.message}"
                         Log.d("Retrofit", errorMessage)
                     }
@@ -146,7 +149,7 @@ class ActivityMakeProfile : AppCompatActivity() {
 
         setSupportActionBar(binding.AmakeprofileToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.backbutton)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         binding.AmakeprofileEditNick.addTextChangedListener(nickcheckwatcherListener)
@@ -154,8 +157,8 @@ class ActivityMakeProfile : AppCompatActivity() {
         binding.AmakeprofileBtnNickname.setOnClickListener {
             profilenickname = binding.AmakeprofileEditNick.text.toString()
             val call = RetrofitObject.getRetrofitService.checknickname(profilenickname)
-            call.enqueue(object : Callback<Responsenickname> {
-                override fun onResponse(call: Call<Responsenickname>, response: Response<Responsenickname>) {
+            call.enqueue(object : Callback<RetrofitClient.Responsenickname> {
+                override fun onResponse(call: Call<RetrofitClient.Responsenickname>, response: Response<RetrofitClient.Responsenickname>) {
                     if (response.isSuccessful) {
                         val response = response.body()
                         if(response != null){
@@ -174,7 +177,7 @@ class ActivityMakeProfile : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<Responsenickname>, t: Throwable) {
+                override fun onFailure(call: Call<RetrofitClient.Responsenickname>, t: Throwable) {
                     val errorMessage = "Call Failed: ${t.message}"
                     Log.d("Retrofit", errorMessage)
                 }
@@ -183,7 +186,7 @@ class ActivityMakeProfile : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.login_menu, menu)
+        menuInflater.inflate(R.menu.empty_menu, menu)
         return true
     }
 
