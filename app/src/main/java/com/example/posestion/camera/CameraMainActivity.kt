@@ -274,7 +274,6 @@ class CameraMainActivity : AppCompatActivity() {
                     is VideoRecordEvent.Start -> {
                         setButtonOffOnRecoding(true)
                         viewBinding.captureButton.apply {
-                            text = "stop"
                             isEnabled = true
                         }
                     }
@@ -293,7 +292,6 @@ class CameraMainActivity : AppCompatActivity() {
                                     "${recordEvent.error}")
                         }
                         viewBinding.captureButton.apply {
-                            text = "record"
                             isEnabled = true
                         }
                     }
@@ -326,13 +324,11 @@ class CameraMainActivity : AppCompatActivity() {
             viewBinding.captureButton.setOnClickListener {
                 takePhoto()
             }
-            viewBinding.captureButton.text = "take picture"
             startCamera()
         }else{
             viewBinding.captureButton.setOnClickListener {
                 captureVideo()
             }
-            viewBinding.captureButton.text = "record"
             startCamera()
         }
     }
@@ -385,6 +381,7 @@ class CameraMainActivity : AppCompatActivity() {
 
     private fun pressShutter(){
         if(timerFlag == TimerType.OFF){
+            Log.d(TAG, "pressShutter: no timer, timecount=$timerCount, timefiag=$timerFlag")
             if(isImageCapture) takePhoto() else captureVideo()
         }else{
             timerCount = timerFlag.second()
@@ -404,10 +401,12 @@ class CameraMainActivity : AppCompatActivity() {
 //            viewBinding.txtTimerCount.text = timerCount.toString()
             Log.d(TAG, "handleMessage: leftTime: $timerCount")
             timerCount--
+            Log.d(TAG, " now timecount=$timerCount, timefiag=$timerFlag")
             if(timerCount == -1) {
+                Log.d(TAG, " now timecount=$timerCount, timefiag=$timerFlag")
                 if(isImageCapture) takePhoto() else captureVideo()
 //                viewBinding.txtTimerCount.visibility = View.INVISIBLE
-                timerCount = timerFlag.second()
+//                timerCount = timerFlag.second()
 
             }
         }
