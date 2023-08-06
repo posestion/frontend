@@ -192,7 +192,7 @@
                 android:layout_height="24dp"
                 android:layout_marginBottom="40dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/image_pen_transparent"
+                android:src="@drawable/svg_pen_transparent"
                 app:layout_constraintBottom_toTopOf="@+id/cardView"
                 app:layout_constraintEnd_toEndOf="@+id/cardView" />
 

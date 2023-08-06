@@ -195,7 +195,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/Afindpw_text_num"
                     app:layout_constraintEnd_toStartOf="@+id/Afindpw_text_num"
                     app:layout_constraintTop_toTopOf="@+id/Afindpw_text_num"
-                    app:srcCompat="@drawable/image_x" />
+                    app:srcCompat="@drawable/svg_x" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

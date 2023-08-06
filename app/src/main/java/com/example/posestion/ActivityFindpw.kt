@@ -87,7 +87,7 @@ class ActivityFindpw : AppCompatActivity() {
 
         setSupportActionBar(binding.AfindpwToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         pwcheckedit = binding.AfindpwEditPwcheck

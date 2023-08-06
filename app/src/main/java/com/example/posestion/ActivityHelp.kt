@@ -1,9 +1,7 @@
 package com.example.posestion
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import com.example.posestion.databinding.ActivityHelpBinding
 
@@ -17,7 +15,7 @@ class ActivityHelp : AppCompatActivity() {
 
         setSupportActionBar(binding.AhelpToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 

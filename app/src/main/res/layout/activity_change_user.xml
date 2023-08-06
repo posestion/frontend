@@ -35,7 +35,7 @@
                 android:layout_height="30dp"
                 app:layout_constraintBottom_toBottomOf="@+id/Achange_image_profile"
                 app:layout_constraintEnd_toEndOf="@+id/Achange_image_profile"
-                app:srcCompat="@drawable/image_pen_30dp" />
+                app:srcCompat="@drawable/svg_pen_30dp" />
 
             <EditText
                 android:id="@+id/Achange_edit_pw"
@@ -323,7 +323,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/Achange_text_num"
                     app:layout_constraintEnd_toStartOf="@+id/Achange_text_num"
                     app:layout_constraintTop_toTopOf="@+id/Achange_text_num"
-                    app:srcCompat="@drawable/image_x" />
+                    app:srcCompat="@drawable/svg_x" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView

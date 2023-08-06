@@ -14,7 +14,7 @@
                 </shape>
             </item>
             <item
-                android:drawable = "@drawable/image_down"
+                android:drawable = "@drawable/svg_down"
                 android:gravity = "center_vertical|end"/>
         </layer-list>
     </item>

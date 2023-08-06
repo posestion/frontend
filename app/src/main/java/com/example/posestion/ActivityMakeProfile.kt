@@ -1,7 +1,6 @@
 package com.example.posestion
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -146,7 +145,7 @@ class ActivityMakeProfile : AppCompatActivity() {
 
         setSupportActionBar(binding.AmakeprofileToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         binding.AmakeprofileEditNick.addTextChangedListener(nickcheckwatcherListener)

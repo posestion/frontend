@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mypage_help"
-        android:icon="@drawable/image_help"
+        android:icon="@drawable/svg_help"
         android:title="포즈상점"
         app:showAsAction="always"/>
 </menu>

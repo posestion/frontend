@@ -62,7 +62,7 @@ class ActivityLogin : AppCompatActivity() {
         //toolbar 설정
         setSupportActionBar(binding.AloginToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         //간편 가입하기 text클릭 이벤트 처리

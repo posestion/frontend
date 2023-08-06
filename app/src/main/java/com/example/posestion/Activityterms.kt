@@ -30,7 +30,7 @@ class Activityterms : AppCompatActivity() {
 
         setSupportActionBar(binding.AtermsToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.image_back)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         checkbox1 = binding.AtermsCheck1

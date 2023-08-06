@@ -342,7 +342,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/Asignup_text_num"
                     app:layout_constraintEnd_toStartOf="@+id/Asignup_text_num"
                     app:layout_constraintTop_toTopOf="@+id/Asignup_text_num"
-                    app:srcCompat="@drawable/image_x" />
+                    app:srcCompat="@drawable/svg_x" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
