@@ -13,33 +13,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/Achange_toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/fchange_image_profile"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/Achange_image_profile"
                 android:layout_width="99dp"
                 android:layout_height="99dp"
                 android:layout_marginTop="37dp"
+                android:src="@drawable/iamge_profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/iamge_profile" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:id="@+id/fchange_btn_profile"
+                android:id="@+id/Achange_btn_profile"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                app:layout_constraintBottom_toBottomOf="@+id/fchange_image_profile"
-                app:layout_constraintEnd_toEndOf="@+id/fchange_image_profile"
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_image_profile"
+                app:layout_constraintEnd_toEndOf="@+id/Achange_image_profile"
                 app:srcCompat="@drawable/image_pen_30dp" />
 
             <EditText
-                android:id="@+id/fchange_edit_pw"
+                android:id="@+id/Achange_edit_pw"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -49,12 +48,13 @@
                 android:inputType="textPassword"
                 android:textColorHint="@color/designgray"
                 android:textSize="12sp"
+                android:maxLength="30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fchange_text_checknick" />
+                app:layout_constraintTop_toBottomOf="@+id/Achange_text_checknick" />
 
             <TextView
-                android:id="@+id/fchange_text2"
+                android:id="@+id/Achange_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
@@ -62,11 +62,11 @@
                 android:text="비밀번호"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fchange_edit_pw"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_pw" />
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_pw"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_pw" />
 
             <EditText
-                android:id="@+id/fchange_edit_nick"
+                android:id="@+id/Achange_edit_nick"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
@@ -76,22 +76,22 @@
                 android:inputType="text"
                 android:textColorHint="@color/designgray"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_pw"
-                app:layout_constraintTop_toBottomOf="@+id/fchange_image_profile" />
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_pw"
+                app:layout_constraintTop_toBottomOf="@+id/Achange_image_profile" />
 
             <TextView
-                android:id="@+id/fchange_text1"
+                android:id="@+id/Achange_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="35dp"
                 android:text="닉네임 입력"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fchange_edit_nick"
-                app:layout_constraintStart_toStartOf="@+id/fchange_text2" />
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_nick"
+                app:layout_constraintStart_toStartOf="@+id/Achange_text2" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/fchange_btn_checknick"
+                android:id="@+id/Achange_btn_checknick"
                 android:layout_width="87dp"
                 android:layout_height="38dp"
                 android:layout_marginBottom="8dp"
@@ -100,11 +100,11 @@
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/fchange_edit_nick"
-                app:layout_constraintEnd_toEndOf="@+id/fchange_edit_pw" />
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_nick"
+                app:layout_constraintEnd_toEndOf="@+id/Achange_edit_pw" />
 
             <TextView
-                android:id="@+id/fchange_text_checknick"
+                android:id="@+id/Achange_text_checknick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -112,11 +112,12 @@
                 android:text="TextView"
                 android:textColor="@color/gray"
                 android:textSize="10sp"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_nick"
-                app:layout_constraintTop_toTopOf="@+id/fchange_edit_nick" />
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_nick"
+                app:layout_constraintTop_toTopOf="@+id/Achange_edit_nick" />
 
             <EditText
-                android:id="@+id/fchange_edit_pwcheck"
+                android:id="@+id/Achange_edit_pwcheck"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -126,11 +127,12 @@
                 android:inputType="textPassword"
                 android:textColorHint="@color/designgray"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_pw"
-                app:layout_constraintTop_toBottomOf="@+id/fchange_text_pw" />
+                android:maxLength="30"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_pw"
+                app:layout_constraintTop_toBottomOf="@+id/Achange_text_pw" />
 
             <TextView
-                android:id="@+id/fchange_text_pw"
+                android:id="@+id/Achange_text_pw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -138,11 +140,12 @@
                 android:text="TextView"
                 android:textColor="@color/gray"
                 android:textSize="10sp"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_pw"
-                app:layout_constraintTop_toTopOf="@+id/fchange_edit_pw" />
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_pw"
+                app:layout_constraintTop_toTopOf="@+id/Achange_edit_pw" />
 
             <TextView
-                android:id="@+id/fchange_text3"
+                android:id="@+id/Achange_text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
@@ -150,11 +153,11 @@
                 android:text="비밀번호 재입력"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fchange_edit_pwcheck"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_pwcheck" />
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_pwcheck"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_pwcheck" />
 
             <TextView
-                android:id="@+id/fchange_text_pwcheck"
+                android:id="@+id/Achange_text_pwcheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -162,25 +165,27 @@
                 android:text="TextView"
                 android:textColor="@color/gray"
                 android:textSize="10sp"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_pwcheck"
-                app:layout_constraintTop_toTopOf="@+id/fchange_edit_pwcheck" />
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_pwcheck"
+                app:layout_constraintTop_toTopOf="@+id/Achange_edit_pwcheck" />
 
             <EditText
-                android:id="@+id/fchange_edit_birth"
+                android:id="@+id/Achange_edit_birth"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@color/designgray"
                 android:ems="10"
-                android:hint="생년월일 6자리를 입력해주세요."
+                android:hint="생년월일 8자리를 입력해주세요."
                 android:inputType="number"
                 android:textColorHint="@color/designgray"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_pwcheck"
-                app:layout_constraintTop_toBottomOf="@+id/fchange_text_pwcheck" />
+                android:maxLength="8"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_pwcheck"
+                app:layout_constraintTop_toBottomOf="@+id/Achange_text_pwcheck" />
 
             <TextView
-                android:id="@+id/fchange_text4"
+                android:id="@+id/Achange_text4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
@@ -188,11 +193,11 @@
                 android:text="생년월일 입력(선택)"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fchange_edit_birth"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_birth" />
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_birth"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_birth" />
 
             <TextView
-                android:id="@+id/fchange_text5"
+                android:id="@+id/Achange_text5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -200,23 +205,23 @@
                 android:text="생년월일 입력시 포인트를 드려요!"
                 android:textColor="@color/gray"
                 android:textSize="10sp"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_birth"
-                app:layout_constraintTop_toTopOf="@+id/fchange_edit_birth" />
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_birth"
+                app:layout_constraintTop_toTopOf="@+id/Achange_edit_birth" />
 
             <Spinner
-                android:id="@+id/fchange_spinner"
+                android:id="@+id/Achange_spinner"
                 android:layout_width="66dp"
                 android:layout_height="29dp"
                 android:background="@drawable/custom_spinner"
                 android:contentDescription="통신사 선택"
                 android:dropDownVerticalOffset="25dp"
                 android:popupBackground="@drawable/custom_spinner_popup"
-                app:layout_constraintBottom_toBottomOf="@+id/fchange_edit_phone"
-                app:layout_constraintEnd_toStartOf="@+id/fchange_edit_phone"
-                app:layout_constraintTop_toTopOf="@+id/fchange_edit_phone" />
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_phone"
+                app:layout_constraintEnd_toStartOf="@+id/Achange_edit_phone"
+                app:layout_constraintTop_toTopOf="@+id/Achange_edit_phone" />
 
             <EditText
-                android:id="@+id/fchange_edit_phone"
+                android:id="@+id/Achange_edit_phone"
                 android:layout_width="210dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="59dp"
@@ -228,11 +233,12 @@
                 android:textColor="@color/designgray"
                 android:textColorHint="@color/designgray"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/fchange_edit_birth"
-                app:layout_constraintTop_toBottomOf="@+id/fchange_text5" />
+                android:maxLength="11"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_birth"
+                app:layout_constraintTop_toBottomOf="@+id/Achange_text5" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/fchange_btn_num"
+                android:id="@+id/Achange_btn_num"
                 android:layout_width="60dp"
                 android:layout_height="26dp"
                 android:background="@drawable/solid_designgray_6dp"
@@ -240,9 +246,9 @@
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/fchange_edit_phone"
-                app:layout_constraintEnd_toEndOf="@+id/fchange_edit_birth"
-                app:layout_constraintTop_toTopOf="@+id/fchange_edit_phone" />
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_phone"
+                app:layout_constraintEnd_toEndOf="@+id/Achange_edit_birth"
+                app:layout_constraintTop_toTopOf="@+id/Achange_edit_phone" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
@@ -252,10 +258,10 @@
                 android:background="@drawable/line_designgray6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fchange_spinner">
+                app:layout_constraintTop_toBottomOf="@+id/Achange_spinner">
 
                 <TextView
-                    android:id="@+id/fchange_text6"
+                    android:id="@+id/Achange_text6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -267,7 +273,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/fchange_edit_num"
+                    android:id="@+id/Achange_edit_num"
                     android:layout_width="170dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="-5dp"
@@ -279,11 +285,11 @@
                     android:maxLength="6"
                     android:textColorHint="@color/designgray"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/fchange_text6"
+                    app:layout_constraintStart_toStartOf="@+id/Achange_text6"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/fchange_text_num"
+                    android:id="@+id/Achange_text_num"
                     android:layout_width="45dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
@@ -291,11 +297,11 @@
                     android:textColor="@color/highlight"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/fchange_btn_checknum"
-                    app:layout_constraintTop_toTopOf="@+id/fchange_edit_num" />
+                    app:layout_constraintEnd_toStartOf="@+id/Achange_btn_checknum"
+                    app:layout_constraintTop_toTopOf="@+id/Achange_edit_num" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/fchange_btn_checknum"
+                    android:id="@+id/Achange_btn_checknum"
                     android:layout_width="62dp"
                     android:layout_height="26dp"
                     android:layout_marginEnd="13dp"
@@ -305,23 +311,23 @@
                     android:textColor="@color/deepgray"
                     android:textSize="12sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/fchange_text_num"
+                    app:layout_constraintBottom_toBottomOf="@+id/Achange_text_num"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/fchange_text_num" />
+                    app:layout_constraintTop_toTopOf="@+id/Achange_text_num" />
 
                 <ImageButton
-                    android:id="@+id/fchange_btn_x"
+                    android:id="@+id/Achange_btn_x"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_marginEnd="7dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/fchange_text_num"
-                    app:layout_constraintEnd_toStartOf="@+id/fchange_text_num"
-                    app:layout_constraintTop_toTopOf="@+id/fchange_text_num"
+                    app:layout_constraintBottom_toBottomOf="@+id/Achange_text_num"
+                    app:layout_constraintEnd_toStartOf="@+id/Achange_text_num"
+                    app:layout_constraintTop_toTopOf="@+id/Achange_text_num"
                     app:srcCompat="@drawable/image_x" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/fchange_text7"
+                android:id="@+id/Achange_text7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="90dp"
@@ -333,7 +339,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <TextView
-                android:id="@+id/fchange_text_resend"
+                android:id="@+id/Achange_text_resend"
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
@@ -342,12 +348,12 @@
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/fchange_text7"
-                app:layout_constraintEnd_toStartOf="@+id/fchange_text7"
-                app:layout_constraintTop_toTopOf="@+id/fchange_text7" />
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_text7"
+                app:layout_constraintEnd_toStartOf="@+id/Achange_text7"
+                app:layout_constraintTop_toTopOf="@+id/Achange_text7" />
 
             <TextView
-                android:id="@+id/fchange_text_out"
+                android:id="@+id/Achange_text_out"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -356,14 +362,14 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fchange_text7" />
+                app:layout_constraintTop_toBottomOf="@+id/Achange_text7" />
 
-            <Button
-                android:id="@+id/fchange_btn_change"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Achange_btn_change"
                 android:layout_width="330dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="68dp"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/solid_maincolor_6dp"
                 android:text="회원정보 수정"
                 android:textColor="@color/deepgray"
@@ -372,8 +378,43 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.517"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fchange_text_out" />
+                app:layout_constraintTop_toBottomOf="@+id/Achange_text_out" />
+
+            <TextView
+                android:id="@+id/Achange_text10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  ex) 2003년 2월 26일 > 20030226"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/Achange_text4"
+                app:layout_constraintTop_toTopOf="@+id/Achange_text4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/Achange_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:menu="@menu/empty_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/Achange_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="내정보 수정"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="172dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+    </androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>

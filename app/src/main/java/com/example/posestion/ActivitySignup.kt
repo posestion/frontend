@@ -193,6 +193,7 @@ class ActivitySignup : AppCompatActivity() {
         //인증번호 받기 눌렀을 때 동작
         binding.AsignupBtnSendnum.setOnClickListener{
             setTimer()
+            binding.AsignupBtnSendnum.isEnabled = false
         }
 
         //재전송 눌렀을 때 동작

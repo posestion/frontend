@@ -135,15 +135,12 @@ class ActivityLogin : AppCompatActivity() {
                         val response = response.body()
                         if(response != null){
                             if(response.isSuccess){
-                                val auto = user.getBoolean("autologin", false)
                                 val token = response.result.jwt
-                                if(auto){
-                                    editor.putString("id", id)
-                                    editor.putString("pw", pw)
-                                    editor.putString("jwt", token)
-                                    editor.apply()
-                                }
-                                val intent = Intent(this@ActivityLogin, loginsuccess::class.java)
+                                editor.putString("id", id)
+                                editor.putString("pw", pw)
+                                editor.putString("jwt", token)
+                                editor.apply()
+                                val intent = Intent(this@ActivityLogin, ActivityMain::class.java)
                                 startActivity(intent)
                                 finish()
                             }

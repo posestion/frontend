@@ -4,18 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentWithdraw">
-
+    tools:context=".ActivityWithdraw">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:backgroundTint="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Awithdraw_toolbar"
         app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +22,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/fwithdraw_image"
+                android:id="@+id/Awithdraw_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -37,16 +36,14 @@
                 android:layout_width="300dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginBottom="300dp"
                 android:background="@drawable/line_designgray6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/radioGroup"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup">
 
                 <EditText
-                    android:id="@+id/fwithdraw_edit"
+                    android:id="@+id/Awithdraw_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
@@ -55,16 +52,16 @@
                     android:hint="더 나은 포제션이 될 수 있도록 의견을 들려주세요"
                     android:inputType="text"
                     android:maxLines="5"
-                    android:scrollbar="vertical"
                     android:textColorHint="@color/gray"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/fwithdraw_text1"
+                android:id="@+id/Awithdraw_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="46dp"
@@ -83,37 +80,37 @@
                 android:layout_marginEnd="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fwithdraw_text1">
+                app:layout_constraintTop_toBottomOf="@+id/Awithdraw_text1">
 
                 <RadioButton
-                    android:id="@+id/fwithdraw_btn1"
+                    android:id="@+id/Awithdraw_btn1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="앱 사용이 불편해요" />
 
                 <RadioButton
-                    android:id="@+id/fwithdraw_btn2"
+                    android:id="@+id/Awithdraw_btn2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="광고성 알림이 너무 많이 와요" />
 
                 <RadioButton
-                    android:id="@+id/fwithdraw_btn3"
+                    android:id="@+id/Awithdraw_btn3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="쓰지 않는 앱이에요" />
 
                 <RadioButton
-                    android:id="@+id/fwithdraw_btn4"
+                    android:id="@+id/Awithdraw_btn4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="재가입할 거에요" />
 
                 <RadioButton
-                    android:id="@+id/fwithdraw_btn5"
+                    android:id="@+id/Awithdraw_btn5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -121,19 +118,19 @@
             </RadioGroup>
 
             <TextView
-                android:id="@+id/fwithdraw_text2"
+                android:id="@+id/Awithdraw_text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="꼭 확인해주세요"
                 android:textColor="@color/deepgray"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/fwithdraw_image"
-                app:layout_constraintStart_toEndOf="@+id/fwithdraw_image"
-                app:layout_constraintTop_toTopOf="@+id/fwithdraw_image" />
+                app:layout_constraintBottom_toBottomOf="@+id/Awithdraw_image"
+                app:layout_constraintStart_toEndOf="@+id/Awithdraw_image"
+                app:layout_constraintTop_toTopOf="@+id/Awithdraw_image" />
 
             <TextView
-                android:id="@+id/fwithdraw_text3"
+                android:id="@+id/Awithdraw_text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -141,7 +138,71 @@
                 android:textColor="@color/deepgray"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="@+id/radioGroup"
-                app:layout_constraintTop_toBottomOf="@+id/fwithdraw_image" />
+                app:layout_constraintTop_toBottomOf="@+id/Awithdraw_image" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/Awithdraw_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="46dp"
+                android:button="@drawable/custom_checkbox"
+                android:text="  위 내용을 숙지했으며 탈퇴에 동의합니다."
+                android:textColor="@color/deepgray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Awithdraw_text3" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Awithdraw_btn_keep"
+                android:layout_width="155dp"
+                android:layout_height="32dp"
+                android:background="@drawable/solid_maincolor_6dp"
+                android:text="계속 사용하기"
+                android:textColor="@color/deepgray"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/Awithdraw_btn_out"
+                app:layout_constraintEnd_toStartOf="@+id/Awithdraw_btn_out"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Awithdraw_btn_out"
+                android:layout_width="155dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginBottom="37dp"
+                android:background="@drawable/solid_maincolor_6dp"
+                android:text="회원 탈퇴하기"
+                android:textColor="@color/deepgray"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/Awithdraw_btn_keep"
+                app:layout_constraintTop_toBottomOf="@+id/Awithdraw_check" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/Awithdraw_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <TextView
+            android:id="@+id/Awithdraw_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="회원 탈퇴"
+            android:textColor="@color/maincolor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="178dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+    </androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>

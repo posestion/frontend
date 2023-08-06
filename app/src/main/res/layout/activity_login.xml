@@ -68,6 +68,7 @@
                 android:hint="비밀번호 입력"
                 android:inputType="textPassword"
                 android:textColorHint="@color/deepgray"
+                android:maxLength="30"
                 app:layout_constraintEnd_toEndOf="@+id/Alogin_id"
                 app:layout_constraintStart_toStartOf="@+id/Alogin_id"
                 app:layout_constraintTop_toBottomOf="@+id/Alogin_id" />

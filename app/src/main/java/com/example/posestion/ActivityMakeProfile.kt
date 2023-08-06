@@ -1,6 +1,8 @@
 package com.example.posestion
 
 import android.app.Activity
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -58,6 +60,7 @@ class ActivityMakeProfile : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {}
     }
 
+    //이미지 불러오기
     private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         val resultCode = result.resultCode
         val data = result.data
@@ -70,13 +73,6 @@ class ActivityMakeProfile : AppCompatActivity() {
                 val mediaType = "image/*".toMediaTypeOrNull()
                 val imageRequestBody = file.asRequestBody(mediaType)
                 imagePart = MultipartBody.Part.createFormData("image", file.name, imageRequestBody)
-
-                //okhttp3.MultipartBody$Part@22626f
-                Log.d("Retrofit", path.toString())
-                Log.d("Retrofit", file.toString())
-                Log.d("Retrofit", mediaType.toString())
-                Log.d("Retrofit", imageRequestBody.toString())
-                Log.d("Retrofit", imagePart.toString())
             } else {
                 Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -93,8 +89,9 @@ class ActivityMakeProfile : AppCompatActivity() {
         profile = binding.AmakeprofileImage
 
         //프로필 설정하지 않았을 때 기본 프로필
-        val uri = Uri.parse("android.resource://com.example.posestion/${R.drawable.profilejpg}")
-        val path = getRealPathFromUri(uri)
+        val resourceId = R.drawable.profilejpg
+        val newfile = saveResourceImageToFile(this, resourceId)
+        val path = newfile.absolutePath
         val file = File(path)
         val mediaType = "image/*".toMediaTypeOrNull()
         val imageRequestBody = file.asRequestBody(mediaType)
@@ -154,6 +151,7 @@ class ActivityMakeProfile : AppCompatActivity() {
 
         binding.AmakeprofileEditNick.addTextChangedListener(nickcheckwatcherListener)
 
+        //닉네임 중복 확인
         binding.AmakeprofileBtnNickname.setOnClickListener {
             profilenickname = binding.AmakeprofileEditNick.text.toString()
             val call = RetrofitObject.getRetrofitService.checknickname(profilenickname)
@@ -162,7 +160,6 @@ class ActivityMakeProfile : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val response = response.body()
                         if(response != null){
-                            val nickchecktext = binding.AmakeprofileTextNick
                             if(response.message.toString() == "성공"){
                                 nickcheck = true
                                 nickchecktext.text = "사용가능한 닉네임 입니다."
@@ -201,6 +198,7 @@ class ActivityMakeProfile : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    //프로필 선택 버튼 눌렀을 때 동작
     private fun initImageViewProfile() {
         changeprofileimage = binding.AmakeprofileBtnImage
 
@@ -272,5 +270,16 @@ class ActivityMakeProfile : AppCompatActivity() {
             }
         }
         return null
+    }
+
+    fun saveResourceImageToFile(context: Context, resourceId: Int): File {
+        val inputStream = context.resources.openRawResource(resourceId)
+        val file = File(context.cacheDir, "temp_image.jpg")
+
+        file.outputStream().use { outputStream ->
+            inputStream.copyTo(outputStream)
+        }
+
+        return file
     }
 }

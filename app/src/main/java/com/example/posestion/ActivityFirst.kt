@@ -43,7 +43,7 @@ class ActivityFirst : AppCompatActivity() , View.OnTouchListener {
                                     if(response.isSuccess){
                                         val auto = user.getBoolean("autologin", false)
                                         if(auto){
-                                            val intent = Intent(this@ActivityFirst, loginsuccess::class.java)
+                                            val intent = Intent(this@ActivityFirst, ActivityMain::class.java)
                                             startActivity(intent)
                                             finish()
                                         }
