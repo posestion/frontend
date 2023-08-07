@@ -22,6 +22,9 @@
             android:name=".ActivityJim"
             android:exported="false" />
         <activity
+            android:name=".ActivityCenter"
+            android:exported="false" />
+        <activity
             android:name=".ActivityWithdraw"
             android:exported="false" />
         <activity

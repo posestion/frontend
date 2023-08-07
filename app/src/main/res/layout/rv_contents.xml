@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/Rvcontents_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="7dp"
+        android:maxLines="1"
+        android:text="title"
+        android:maxLength="20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/Rvcontents_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="text"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/Rvcontents_title"
+        app:layout_constraintTop_toBottomOf="@+id/Rvcontents_title" />
+
+    <ImageView
+        android:id="@+id/Rvcontents_image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/Rvcontents_text"
+        app:layout_constraintTop_toBottomOf="@+id/Rvcontents_text"
+        app:srcCompat="@drawable/svg_empty_heart" />
+
+    <ImageView
+        android:id="@+id/Rvcontents_image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Rvcontents_image1"
+        app:layout_constraintStart_toEndOf="@+id/Rvcontents_image1"
+        app:layout_constraintTop_toTopOf="@+id/Rvcontents_image1"
+        app:srcCompat="@drawable/svg_talk" />
+
+    <ImageView
+        android:id="@+id/Rvcontents_image_main"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="27dp"
+        android:background="@drawable/corners_5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Rvcontents_image1"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageButton
+        android:id="@+id/Rvcontents_btn_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/solid_transparent"
+        app:layout_constraintStart_toEndOf="@+id/Rvcontents_image_main"
+        app:layout_constraintTop_toTopOf="@+id/Rvcontents_image_main"
+        app:srcCompat="@drawable/svg_menu" />
+
+    <TextView
+        android:id="@+id/Rvcontents_text_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="100k"
+        android:textColor="@color/gray"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Rvcontents_image1"
+        app:layout_constraintStart_toEndOf="@+id/Rvcontents_image1"
+        app:layout_constraintTop_toTopOf="@+id/Rvcontents_image1" />
+
+    <TextView
+        android:id="@+id/Rvcontents_text_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="5"
+        android:textColor="@color/gray"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Rvcontents_image2"
+        app:layout_constraintStart_toEndOf="@+id/Rvcontents_image2"
+        app:layout_constraintTop_toTopOf="@+id/Rvcontents_image2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

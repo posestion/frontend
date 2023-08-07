@@ -29,4 +29,128 @@
             android:textStyle="bold" />
 
     </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/Ahelp_image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/Ahelp_view1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ahelp_toolbar"
+        app:srcCompat="@drawable/svg_personcall" />
+
+    <ImageButton
+        android:id="@+id/Ahelp_btn_center"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/solid_transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/Ahelp_image1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Ahelp_image1"
+        app:srcCompat="@drawable/svg_right" />
+
+    <TextView
+        android:id="@+id/Ahelp_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:text="고객센터"
+        app:layout_constraintBottom_toBottomOf="@+id/Ahelp_image1"
+        app:layout_constraintStart_toEndOf="@+id/Ahelp_image1"
+        app:layout_constraintTop_toTopOf="@+id/Ahelp_image1" />
+
+    <View
+        android:id="@+id/Ahelp_view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="65dp"
+        android:background="@color/designgray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ahelp_toolbar" />
+
+    <ImageView
+        android:id="@+id/Ahelp_image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/Ahelp_view2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ahelp_view1"
+        app:srcCompat="@drawable/svg_clipboard" />
+
+    <View
+        android:id="@+id/Ahelp_view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="65dp"
+        android:background="@color/designgray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ahelp_view1" />
+
+    <TextView
+        android:id="@+id/Ahelp_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:text="앱사용 가이드"
+        app:layout_constraintBottom_toBottomOf="@+id/Ahelp_image2"
+        app:layout_constraintStart_toEndOf="@+id/Ahelp_image2"
+        app:layout_constraintTop_toTopOf="@+id/Ahelp_image2" />
+
+    <ImageButton
+        android:id="@+id/Ahelp_btn_guide"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/solid_transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/Ahelp_image2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Ahelp_image2"
+        app:srcCompat="@drawable/svg_right" />
+
+    <View
+        android:id="@+id/Ahelp_view3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="65dp"
+        android:background="@color/designgray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ahelp_view2" />
+
+    <ImageView
+        android:id="@+id/Ahelp_image3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/Ahelp_view3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ahelp_view2"
+        app:srcCompat="@drawable/svg_usercog" />
+
+    <TextView
+        android:id="@+id/Ahelp_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:text="개인정보 처리방침"
+        app:layout_constraintBottom_toBottomOf="@+id/Ahelp_image3"
+        app:layout_constraintStart_toEndOf="@+id/Ahelp_image3"
+        app:layout_constraintTop_toTopOf="@+id/Ahelp_image3" />
+
+    <ImageButton
+        android:id="@+id/Ahelp_btn_private"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/solid_transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/Ahelp_image3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Ahelp_image3"
+        app:srcCompat="@drawable/svg_right" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

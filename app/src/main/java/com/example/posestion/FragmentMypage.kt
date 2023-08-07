@@ -28,6 +28,21 @@ class FragmentMypage : Fragment() {
             startActivity(intent)
         }
 
+        binding.fmypageBtnContent.setOnClickListener {
+            val intent = Intent(activity, ActivityContents::class.java)
+            startActivity(intent)
+        }
+
+        binding.fmypageBtnClass.setOnClickListener {
+            val intent = Intent(activity, ActivityClass::class.java)
+            startActivity(intent)
+        }
+
+        binding.fmypageBtnJim.setOnClickListener {
+            val intent = Intent(activity, ActivityJim::class.java)
+            startActivity(intent)
+        }
+
         return binding.root
     }
 }

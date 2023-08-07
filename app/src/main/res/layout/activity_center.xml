@@ -8,13 +8,13 @@
     tools:context=".ActivityCenter">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/fcenter_tablayout"
+        android:id="@+id/Acenter_tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Acenter_toolbar"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/basic"
         app:tabMode="fixed"
@@ -22,10 +22,39 @@
         app:tabTextColor="@color/basic" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/fcenter_pager"
+        android:id="@+id/Acenter_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fcenter_tablayout" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Acenter_tablayout" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/Acenter_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:menu="@menu/center_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/Acenter_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="고객센터"
+            android:textColor="@color/maincolor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="180dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+    </androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

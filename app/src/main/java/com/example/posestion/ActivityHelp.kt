@@ -1,5 +1,6 @@
 package com.example.posestion
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -17,6 +18,11 @@ class ActivityHelp : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        binding.AhelpBtnCenter.setOnClickListener {
+            val intent = Intent(this, ActivityCenter::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -27,6 +33,11 @@ class ActivityHelp : AppCompatActivity() {
             }
             R.id.help_basket -> {
 
+                return true
+            }
+
+            android.R.id.home -> {
+                finish()
                 return true
             }
         }

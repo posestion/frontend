@@ -1,6 +1,7 @@
 package com.example.posestion
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.posestion.databinding.ActivityCenterBinding
@@ -16,8 +17,14 @@ class ActivityCenter : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        viewPager = binding.fcenterPager
-        tabLayout = binding.fcenterTablayout
+
+        setSupportActionBar(binding.AcenterToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        viewPager = binding.AcenterPager
+        tabLayout = binding.AcenterTablayout
 
         val adapter = AdapterCenter(this)
 
@@ -29,5 +36,24 @@ class ActivityCenter : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = adapter.getPageTitle(position)
         }.attach()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.center_basket -> {
+
+                return true
+            }
+            R.id.center_search -> {
+
+                return true
+            }
+
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
