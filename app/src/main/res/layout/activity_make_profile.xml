@@ -68,15 +68,16 @@
                 android:id="@+id/Amakeprofile_edit_code"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="146dp"
+                android:layout_marginTop="50dp"
                 android:backgroundTint="@color/designgray"
                 android:ems="10"
                 android:hint="초대코드를 입력해주세요."
-                android:textColorHint="@color/designgray"
                 android:maxLines="1"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_image" />
+                app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_edit_nick" />
 
             <EditText
                 android:id="@+id/Amakeprofile_edit_nick"
@@ -86,8 +87,9 @@
                 android:backgroundTint="@color/designgray"
                 android:ems="10"
                 android:hint="닉네임을 입력해주세요."
-                android:textColorHint="@color/designgray"
                 android:maxLines="1"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/Amakeprofile_edit_code"
                 app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_image" />
 
@@ -144,16 +146,17 @@
                 android:id="@+id/Amakeprofile_birth"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="240dp"
+                android:layout_marginTop="50dp"
                 android:backgroundTint="@color/designgray"
                 android:ems="10"
                 android:hint="생년월일 8자리를 입력해주세요."
                 android:inputType="number"
-                android:textColorHint="@color/designgray"
-                android:maxLines="1"
                 android:maxLength="8"
+                android:maxLines="1"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/Amakeprofile_edit_code"
-                app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_image" />
+                app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_edit_code" />
 
             <TextView
                 android:id="@+id/Amakeprofile_text3"
@@ -211,7 +214,7 @@
                 android:id="@+id/Amakeprofile_btn_end"
                 android:layout_width="330dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="409dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/solid_maincolor_6dp"
                 android:text="프로필 생성"
@@ -220,7 +223,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_image" />
+                app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_edit_intro" />
 
             <TextView
                 android:id="@+id/Amakeprofile_text6"
@@ -231,6 +234,43 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/Amakeprofile_birth"
                 app:layout_constraintStart_toEndOf="@+id/Amakeprofile_text3" />
+
+            <EditText
+                android:id="@+id/Amakeprofile_edit_intro"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="나를 한줄로 소개해보세요."
+                android:inputType="text"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                android:maxLength="20"
+                app:layout_constraintStart_toStartOf="@+id/Amakeprofile_birth"
+                app:layout_constraintTop_toBottomOf="@+id/Amakeprofile_birth" />
+
+            <TextView
+                android:id="@+id/Amakeprofile_text7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="한줄 소개 (선택)"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/Amakeprofile_edit_intro"
+                app:layout_constraintStart_toStartOf="@+id/Amakeprofile_edit_intro" />
+
+            <TextView
+                android:id="@+id/Amakeprofile_text_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="0/20"
+                android:textColor="@color/gray"
+                app:layout_constraintBottom_toBottomOf="@+id/Amakeprofile_edit_intro"
+                app:layout_constraintEnd_toEndOf="@+id/Amakeprofile_edit_intro"
+                app:layout_constraintTop_toTopOf="@+id/Amakeprofile_edit_intro" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -59,6 +59,18 @@ class ActivityMakeProfile : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {}
     }
 
+    private val introwatcherListener = object : TextWatcher {
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val length = binding.AmakeprofileEditIntro.text.length
+            binding.AmakeprofileTextIntro.text = "${length}/20"
+        }
+
+        override fun afterTextChanged(s: Editable?) {}
+    }
+
     //이미지 불러오기
     private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         val resultCode = result.resultCode
