@@ -111,6 +111,7 @@ class ActivityChangeUser : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {}
     }
 
+    //닉네임 체크 문구
     private val nickcheckwatcherListener = object : TextWatcher {
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -119,6 +120,19 @@ class ActivityChangeUser : AppCompatActivity() {
             if (nickchecktext.visibility == View.VISIBLE) {
                 nickchecktext.visibility = View.INVISIBLE
             }
+        }
+
+        override fun afterTextChanged(s: Editable?) {}
+    }
+
+    //한줄 소개 글자 수
+    private val introwatcherListener = object : TextWatcher {
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val length = binding.AchangeEditIntro.text.length
+            binding.AchangeTextIntro.text = "${length}/20"
         }
 
         override fun afterTextChanged(s: Editable?) {}
@@ -161,7 +175,8 @@ class ActivityChangeUser : AppCompatActivity() {
         pwedit.addTextChangedListener(pwwatcherListener)
         pwcheckedit.addTextChangedListener(pwcheckwatcherListener)
         nickedit.addTextChangedListener(nickcheckwatcherListener)
-
+        binding.AchangeEditIntro.addTextChangedListener(introwatcherListener)
+        
         //toolbar 설정
         setSupportActionBar(binding.AchangeToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

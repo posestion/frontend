@@ -11,7 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e33581fe-d9d4-4f6d-8a90-edbe3d7da541" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/posestion/ActivityChangeUser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/posestion/ActivityChangeUser.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/posestion/ActivityMakeProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/posestion/ActivityMakeProfile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_change_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_change_user.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_class.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_class.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_make_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_make_profile.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

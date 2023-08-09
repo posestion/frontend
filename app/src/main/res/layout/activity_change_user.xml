@@ -46,9 +46,9 @@
                 android:ems="10"
                 android:hint="8-30 자리 영 대/소문자, 숫자, 특수문자 조합"
                 android:inputType="textPassword"
-                android:textColorHint="@color/designgray"
-                android:textSize="12sp"
                 android:maxLength="30"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Achange_text_checknick" />
@@ -75,7 +75,7 @@
                 android:hint="닉네임을 입력해주세요."
                 android:inputType="text"
                 android:textColorHint="@color/designgray"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/Achange_edit_pw"
                 app:layout_constraintTop_toBottomOf="@+id/Achange_image_profile" />
 
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="38dp"
                 android:text="TextView"
                 android:textColor="@color/gray"
                 android:textSize="10sp"
@@ -125,9 +125,9 @@
                 android:ems="10"
                 android:hint="8-30 자리 영 대/소문자, 숫자, 특수문자 조합"
                 android:inputType="textPassword"
-                android:textColorHint="@color/designgray"
-                android:textSize="12sp"
                 android:maxLength="30"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/Achange_edit_pw"
                 app:layout_constraintTop_toBottomOf="@+id/Achange_text_pw" />
 
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="38dp"
                 android:text="TextView"
                 android:textColor="@color/gray"
                 android:textSize="10sp"
@@ -161,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="38dp"
                 android:text="TextView"
                 android:textColor="@color/gray"
                 android:textSize="10sp"
@@ -178,9 +178,9 @@
                 android:ems="10"
                 android:hint="생년월일 8자리를 입력해주세요."
                 android:inputType="number"
-                android:textColorHint="@color/designgray"
-                android:textSize="12sp"
                 android:maxLength="8"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/Achange_edit_pwcheck"
                 app:layout_constraintTop_toBottomOf="@+id/Achange_text_pwcheck" />
 
@@ -201,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="38dp"
                 android:text="생년월일 입력시 포인트를 드려요!"
                 android:textColor="@color/gray"
                 android:textSize="10sp"
@@ -230,12 +230,12 @@
                 android:ems="10"
                 android:hint="휴대전화 번호를 입력해주세요."
                 android:inputType="phone"
+                android:maxLength="11"
                 android:textColor="@color/designgray"
                 android:textColorHint="@color/designgray"
                 android:textSize="12sp"
-                android:maxLength="11"
                 app:layout_constraintStart_toStartOf="@+id/Achange_edit_birth"
-                app:layout_constraintTop_toBottomOf="@+id/Achange_text5" />
+                app:layout_constraintTop_toBottomOf="@+id/Achange_edit_intro" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/Achange_btn_num"
@@ -390,6 +390,44 @@
                 app:layout_constraintStart_toEndOf="@+id/Achange_text4"
                 app:layout_constraintTop_toTopOf="@+id/Achange_text4" />
 
+            <EditText
+                android:id="@+id/Achange_edit_intro"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="나를 한줄로 소개해보세요."
+                android:inputType="text"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                android:maxLength="20"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_birth"
+                app:layout_constraintTop_toBottomOf="@+id/Achange_text5" />
+
+            <TextView
+                android:id="@+id/Achange_text11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="35dp"
+                android:text="한줄 소개 (선택)"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_intro"
+                app:layout_constraintStart_toStartOf="@+id/Achange_edit_intro" />
+
+            <TextView
+                android:id="@+id/Achange_text_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="5dp"
+                android:text="0/20"
+                android:textColor="@color/gray"
+                app:layout_constraintEnd_toEndOf="@+id/Achange_edit_intro"
+                app:layout_constraintTop_toTopOf="@+id/Achange_edit_intro" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -411,7 +449,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="내정보 수정"
+            android:text="내 정보 수정"
             android:textSize="16sp"
             tools:layout_editor_absoluteX="172dp"
             tools:layout_editor_absoluteY="16dp" />

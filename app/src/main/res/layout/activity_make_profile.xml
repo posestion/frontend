@@ -202,8 +202,8 @@
                 android:id="@+id/Amakeprofile_text5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="44dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
                 android:text="생년월일 입력시 포인트를 드려요!"
                 android:textColor="@color/deepgray"
                 android:textSize="10sp"
@@ -270,6 +270,18 @@
                 android:textColor="@color/gray"
                 app:layout_constraintBottom_toBottomOf="@+id/Amakeprofile_edit_intro"
                 app:layout_constraintEnd_toEndOf="@+id/Amakeprofile_edit_intro"
+                app:layout_constraintTop_toTopOf="@+id/Amakeprofile_edit_intro" />
+
+            <TextView
+                android:id="@+id/Amakeprofile_text8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:text="내 정보에서 수정할 수 있습니다."
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/Amakeprofile_edit_intro"
                 app:layout_constraintTop_toTopOf="@+id/Amakeprofile_edit_intro" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

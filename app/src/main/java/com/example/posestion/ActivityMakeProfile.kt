@@ -59,6 +59,7 @@ class ActivityMakeProfile : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {}
     }
 
+    //한줄 소개 글자 수 보여주기
     private val introwatcherListener = object : TextWatcher {
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -161,6 +162,7 @@ class ActivityMakeProfile : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         binding.AmakeprofileEditNick.addTextChangedListener(nickcheckwatcherListener)
+        binding.AmakeprofileEditIntro.addTextChangedListener(introwatcherListener)
 
         //닉네임 중복 확인
         binding.AmakeprofileBtnNickname.setOnClickListener {
