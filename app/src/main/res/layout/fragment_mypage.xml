@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".FragmentMypage">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fmypage_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -207,7 +194,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
             <TextView
-                android:id="@+id/fmypage_text9"
+                android:id="@+id/fmypage_text_gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-10dp"
@@ -216,6 +203,7 @@
                 android:textColor="@color/maincolor"
                 android:textSize="16dp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/cardView"
                 app:layout_constraintTop_toBottomOf="@+id/fmypage_view1" />
 
@@ -228,24 +216,27 @@
                 android:text="전체보기 >"
                 android:textColor="@color/gray"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fmypage_text9"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/fmypage_text_gone"
                 app:layout_constraintEnd_toEndOf="@+id/cardView" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fmypage_rv_class"
                 android:layout_width="320dp"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/fmypage_text9"
-                app:layout_constraintTop_toBottomOf="@+id/fmypage_text9" />
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/fmypage_text_gone"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_text_gone" />
 
             <View
-                android:id="@+id/fmypage_view2"
+                android:id="@+id/fmypage_view_gone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="11dp"
                 android:background="@color/lightgray"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fmypage_rv_class" />
@@ -259,8 +250,8 @@
                 android:textColor="@color/maincolor"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/fmypage_text9"
-                app:layout_constraintTop_toBottomOf="@+id/fmypage_view2" />
+                app:layout_constraintStart_toStartOf="@+id/fmypage_text_gone"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_view_gone" />
 
             <TextView
                 android:id="@+id/fmypage_text7"
@@ -332,7 +323,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fmypage_rv_content"
                 android:layout_width="320dp"
-                android:layout_height="180dp"
+                android:layout_height="220dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"

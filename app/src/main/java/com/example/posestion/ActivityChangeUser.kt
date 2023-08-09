@@ -176,7 +176,7 @@ class ActivityChangeUser : AppCompatActivity() {
         pwcheckedit.addTextChangedListener(pwcheckwatcherListener)
         nickedit.addTextChangedListener(nickcheckwatcherListener)
         binding.AchangeEditIntro.addTextChangedListener(introwatcherListener)
-        
+
         //toolbar 설정
         setSupportActionBar(binding.AchangeToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
