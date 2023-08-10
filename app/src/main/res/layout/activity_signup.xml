@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivitySignup">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/Asignup_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/empty_menu">
+
+        <TextView
+            android:id="@+id/Asingup_bartitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="가입 하기"
+            android:textColor="@color/basic"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="176dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Asignup_toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/Asignup_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="약관 동의   >   "
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/Asignup_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID / PW 생성"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/Asignup_text3"
+                    app:layout_constraintStart_toEndOf="@+id/Asignup_text1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/Asignup_text3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   >   프로필 생성"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <EditText
+                android:id="@+id/Asignup_edit_id"
+                android:layout_width="240dp"
+                android:layout_height="44dp"
+                android:layout_marginBottom="36dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="아이디를 입력해주세요."
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                android:maxLength="10"
+                app:layout_constraintBottom_toTopOf="@+id/Asignup_edit_pw"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw" />
+
+            <EditText
+                android:id="@+id/Asignup_edit_pw"
+                android:layout_width="330dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="110dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="8-30 자리 영 대/소문자, 숫자, 특수문자 조합"
+                android:inputType="textPassword"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                android:maxLength="30"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+            <TextView
+                android:id="@+id/Asignup_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="40dp"
+                android:text="아이디"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Asignup_edit_id"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_id" />
+
+            <TextView
+                android:id="@+id/Asignup_text5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="40dp"
+                android:text="비밀번호"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Asignup_edit_pw"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw" />
+
+            <TextView
+                android:id="@+id/Asignup_text_idcheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="44dp"
+                android:text="text"
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_id"
+                app:layout_constraintTop_toTopOf="@+id/Asignup_edit_id" />
+
+            <EditText
+                android:id="@+id/Asignup_edit_pw_check"
+                android:layout_width="330dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="36dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="8-30 자리 영 대/소문자, 숫자, 특수문자 조합"
+                android:inputType="textPassword"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                android:maxLength="30"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw"
+                app:layout_constraintTop_toBottomOf="@+id/Asignup_edit_pw" />
+
+            <TextView
+                android:id="@+id/Asignup_text6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="40dp"
+                android:text="비밀번호 재입력"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Asignup_edit_pw_check"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw_check" />
+
+            <TextView
+                android:id="@+id/Asignup_text_pwcheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="44dp"
+                android:text="text"
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw_check"
+                app:layout_constraintTop_toTopOf="@+id/Asignup_edit_pw_check" />
+
+            <EditText
+                android:id="@+id/Asignup_edit_name"
+                android:layout_width="330dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="36dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="이름을 입력해주세요."
+                android:inputType="textPersonName"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                android:maxLength="30"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw_check"
+                app:layout_constraintTop_toBottomOf="@+id/Asignup_edit_pw_check" />
+
+            <TextView
+                android:id="@+id/Asignup_text7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="40dp"
+                android:text="이름"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Asignup_edit_name"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_name" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Asignup_btn_checkid"
+                android:layout_width="90dp"
+                android:layout_height="29dp"
+                android:background="@drawable/solid_designgray_6dp"
+                android:text="중복 확인"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/Asignup_edit_id"
+                app:layout_constraintStart_toEndOf="@+id/Asignup_edit_id"
+                app:layout_constraintTop_toTopOf="@+id/Asignup_edit_id" />
+
+            <EditText
+                android:id="@+id/Asignup_edit_phonenum"
+                android:layout_width="210dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="59dp"
+                android:layout_marginTop="28dp"
+                android:backgroundTint="@color/designgray"
+                android:ems="10"
+                android:hint="휴대 전화 번호를 입력해주세요."
+                android:inputType="phone"
+                android:textColorHint="@color/designgray"
+                android:textSize="14sp"
+                android:maxLength="11"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_name"
+                app:layout_constraintTop_toBottomOf="@+id/Asignup_edit_name" />
+
+            <TextView
+                android:id="@+id/Asignup_text8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="휴대 전화 번호 인증"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_text7"
+                app:layout_constraintTop_toBottomOf="@+id/Asignup_edit_name" />
+
+            <Spinner
+                android:id="@+id/Asignup_spinner"
+                android:layout_width="66dp"
+                android:layout_height="29dp"
+                android:background="@drawable/custom_spinner"
+                android:contentDescription="통신사 선택"
+                android:dropDownVerticalOffset="25dp"
+                android:popupBackground="@drawable/custom_spinner_popup"
+                app:layout_constraintBottom_toBottomOf="@+id/Asignup_edit_phonenum"
+                app:layout_constraintEnd_toStartOf="@+id/Asignup_edit_phonenum"
+                app:layout_constraintTop_toTopOf="@+id/Asignup_edit_phonenum"
+                app:layout_constraintVertical_bias="0.473" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="330dp"
+                android:layout_height="66dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/line_designgray6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Asignup_spinner">
+
+
+                <TextView
+                    android:id="@+id/Asignup_text10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="인증번호"
+                    android:textColor="@color/deepgray"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/Asignup_edit_num"
+                    android:layout_width="170dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="-5dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="인증번호 6자리 입력"
+                    android:inputType="numberSigned"
+                    android:textColorHint="@color/designgray"
+                    android:textSize="14sp"
+                    android:maxLength="6"
+                    app:layout_constraintStart_toStartOf="@+id/Asignup_text10"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/Asignup_text_num"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="03:00"
+                    android:textColor="@color/highlight"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/Asignup_btn_checknum"
+                    app:layout_constraintTop_toTopOf="@+id/Asignup_edit_num" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/Asignup_btn_checknum"
+                    android:layout_width="62dp"
+                    android:layout_height="26dp"
+                    android:layout_marginEnd="13dp"
+                    android:background="@drawable/solid_designgray_6dp"
+                    android:clickable="false"
+                    android:text="확인"
+                    android:textColor="@color/deepgray"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/Asignup_text_num"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/Asignup_text_num" />
+
+                <ImageButton
+                    android:id="@+id/Asignup_btn_x"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="7dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/Asignup_text_num"
+                    app:layout_constraintEnd_toStartOf="@+id/Asignup_text_num"
+                    app:layout_constraintTop_toTopOf="@+id/Asignup_text_num"
+                    app:srcCompat="@drawable/svg_x" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/Asignup_text9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="10dp"
+                android:text="3분 이내로 인증번호 6자리를 입력해주세요.\n인증번호가 전송되지 않은 경우 &quot;재전송&quot;을 눌러주세요."
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Asignup_btn_next"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginBottom="28dp"
+                android:background="@drawable/solid_maincolor_6dp"
+                android:text="다음"
+                android:textColor="@color/deepgray"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.506"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Asignup_text9" />
+
+            <TextView
+                android:id="@+id/Asignup_text_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="44dp"
+                android:text="text"
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/Asignup_edit_pw"
+                app:layout_constraintTop_toTopOf="@+id/Asignup_edit_pw" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Asignup_btn_sendnum"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:background="@drawable/solid_designgray_6dp"
+                android:text="인증번호"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/Asignup_edit_phonenum"
+                app:layout_constraintEnd_toEndOf="@+id/Asignup_edit_name"
+                app:layout_constraintTop_toTopOf="@+id/Asignup_edit_phonenum" />
+
+            <TextView
+                android:id="@+id/Asignup_text_resend"
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:gravity="center"
+                android:text="재전송"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/Asignup_text9"
+                app:layout_constraintEnd_toStartOf="@+id/Asignup_text9"
+                app:layout_constraintTop_toTopOf="@+id/Asignup_text9" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
