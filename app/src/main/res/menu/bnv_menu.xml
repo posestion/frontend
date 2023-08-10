@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bnv_pose"
+        android:icon="@drawable/svg_poseshop"
+        android:title="포즈상점" />
+    <item
+        android:id="@+id/bnv_camera"
+        android:icon="@drawable/svg_camera"
+        android:title="카메라" />
+    <item
+        android:id="@+id/bnv_home"
+        android:icon="@drawable/svg_home"
+        android:title="홈" />
+    <item
+        android:id="@+id/bnv_board"
+        android:icon="@drawable/svg_board"
+        android:title="게시판" />
+    <item
+        android:id="@+id/bnv_mypage"
+        android:icon="@drawable/svg_mypage"
+        android:title="마이" />
+</menu>
