@@ -33,8 +33,6 @@ class ActivityContents : AppCompatActivity() {
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.adapter = AdapterContents(myDataSet, this@ActivityContents, resources)
 
-        myDataSet.add(DataContents("오마이걸", "효정 금발", "100", "20", R.drawable.h))
-        myDataSet.add(DataContents("오마이걸", "효정 흑발", "110", "22", R.drawable.h2))
 
         recyclerView.adapter?.notifyDataSetChanged()
     }

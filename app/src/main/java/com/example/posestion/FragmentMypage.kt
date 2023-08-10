@@ -48,9 +48,6 @@ class FragmentMypage : Fragment() {
             recyclerViewclass.layoutManager =
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
             recyclerViewclass.adapter = AdapterMypageClass(ClassData, resources)
-            ClassData.add(DataClass("오마이걸 효정 개이쁘다", R.drawable.h))
-            ClassData.add(DataClass("오마이걸 효정 흑발도 개이쁘다", R.drawable.h2))
-            ClassData.add(DataClass("엔믹스 혜원 미쳤다", R.drawable.h3))
         }
 
         nickname = binding.fmypageTextNick
@@ -62,9 +59,6 @@ class FragmentMypage : Fragment() {
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         recyclerViewcontents.adapter = AdapterMypageContents(ContentsData, resources)
 
-        ContentsData.add(DataContents("오마이걸", "효정 금발", "100", "20", R.drawable.h))
-        ContentsData.add(DataContents("오마이걸", "효정 흑발", "110", "22", R.drawable.h2))
-        ContentsData.add(DataContents("엔믹스", "혜원", "1.1k", "22", R.drawable.h3))
 
         binding.fmypageBtnPen.setOnClickListener {
             val intent = Intent(activity, ActivityChangeUser::class.java)
