@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/board_listpage_list_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="경주 여행 가자마자 찍은 사진인데"
+                android:textColor="@color/basic"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/board_listpage_list_ex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:ems="20"
+                android:text="어때? 괜찮게 나왔어? 나 이거 인스타에 올릴까 하는데 어떤 사진이 더 좋은거 같아?"
+                android:textColor="@color/basic"
+                android:textSize="10sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/board_listpage_list_heart"
+                    android:layout_width="16dp"
+                    android:layout_height="14dp"
+                    android:layout_marginRight="6dp"
+                    android:scaleType="centerInside"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/list_empty_heart" />
+
+                <TextView
+                    android:id="@+id/board_listpage_list_heartnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/gray"
+                    android:textSize="10sp" />
+
+                <ImageButton
+                    android:id="@+id/board_listpage_list_comment"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="6dp"
+                    android:scaleType="centerInside"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/list_comment" />
+
+                <TextView
+                    android:id="@+id/board_listpage_list_commentnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/gray"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/board_listpage_list_photo"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/imageview" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
