@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".board_contents_view">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+
+            <TextView
+                android:id="@+id/board_contents_view_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="경주 여행 가자마자 찍은 사진인데"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/basic"
+                android:layout_marginTop="17dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="9dp">
+
+                <ImageButton
+                    android:id="@+id/board_contents_view_profile"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/profile_icon"
+                    android:background="@android:color/transparent" />
+
+                <TextView
+                    android:id="@+id/board_contents_view_profilename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="루시 (aster03)"
+                    android:textColor="@color/basic"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/board_contents_view_contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="어때? 괜찮게 나왔어? 나 이거 인스타에 올리고 싶은데 \n나름 감성있는 정도라고 봐도 되는 수준이야? \n댓글이나 좋아요로 의견 알려줘~~"
+                android:textSize="12sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="12dp"
+                />
+            <ImageView
+                android:id="@+id/board_contents_view_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/imageview"/>
+
+
+<!--            <HorizontalScrollView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="19dp"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/board_contents_view_photo"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="360dp"-->
+<!--                        app:srcCompat="@drawable/imageview" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView3"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="360dp"-->
+<!--                        tools:srcCompat="@tools:sample/avatars" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView4"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="360dp"-->
+<!--                        app:srcCompat="@drawable/imageview" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageView5"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="360dp"-->
+<!--                        tools:srcCompat="@tools:sample/avatars" />-->
+<!--                </LinearLayout>-->
+<!--            </HorizontalScrollView>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="17dp">
+
+                <ImageView
+                    android:id="@+id/board_contents_view_heart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/contents_view_empty_heart"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/board_contents_view_heart_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_marginLeft="3dp"
+                    android:textSize="13sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/deepgray"/>
+
+                <ImageView
+                    android:id="@+id/board_contents_view_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/contents_view_comment"
+                    android:layout_marginLeft="7dp"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/board_contents_view_comment_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_marginLeft="3dp"
+                    android:textSize="13sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/deepgray"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

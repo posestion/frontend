@@ -20,11 +20,36 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Posestion"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".board_basic_classpage"
+            android:exported="false" />
+        <activity
+            android:name=".board_hotclass_list_page"
+            android:exported="false" />
+        <activity
+            android:name=".board_class_review_creation"
+            android:exported="false" />
+        <activity
+            android:name=".board_class_creation_page"
+            android:exported="false" />
+        <activity
+            android:name=".board_contents_view"
+            android:exported="false" />
+        <activity
+            android:name=".board_listpage"
+            android:exported="false" />
+        <activity
+            android:name=".board_master_list"
+            android:exported="false" />
+        <activity
+            android:name=".board_creation_page"
+            android:configChanges="screenSize|orientation"
+            android:exported="false" />
         <activity
             android:name=".PoseShopMain"
             android:exported="false">
@@ -96,5 +121,6 @@
         <activity android:name=".PoseShopingactiv"/>
         <activity android:name=".PoseshopFilter"/>
     </application>
+
 
 </manifest>
