@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentMypage">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fmypage_profile"
+                android:layout_width="59dp"
+                android:layout_height="59dp"
+                android:layout_marginBottom="23dp"
+                android:src="@drawable/iamge_profile"
+                app:layout_constraintBottom_toTopOf="@+id/cardView"
+                app:layout_constraintStart_toStartOf="@+id/cardView" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="300dp"
+                android:layout_height="88dp"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/corners_8dp"
+                app:cardElevation="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/fmypage_text3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="14dp"
+                        android:text="게시글"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/fmypage_text4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="팔로우"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/fmypage_text5"
+                        app:layout_constraintStart_toEndOf="@+id/fmypage_text3"
+                        app:layout_constraintTop_toTopOf="@+id/fmypage_text3" />
+
+                    <TextView
+                        android:id="@+id/fmypage_text5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="32dp"
+                        android:text="팔로잉"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/fmypage_text4" />
+
+                    <TextView
+                        android:id="@+id/fmypage_post_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="6"
+                        android:textColor="@color/maincolor"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/fmypage_text3"
+                        app:layout_constraintStart_toStartOf="@+id/fmypage_text3" />
+
+                    <TextView
+                        android:id="@+id/fmypage_follow_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="6"
+                        android:textColor="@color/maincolor"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/fmypage_text4"
+                        app:layout_constraintStart_toStartOf="@+id/fmypage_text4" />
+
+                    <TextView
+                        android:id="@+id/fmypage_following_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="6"
+                        android:textColor="@color/maincolor"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/fmypage_text5"
+                        app:layout_constraintStart_toStartOf="@+id/fmypage_text5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/fmypage_text_nick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="51dp"
+                android:text="nickname"
+                android:textColor="@color/deepgray"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/cardView"
+                app:layout_constraintStart_toEndOf="@+id/fmypage_profile" />
+
+            <TextView
+                android:id="@+id/fmypage_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="29dp"
+                android:text="포인트"
+                android:textColor="@color/gray"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/cardView"
+                app:layout_constraintStart_toEndOf="@+id/fmypage_profile" />
+
+            <TextView
+                android:id="@+id/fmypage_text_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="29dp"
+                android:text="1000"
+                android:textColor="@color/deepgray"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/cardView"
+                app:layout_constraintStart_toEndOf="@+id/fmypage_text1" />
+
+            <TextView
+                android:id="@+id/fmypage_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="점"
+                android:textColor="@color/deepgray"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/fmypage_text_point"
+                app:layout_constraintStart_toEndOf="@+id/fmypage_text_point" />
+
+            <ImageButton
+                android:id="@+id/fmypage_btn_pen"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginBottom="40dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/svg_pen_transparent"
+                app:layout_constraintBottom_toTopOf="@+id/cardView"
+                app:layout_constraintEnd_toEndOf="@+id/cardView" />
+
+            <View
+                android:id="@+id/fmypage_view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="23dp"
+                android:background="@color/lightgray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+            <TextView
+                android:id="@+id/fmypage_text_gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="8dp"
+                android:text="내가 올린 강의"
+                android:textColor="@color/maincolor"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_view1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fmypage_btn_class"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="-10dp"
+                android:background="@drawable/solid_transparent"
+                android:text="전체보기 >"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/fmypage_text_gone"
+                app:layout_constraintEnd_toEndOf="@+id/cardView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fmypage_rv_class"
+                android:layout_width="320dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/fmypage_text_gone"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_text_gone" />
+
+            <View
+                android:id="@+id/fmypage_view_gone"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="11dp"
+                android:background="@color/lightgray"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_rv_class" />
+
+            <TextView
+                android:id="@+id/fmypage_text6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="기본 서랍"
+                android:textColor="@color/maincolor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/fmypage_text_gone"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_view_gone" />
+
+            <TextView
+                android:id="@+id/fmypage_text7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="찜한 포즈 10개"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/fmypage_text6"
+                app:layout_constraintStart_toEndOf="@+id/fmypage_text6"
+                app:layout_constraintTop_toTopOf="@+id/fmypage_text6" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fmypage_btn_jim"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="-10dp"
+                android:background="@drawable/solid_transparent"
+                android:text="전체보기 >"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/fmypage_text6"
+                app:layout_constraintEnd_toEndOf="@+id/cardView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fmypage_rv_jim"
+                android:layout_width="320dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/fmypage_text6"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_text6" />
+
+            <View
+                android:id="@+id/fmypage_view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="11dp"
+                android:background="@color/lightgray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_rv_jim" />
+
+            <TextView
+                android:id="@+id/fmypage_text8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="내가 올린 컨텐츠"
+                android:textColor="@color/maincolor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/fmypage_text6"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_view3" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fmypage_btn_content"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="-10dp"
+                android:background="@drawable/solid_transparent"
+                android:text="전체보기 >"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/fmypage_text8"
+                app:layout_constraintEnd_toEndOf="@+id/cardView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fmypage_rv_content"
+                android:layout_width="320dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/fmypage_text8"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_text8" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

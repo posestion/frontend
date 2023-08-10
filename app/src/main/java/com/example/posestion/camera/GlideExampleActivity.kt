@@ -3,7 +3,6 @@ package com.example.posestion.camera
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.example.posestion.R
 import com.example.posestion.databinding.ActivityGlideExampleBinding
 
 class GlideExampleActivity : AppCompatActivity() {
