@@ -41,7 +41,7 @@
             android:configChanges="screenSize|orientation"
             android:exported="false" />
         <activity
-            android:name=".board_home"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
