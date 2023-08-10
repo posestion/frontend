@@ -109,9 +109,9 @@
             android:checkable="true"
             android:text="필터"
             android:textSize="11dp"
-            app:chipIconSize="16dp"
+            app:chipIconSize="24dp"
             app:chipIconTint="@color/deepgray"
-            app:chipStartPadding="6dp"
+            app:chipStartPadding="8dp"
             app:chipIcon="@drawable/baseline_keyboard_arrow_down_24"
             app:closeIconEnabled="true"
             app:chipIconVisible="true"
@@ -147,5 +147,16 @@
     </com.google.android.material.chip.ChipGroup>
 
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reflow_group"
+        app:layout_constraintVertical_bias="0.0"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

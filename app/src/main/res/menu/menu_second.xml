@@ -2,10 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/item1"
-        android:title="장바구니 담기">
+        android:title="장바구니 담기"
+        android:icon="@drawable/baseline_search_24"
+        style="@style/CustomMenuItemStyle">
     </item>
     <item
         android:id="@+id/item2"
-        android:title="포즈 즐겨찾기">
+        android:title="포즈 즐겨찾기"
+        style="@style/CustomMenuItemStyle">
     </item>
 </menu>

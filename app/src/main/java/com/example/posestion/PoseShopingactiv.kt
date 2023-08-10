@@ -31,24 +31,6 @@ class PoseShopingactiv: AppCompatActivity() {
             }
         }
 
-        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT
-        ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                TODO("Not yet implemented")
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                rvAdapter.removeData(viewHolder.layoutPosition)
-            }
-        }
-
-        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(binding.recyclerView)
-
         binding.bbutton.setOnClickListener {
             val intent = Intent(this, PoseShopMain::class.java)
             startActivity(intent)

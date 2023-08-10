@@ -25,20 +25,20 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="154dp"
-                android:layout_height="155dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="47dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/baseline_square_24" />
+                app:srcCompat="@drawable/rectangle_67" />
 
             <ImageButton
                 android:id="@+id/heartButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="4dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="@+id/imageView"
@@ -49,17 +49,17 @@
                 android:layout_width="154dp"
                 android:layout_height="155dp"
                 android:layout_marginStart="191dp"
-                android:layout_marginTop="47dp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/baseline_square_24" />
+                app:srcCompat="@drawable/rectangle_67" />
 
             <ImageButton
                 android:id="@+id/heartButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="4dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="@+id/imageView2"
@@ -73,14 +73,14 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
-                app:srcCompat="@drawable/baseline_square_24" />
+                app:srcCompat="@drawable/rectangle_67" />
 
             <ImageButton
                 android:id="@+id/heartButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="4dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3"
@@ -94,13 +94,14 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3"
-                app:srcCompat="@drawable/baseline_square_24" />
+                app:srcCompat="@drawable/rectangle_67" />
+
             <ImageButton
                 android:id="@+id/heartButton5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="4dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="@+id/imageView5"
@@ -114,13 +115,14 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                app:srcCompat="@drawable/baseline_square_24" />
+                app:srcCompat="@drawable/rectangle_67" />
+
             <ImageButton
                 android:id="@+id/heartButton4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="4dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="@+id/imageView4"
@@ -134,13 +136,14 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4"
-                app:srcCompat="@drawable/baseline_square_24" />
+                app:srcCompat="@drawable/rectangle_67" />
+
             <ImageButton
                 android:id="@+id/heartButton6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="4dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView6"
                 app:layout_constraintTop_toTopOf="@+id/imageView6"
@@ -154,13 +157,14 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView5"
-                app:srcCompat="@drawable/baseline_square_24" />
+                app:srcCompat="@drawable/rectangle_67" />
+
             <ImageButton
                 android:id="@+id/heartButton7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="4dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toTopOf="@+id/imageView7"
@@ -174,13 +178,14 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView6"
-                app:srcCompat="@drawable/baseline_square_24" />
+                app:srcCompat="@drawable/rectangle_67" />
+
             <ImageButton
                 android:id="@+id/heartButton8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="4dp"
                 android:background="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView8"
                 app:layout_constraintTop_toTopOf="@+id/imageView8"

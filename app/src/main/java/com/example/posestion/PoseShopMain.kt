@@ -4,19 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.posestion.databinding.PoseshopmainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class PoseShopMain : AppCompatActivity() {
     private lateinit var binding: PoseshopmainBinding
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= PoseshopmainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
         binding.viewpager.apply{
             adapter=MyPagerAdapter(context as FragmentActivity)
@@ -53,5 +58,6 @@ class PoseShopMain : AppCompatActivity() {
                 return false
             }
         })
+
     }
 }
