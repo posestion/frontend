@@ -133,7 +133,7 @@ class MyFragment2 : Fragment() {
             }
         }
         val newImageView4 = rootView.findViewById<View>(com.example.posestion.R.id.imageView4)
-        val newImageViewId4 = R.drawable.baseline_check_circle_24
+        val newImageViewId4 = R.drawable.__icon__bell_
         // 새로운 이미지뷰에 클릭 리스너를 등록합니다.
         newImageView4.setOnClickListener {
             // 이미지를 크게 보여주는 AlertDialog를 표시합니다.
@@ -146,10 +146,10 @@ class MyFragment2 : Fragment() {
             isButtonFilled4 = !isButtonFilled4
             if (isButtonFilled4) {
                 buttonEvent4.setBackgroundResource(com.example.posestion.R.drawable.fillheart)
-                onHeartButtonClick(R.drawable.baseline_check_circle_24)
+                onHeartButtonClick(R.drawable.__icon__bell_)
             } else {
                 buttonEvent4.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                sharedViewModel.removeImage(R.drawable.baseline_check_circle_24)
+                sharedViewModel.removeImage(R.drawable.__icon__bell_)
             }
         }
         sharedViewModel.removedImage.observe(viewLifecycleOwner) { removedImageId ->
