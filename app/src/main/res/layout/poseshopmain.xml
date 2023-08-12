@@ -118,32 +118,6 @@
             app:chipStrokeColor="@color/lightgray"
             app:chipStrokeWidth="1.5dp" />
 
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:text="#사랑"
-            android:textSize="11dp"
-            app:chipStrokeColor="@color/lightgray"
-            app:chipStrokeWidth="1.5dp" />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:text="#커플"
-            android:textSize="11dp"
-            app:chipStrokeColor="@color/lightgray"
-            app:chipStrokeWidth="1.5dp" />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:text="#상반신"
-            android:textSize="11dp"
-            app:chipStrokeColor="@color/lightgray"
-            app:chipStrokeWidth="1.5dp" />
     </com.google.android.material.chip.ChipGroup>
 
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.example.posestion.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -34,9 +35,10 @@ class ActivityMain : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.bnv_pose -> {
+                    binding.AmainToolbar.visibility = View.GONE
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(binding.AmainFrame.id, FragmentMypage())
+                        .replace(binding.AmainFrame.id, PoseshopMainFragment()) // Replace with your fragment
                         .commitAllowingStateLoss()
                     true
                 }

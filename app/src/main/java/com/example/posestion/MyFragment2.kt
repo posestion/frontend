@@ -28,8 +28,6 @@ class MyFragment2 : Fragment() {
             sharedViewModel = sharedViewModel,
             showLargeImageDialog = showLargeImageDialog
         )
-        viewModel = ViewModelProvider(this).get(MyCustomViewModel::class.java)
-        rvAdapter = MyRecyclerViewAdapter(viewModel)
     }
 
     private fun onHeartButtonClick(imageId: Int) {
@@ -43,6 +41,9 @@ class MyFragment2 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_layout_2, container, false)
+
+        viewModel = ViewModelProvider(this).get(MyCustomViewModel::class.java)
+        rvAdapter = MyRecyclerViewAdapter(viewModel)
 
         // 새로운 이미지뷰를 찾습니다. (XML에서 적절한 ID를 지정해야 합니다.)
         val newImageView = rootView.findViewById<View>(R.id.imageView)

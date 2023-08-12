@@ -22,6 +22,12 @@ class PoseShopMain : AppCompatActivity() {
         binding= PoseshopmainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PoseshopMainFragment())
+                .commit()
+        }
+
         val receivedValue = intent.getStringExtra("key_name")
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
         viewModel = ViewModelProvider(this).get(MyCustomViewModel::class.java)
@@ -35,12 +41,15 @@ class PoseShopMain : AppCompatActivity() {
             tab.text = tabTitles[position]
         }.attach()
 
-        binding.sbutton.setOnClickListener({
+        binding.sbutton.setOnClickListener {
             val intent = Intent(this, PoseShopingactiv::class.java)
             intent.putExtra("key_name", receivedValue)
-            intent.putIntegerArrayListExtra("addedImageIds", ArrayList(viewModel.addedImageIds.value))
+            intent.putIntegerArrayListExtra(
+                "addedImageIds",
+                ArrayList(viewModel.addedImageIds.value)
+            )
             startActivity(intent)
-        })
+        }
         binding.filter.setOnClickListener({
             val intent = Intent(this, PoseshopFilter::class.java)
             startActivity(intent)
