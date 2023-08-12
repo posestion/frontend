@@ -12,6 +12,8 @@ class ActivityMain : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private lateinit var bottomNavigationView: BottomNavigationView
+    private val user = MyApplication.user
+    private val editor = user.edit()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +85,15 @@ class ActivityMain : AppCompatActivity() {
             R.id.mypage_help -> {
                 val intent = Intent(this, ActivityHelp::class.java)
                 startActivity(intent)
+                true
+            }
+            R.id.mypage_logout -> {
+                if(user.getBoolean("autologin", false)){
+                    editor.putBoolean("autologin", false)
+                }
+                val intent = Intent(this, ActivityLogin::class.java)
+                startActivity(intent)
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
