@@ -18,19 +18,30 @@ class MyFragment2 : Fragment() {
 
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var imageAdapter: ImageAdapter
+    private lateinit var viewModel: MyCustomViewModel
+    private lateinit var rvAdapter: MyRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-        imageAdapter = ImageAdapter(sharedViewModel = sharedViewModel, showLargeImageDialog = showLargeImageDialog)
+        imageAdapter = ImageAdapter(
+            sharedViewModel = sharedViewModel,
+            showLargeImageDialog = showLargeImageDialog
+        )
+        viewModel = ViewModelProvider(this).get(MyCustomViewModel::class.java)
+        rvAdapter = MyRecyclerViewAdapter(viewModel)
     }
 
     private fun onHeartButtonClick(imageId: Int) {
         sharedViewModel.addNewImage(imageId)
-        Log.d(imageId.toString(),"bbb")
+        Log.d(imageId.toString(), "bbb")
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_layout_2, container, false)
 
         // 새로운 이미지뷰를 찾습니다. (XML에서 적절한 ID를 지정해야 합니다.)
@@ -206,10 +217,8 @@ class MyFragment2 : Fragment() {
         val imageButton1 = dialogView.findViewById<ImageButton>(R.id.imageButton)
         imageButton1.setOnClickListener {
             showPopupMenu(it, imageId)
-            }
         }
-
-    private val rvAdapter = MyRecyclerViewAdapter()
+    }
 
     private fun showPopupMenu(view: View, imageId: Int) {
         val popupMenu = PopupMenu(requireContext(), view)
@@ -219,7 +228,13 @@ class MyFragment2 : Fragment() {
             when (item.itemId) {
                 R.id.item1 -> {
                     Log.d("Popup", "Adding pose with imageId: $imageId")
-                    rvAdapter.addPose(imageId)
+                    val viewModel =
+                        ViewModelProvider(requireActivity()).get(MyCustomViewModel::class.java)
+                    // 이미지 ID를 ViewModel을 이용하여 추가합니다.
+                    viewModel.addImageId(imageId)
+                    // RecyclerView Adapter의 데이터를 업데이트합니다.
+                    rvAdapter.notifyDataSetChanged()
+                    Log.d("rvAdapter", rvAdapter.notifyDataSetChanged().toString())
                     true
                 }
                 R.id.item2 -> {

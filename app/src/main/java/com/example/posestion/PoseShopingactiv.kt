@@ -2,10 +2,13 @@ package com.example.posestion
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -16,23 +19,40 @@ import com.example.posestion.databinding.PoseshopshoppingBinding
 
 class PoseShopingactiv: AppCompatActivity() {
     private lateinit var binding: PoseshopshoppingBinding
-    private val rvAdapter = MyRecyclerViewAdapter()
+    private lateinit var viewModel: MyCustomViewModel
+    private lateinit var rvAdapter: MyRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = PoseshopshoppingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        with(binding) {
-            with(recyclerView) {
-                layoutManager = GridLayoutManager(context, 2)
-                adapter = rvAdapter
-                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            }
+        viewModel = ViewModelProvider(this).get(MyCustomViewModel::class.java)
+        rvAdapter = MyRecyclerViewAdapter(viewModel)
+
+        val receivedValue = intent.getStringExtra("key_name")
+        val addedImageIds = intent.getIntegerArrayListExtra("addedImageIds") ?: ArrayList()
+        Log.d("ReceivedValue", receivedValue ?: "No value received")
+
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
+        binding.recyclerView.adapter = rvAdapter
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+
+        viewModel = ViewModelProvider(this).get(MyCustomViewModel::class.java)
+        addedImageIds.forEach { imageId ->
+            viewModel.addImageId(imageId)
         }
+
+        viewModel.addedImageIds.observe(this, Observer { addedImageIds ->
+            Log.d("ReceivedValue2", viewModel.addedImageIds.toString())
+            Log.d("ReceivedValue3", addedImageIds.toString())
+            rvAdapter.updateData(addedImageIds)
+        })
 
         binding.bbutton.setOnClickListener {
             val intent = Intent(this, PoseShopMain::class.java)
+            intent.putExtra("key_name", "Hello from previous activity")
             startActivity(intent)
         }
 
