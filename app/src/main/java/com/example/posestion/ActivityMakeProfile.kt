@@ -138,7 +138,8 @@ class ActivityMakeProfile : AppCompatActivity() {
                             Log.d("Retrofit", result.toString())
                             if(result != null){
                                 Log.d("Retrofit", result.message.toString())
-                                val intent = Intent(this@ActivityMakeProfile, ActivityLogin::class.java)
+                                val intent = Intent(this@ActivityMakeProfile, ActivitySuccessSignup::class.java)
+                                intent.putExtra("name", username.toString())
                                 startActivity(intent)
                                 finish()
                             }

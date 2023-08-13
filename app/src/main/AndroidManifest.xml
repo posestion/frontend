@@ -25,6 +25,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ActivitySuccessSignup"
+            android:exported="false" />
+        <activity
             android:name=".ActivitySuccessLogin"
             android:exported="false" />
         <activity
@@ -54,13 +57,13 @@
             android:exported="false" />
         <activity
             android:name=".PoseShopMain"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".camera.GlideExampleActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".camera.CameraMainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".ActivityJim"
             android:exported="false" />
