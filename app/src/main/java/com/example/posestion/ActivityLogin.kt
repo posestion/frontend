@@ -140,7 +140,7 @@ class ActivityLogin : AppCompatActivity() {
                                 editor.putString("pw", pw)
                                 editor.putString("jwt", token)
                                 editor.apply()
-                                val intent = Intent(this@ActivityLogin, ActivityMain::class.java)
+                                val intent = Intent(this@ActivityLogin, ActivitySuccessLogin::class.java)
                                 startActivity(intent)
                                 finish()
                             }

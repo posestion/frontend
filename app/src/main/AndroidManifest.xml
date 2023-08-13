@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <!--    for camera - START  -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- for camera - START -->
     <uses-feature android:name="android.hardware.camera.any" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-    <!--    for camera - END   -->
 
     <application
         android:name=".MyApplication"
@@ -20,11 +19,14 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Posestion"
-        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ActivitySuccessLogin"
+            android:exported="false" />
         <activity
             android:name=".board_basic_classpage"
             android:exported="false" />
@@ -52,17 +54,13 @@
             android:exported="false" />
         <activity
             android:name=".PoseShopMain"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"></activity>
         <activity
             android:name=".camera.GlideExampleActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".camera.CameraMainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ActivityJim"
             android:exported="false" />
@@ -115,12 +113,12 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PoseShopingactiv"/>
-        <activity android:name=".PoseshopFilter"/>
+        <activity android:name=".PoseShopingactiv" />
+        <activity android:name=".PoseshopFilter" />
     </application>
-
 
 </manifest>
