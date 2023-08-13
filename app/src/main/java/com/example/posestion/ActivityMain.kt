@@ -90,6 +90,7 @@ class ActivityMain : AppCompatActivity() {
             R.id.mypage_logout -> {
                 if(user.getBoolean("autologin", false)){
                     editor.putBoolean("autologin", false)
+                    editor.apply()
                 }
                 val intent = Intent(this, ActivityLogin::class.java)
                 startActivity(intent)
