@@ -64,7 +64,6 @@ class PoseShopingactiv: AppCompatActivity() {
                 rvAdapter.selectAllItems()
                 binding.textView6.setTextColor(ContextCompat.getColor(context, R.color.black))
             } else {
-                rvAdapter.clearSelectedItems()
                 binding.textView6.setTextColor(ContextCompat.getColor(context, R.color.gray))
             }
         }
