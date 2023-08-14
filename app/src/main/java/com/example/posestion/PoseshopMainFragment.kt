@@ -3,6 +3,7 @@ package com.example.posestion
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ class PoseshopMainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = PoseshopmainBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(requireActivity()).get(MyCustomViewModel::class.java)
         return binding.root
     }
 
@@ -34,7 +36,6 @@ class PoseshopMainFragment : Fragment() {
 
         val receivedValue = activity?.intent?.getStringExtra("key_name")
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-        viewModel = ViewModelProvider(requireActivity()).get(MyCustomViewModel::class.java)
 
         binding.viewpager.apply {
             adapter = MyPagerAdapter(requireContext() as FragmentActivity)
@@ -46,10 +47,12 @@ class PoseshopMainFragment : Fragment() {
             tab.text = tabTitles[position]
         }.attach()
 
+
         binding.sbutton.setOnClickListener {
             val intent = Intent(requireContext(), PoseShopingactiv::class.java)
             intent.putExtra("key_name", receivedValue)
             intent.putIntegerArrayListExtra("addedImageIds", ArrayList(viewModel.addedImageIds.value))
+            Log.d("MyRecyclerViewAdapter91", viewModel.addedImageIds.value.toString())
             startActivity(intent)
         }
 
@@ -70,5 +73,9 @@ class PoseshopMainFragment : Fragment() {
                 return false
             }
         })
+    }
+    override fun onResume() {
+        super.onResume()
+        // 제거 로직이 필요 없음
     }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -231,11 +232,10 @@ class MyFragment2 : Fragment() {
                     Log.d("Popup", "Adding pose with imageId: $imageId")
                     val viewModel =
                         ViewModelProvider(requireActivity()).get(MyCustomViewModel::class.java)
-                    // 이미지 ID를 ViewModel을 이용하여 추가합니다.
                     viewModel.addImageId(imageId)
-                    // RecyclerView Adapter의 데이터를 업데이트합니다.
                     rvAdapter.notifyDataSetChanged()
-                    Log.d("rvAdapter", rvAdapter.notifyDataSetChanged().toString())
+
+                    Toast.makeText(requireContext(), "포즈가 장바구니에 담겼어요!", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.item2 -> {

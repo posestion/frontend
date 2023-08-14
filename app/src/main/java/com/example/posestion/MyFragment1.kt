@@ -33,7 +33,6 @@ class MyFragment1 : Fragment() {
         recyclerView = rootView.findViewById(R.id.recycler_view)
 
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
 
         recyclerView.adapter = imageAdapter
 

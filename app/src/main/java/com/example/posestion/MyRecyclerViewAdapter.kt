@@ -16,9 +16,7 @@ class MyRecyclerViewAdapter(private val viewModel: MyCustomViewModel):  Recycler
     private val addedImageIds = mutableListOf<Int>()
 
     private val imageIdsObserver = Observer<List<Int>> { newImageList ->
-        addedImageIds.clear()
-        addedImageIds.addAll(newImageList)
-        notifyDataSetChanged()
+        updateData(newImageList)
         Log.d("MyRecyclerViewAdapter1", "updateData() called with newImageList size: ${newImageList.size}")
     }
 
@@ -51,9 +49,13 @@ class MyRecyclerViewAdapter(private val viewModel: MyCustomViewModel):  Recycler
 
     fun removeData(position: Int) {
         if (position in 0 until addedImageIds.size) {
+            val imageIdToRemove = addedImageIds[position]
             addedImageIds.removeAt(position)
             notifyItemRemoved(position)
-            notifyItemRangeChanged(position, addedImageIds.size) // 변경된 위치 이후의 아이템들을 다시 그리도록 알려줌
+            notifyDataSetChanged()
+            // 뷰모델에서도 해당 아이템을 삭제
+            viewModel.removeImageId(imageIdToRemove)
+            Log.d("MyRecyclerViewAdapter61", addedImageIds.toString())
         }
     }
 
@@ -76,6 +78,12 @@ class MyRecyclerViewAdapter(private val viewModel: MyCustomViewModel):  Recycler
     interface OnPopupMenuClickListener {
         fun onPopupMenuClick(view: View, position: Int)
     }
+    fun getImageIdAtPosition(position: Int): Int {
+        if (position in 0 until addedImageIds.size) {
+            return addedImageIds[position]
+        }
+        return -1 // 위치가 잘못되었을 경우 -1 또는 다른 기본값을 반환할 수 있습니다.
+    }
 
     private var popupMenuClickListener: OnPopupMenuClickListener? = null
 
@@ -84,5 +92,28 @@ class MyRecyclerViewAdapter(private val viewModel: MyCustomViewModel):  Recycler
     }
     fun onDestroy() {
         viewModel.addedImageIds.removeObserver(imageIdsObserver)
+    }
+    fun selectAllItems() {
+        addedImageIds.clear()
+        addedImageIds.addAll(viewModel.getAllImageIds())
+        notifyDataSetChanged()
+    }
+
+    // 선택한 아이템 초기화
+    fun clearSelectedItems() {
+        addedImageIds.clear()
+        notifyDataSetChanged()
+    }
+
+    // 선택된 아이템의 이미지 ID 목록 반환
+    fun getSelectedImageIds(): List<Int> {
+        return addedImageIds.toList()
+    }
+
+    // 선택된 아이템 제거
+    fun removeSelectedItems() {
+        viewModel.removeImageIds(addedImageIds)
+        addedImageIds.clear()
+        notifyDataSetChanged()
     }
 }
