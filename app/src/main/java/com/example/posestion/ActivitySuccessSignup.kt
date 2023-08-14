@@ -24,6 +24,6 @@ class ActivitySuccessSignup : AppCompatActivity() {
             val intent = Intent(this, ActivityLogin::class.java)
             startActivity(intent)
 
-        }, 500, TimeUnit.MILLISECONDS)
+        }, 1500, TimeUnit.MILLISECONDS)
     }
 }

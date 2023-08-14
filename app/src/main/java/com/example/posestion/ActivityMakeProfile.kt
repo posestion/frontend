@@ -127,6 +127,7 @@ class ActivityMakeProfile : AppCompatActivity() {
             val birth = "${y}-${m2}-${d2}".toRequestBody("text/plain".toMediaTypeOrNull())
             val nickname = profilenickname.toRequestBody("text/plain".toMediaTypeOrNull())
             val username = intent.getStringExtra("name").toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            val name = intent.getStringExtra("name").toString()
 
             val call = RetrofitObject.getRetrofitService
             call.signup(marketingAgreement, userId, password, phoneNumber, birth, nickname, username, imagePart)
@@ -139,7 +140,7 @@ class ActivityMakeProfile : AppCompatActivity() {
                             if(result != null){
                                 Log.d("Retrofit", result.message.toString())
                                 val intent = Intent(this@ActivityMakeProfile, ActivitySuccessSignup::class.java)
-                                intent.putExtra("name", username.toString())
+                                intent.putExtra("name", name)
                                 startActivity(intent)
                                 finish()
                             }
