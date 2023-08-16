@@ -1,10 +1,13 @@
 package com.example.posestion.connection
 
+import android.content.SharedPreferences
+import com.example.posestion.MyApplication
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -54,4 +57,16 @@ interface RetrofitAPI {
     //회원정보 불러오기
     @GET("/app/getAllUsers")
     fun getall(): Call<List<RetrofitClient.ResponseAll>>
+
+    //내가 올린 컨텐츠
+    @GET("/app/mypage/myContent")
+    fun mycontents(
+        @Header("x-access-token") token: String
+    ): Call<RetrofitClient.ResponsemyContent>
+
+    //마이페이지
+    @GET("/app/mypage")
+    fun mypage(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypage>
 }

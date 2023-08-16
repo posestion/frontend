@@ -142,7 +142,6 @@ class ActivityLogin : AppCompatActivity() {
                                 editor.apply()
                                 val intent = Intent(this@ActivityLogin, ActivitySuccessLogin::class.java)
                                 startActivity(intent)
-                                finish()
                             }
                         }
                     }

@@ -20,7 +20,7 @@ class ActivitySuccessLogin : AppCompatActivity() {
         executor.schedule({
             val intent = Intent(this, ActivityMain::class.java)
             startActivity(intent)
-
+            finish()
         }, 500, TimeUnit.MILLISECONDS)
     }
 }
