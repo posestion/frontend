@@ -294,9 +294,9 @@ class RetrofitClient {
         @SerializedName("user_id")
         val userId: Int,
         @SerializedName("title")
-        val title: String?,
+        val title: String,
         @SerializedName("content")
-        val content: String?,
+        val content: String,
         @SerializedName("pose_image")
         val poseImage: String
     )

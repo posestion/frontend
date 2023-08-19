@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -79,6 +80,10 @@ class MyFragment3 : Fragment() {
                                 .centerCrop()
                                 .into(imageView)
 
+                            imageView.setOnClickListener {
+                                // 이미지를 크게 보여주는 AlertDialog를 표시합니다.
+                                showLargeImageDialog(hotboard.poseImage, hotboard.title, hotboard.content)
+                            }
                             // 버튼 동작 처리
                             var isButtonFilled = false
                             imageButton.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
@@ -107,14 +112,23 @@ class MyFragment3 : Fragment() {
         return rootView
     }
 
-    private val showLargeImageDialog: (Int) -> Unit = { imageId ->
+    private val showLargeImageDialog: (String, String, String) -> Unit = { imageUrl, title, content ->
         // 이미지를 크게 보여주는 AlertDialog를 표시하는 로직을 작성
         val inflater = LayoutInflater.from(requireContext())
         val dialogView = inflater.inflate(R.layout.dialog_large_image, null)
 
         // 커스텀 레이아웃의 이미지뷰를 찾습니다.
         val largeImageView = dialogView.findViewById<ImageView>(R.id.largeImageView)
-        largeImageView.setImageResource(imageId) // 이미지 설정
+        Glide.with(requireContext())
+            .load(imageUrl)
+            .centerCrop()
+            .into(largeImageView)
+
+        val titleTextView = dialogView.findViewById<TextView>(R.id.textView3)
+        titleTextView.text = title
+
+        val contentTextView = dialogView.findViewById<TextView>(R.id.textView7)
+        contentTextView.text = content
 
         // AlertDialog를 생성합니다.
         val builder = AlertDialog.Builder(requireContext())
