@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlin.reflect.KFunction0
 
 class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), private val sharedViewModel: SharedViewModel,  private val showLargeImageDialog: (Int) -> Unit ) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
@@ -22,7 +23,16 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("Image ID44", position.toString())
         val imageId = imageList[position]
-        holder.imageView.setImageResource(imageId)
+
+        val imageUrl = sharedViewModel.getImageUrlForId(imageId) // 이미지 아이디에 해당하는 URL 가져오기
+
+        // 이미지 URL을 Glide로 로드하여 이미지뷰에 표시합니다.
+        Glide.with(holder.imageView.context)
+            .load(imageUrl)
+            .centerCrop()
+            .into(holder.imageView)
+
+
         holder.tvMain.text = (position + 1).toString()
         Log.d("Image ID33", imageId.toString())
         holder.imageId = imageId // 이미지 ID를 ViewHolder에 저장합니다
@@ -38,7 +48,7 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
             // Check if the imageList is not empty
             if (imageList.isNotEmpty() && isButtonFilledList.isNotEmpty() && position in 0 until imageList.size) {
                 val imageIdToRemove = imageList[position]
-
+                Log.d("HeartButtonClick2", imageIdToRemove.toString())
                 // Remove items from both lists
                 imageList.removeAt(position)
                 isButtonFilledList.removeAt(position)
@@ -49,7 +59,7 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
 
                 // Notify the sharedViewModel about the removed image ID
                 sharedViewModel.removeImage(imageIdToRemove)
-
+                sharedViewModel.deleteImage(imageIdToRemove)
 
                 Log.d("Image List2", imageList.toString())
 
@@ -84,7 +94,6 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
     override fun getItemCount(): Int {
         return imageList.size
     }
-
 
     fun getImageList(): MutableList<Int> {
         return imageList

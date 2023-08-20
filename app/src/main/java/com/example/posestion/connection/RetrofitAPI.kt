@@ -78,14 +78,14 @@ interface RetrofitAPI {
         @Part("word") word: String?,
     ): Call<RetrofitClient.PoseSearch>
 
-    @POST("/pose/addfavorite/80(pose_id)")
-    fun poseaddfavorite(): Call<RetrofitClient.PoseAddfavorit>
+    @POST("/pose/addfavorite/{pose_id}")
+    fun poseaddfavorite(@Path("pose_id") poseId: Int): Call<RetrofitClient.PoseAddfavoriteResponse>
 
-    @GET("/pose/delfavorite/80(pose_id)")
-    fun posedelfavorite(): Call<RetrofitClient.PoseDelfavorite>
+    @GET("/pose/delfavorite/{pose_id}")
+    fun posedelfavorite(@Path("pose_id") poseId: Int): Call<RetrofitClient.PoseDelfavorite>
 
     @GET("/pose/favoriteview")
-    fun posefavoriteview(): Call<RetrofitClient.PoseFavoriteview>
+    fun posefavoriteview(): Call<RetrofitClient.PoseFavoriteviewResponse>
 
     @GET("/pose/hotboard")
     fun posehotboard(): Call<RetrofitClient.PoseHotboardResponse>

@@ -1,7 +1,6 @@
 package com.example.posestion
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,9 +33,24 @@ class MyFragment3 : Fragment() {
         Log.d("TokenDebug2", retrofitServiceWithToken.toString())
     }
 
-    private fun onHeartButtonClick(imageId: Int) {
-        sharedViewModel.addNewImage(imageId)
+    private fun onHeartButtonClick(imageId: Int,imageUrl: String) {
         Log.d(imageId.toString(),"bbb")
+
+        retrofitServiceWithToken.poseaddfavorite(imageId).enqueue(object : Callback<RetrofitClient.PoseAddfavoriteResponse> {
+            override fun onResponse(
+                call: Call<RetrofitClient.PoseAddfavoriteResponse>,
+                response: Response<RetrofitClient.PoseAddfavoriteResponse>
+            ) {
+                if (response.isSuccessful) {
+                    sharedViewModel.addNewImage(imageId)
+                    sharedViewModel.addImageUrl(imageId, imageUrl)
+                }
+            }
+            override fun onFailure(call: Call<RetrofitClient.PoseAddfavoriteResponse>, t: Throwable) {
+                val errorMessage = "Call Failed: ${t.message}"
+                Log.d("Retrofit23", errorMessage)
+            }
+        })
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -92,10 +106,20 @@ class MyFragment3 : Fragment() {
                                 isButtonFilled = !isButtonFilled
                                 if (isButtonFilled) {
                                     imageButton.setBackgroundResource(com.example.posestion.R.drawable.fillheart)
-                                    onHeartButtonClick(hotboard.id)
+                                    onHeartButtonClick(hotboard.id,hotboard.poseImage)
+                                    Log.d("HeartButtonClick1", hotboard.id.toString())
                                 } else {
                                     imageButton.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
                                     Log.d("HeartButtonClick", "Canceled Pose ID: ${hotboard.id}")
+                                    sharedViewModel.deleteImage(hotboard.id)
+                                }
+                            }
+                            sharedViewModel.removedImage.observe(viewLifecycleOwner) { removedImageId ->
+                                Log.d("removedImage ID2", removedImageId.toString())
+                                Log.d("removedImage ID22", hotboard.id.toString())
+                                if (removedImageId == hotboard.id) { // 이미지뷰의 ID를 직접 비교합니다.
+                                    imageButton.setBackgroundResource(R.drawable._icon__heart_)
+                                    isButtonFilled = false
                                 }
                             }
                         }

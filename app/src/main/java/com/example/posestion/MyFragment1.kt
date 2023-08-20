@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 
 class MyFragment1 : Fragment() {
@@ -24,7 +25,7 @@ class MyFragment1 : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-        imageAdapter = ImageAdapter(sharedViewModel = sharedViewModel, showLargeImageDialog = ::showLargeImageDialog)
+        imageAdapter = ImageAdapter(sharedViewModel = sharedViewModel, showLargeImageDialog = showLargeImageDialog)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,18 +43,25 @@ class MyFragment1 : Fragment() {
                 Log.d("Image ID:", imageId.toString())
             }
         })
-        imageAdapter = ImageAdapter(sharedViewModel = sharedViewModel, showLargeImageDialog = ::showLargeImageDialog)
+        imageAdapter = ImageAdapter(sharedViewModel = sharedViewModel, showLargeImageDialog = showLargeImageDialog)
         recyclerView.adapter = imageAdapter
         return rootView
     }
 
-    private fun showLargeImageDialog(imageId: Int) {
+    private val showLargeImageDialog: (Int) -> Unit = { imageId ->
+        // 이미지를 크게 보여주는 AlertDialog를 표시하는 로직을 작성
         val inflater = LayoutInflater.from(requireContext())
         val dialogView = inflater.inflate(R.layout.dialog_large_image, null)
 
         // 커스텀 레이아웃의 이미지뷰를 찾습니다.
         val largeImageView = dialogView.findViewById<ImageView>(R.id.largeImageView)
-        largeImageView.setImageResource(imageId) // 이미지 설정
+        val imageUrl = sharedViewModel.getImageUrlForId(imageId) // 이미지 아이디로 이미지 URL 가져오기
+        if (imageUrl != null) {
+            Glide.with(requireContext())
+                .load(imageUrl)
+                .centerCrop()
+                .into(largeImageView)
+        }
 
         // AlertDialog를 생성합니다.
         val builder = AlertDialog.Builder(requireContext())

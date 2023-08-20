@@ -226,25 +226,23 @@ class RetrofitClient {
         @SerializedName("tag_name")
         val tagname: String?
     )
-
-    data class PoseAddfavorit(
+    data class PoseAddfavoriteResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: PoseAddfavorite
+    )
+    data class PoseAddfavorite(
         @SerializedName("isSuccess")
         val isSuccess: Boolean,
         @SerializedName("code")
         val code: Int,
         @SerializedName("message")
         val message: String?,
-        @SerializedName("result")
-        val result: PoseResult
-    )
-
-    data class PoseResult(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String?
     )
 
     data class PoseDelfavorite(
@@ -255,7 +253,16 @@ class RetrofitClient {
         @SerializedName("message")
         val message: String?
     )
-
+    data class PoseFavoriteviewResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseFavoriteview>
+    )
     data class PoseFavoriteview(
         @SerializedName("id")
         val id: Int,
@@ -274,6 +281,7 @@ class RetrofitClient {
         @SerializedName("tag_name")
         val tagname: String?
     )
+
     data class PoseHotboardResponse(
         @SerializedName("isSuccess")
         val isSuccess: Boolean,
