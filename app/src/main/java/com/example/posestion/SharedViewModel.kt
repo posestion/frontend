@@ -25,15 +25,20 @@ class SharedViewModel : ViewModel() {
     private val _buttonStateList = MutableLiveData<List<Boolean>>()
 
     private val imageUrls = mutableMapOf<Int, String>()
+    private val imageTags = mutableMapOf<Int, List<String>?>()
 
     // 이미지 아이디와 이미지 URL을 매핑해서 맵에 추가하는 메서드
-    fun addImageUrl(imageId: Int, imageUrl: String) {
+    fun addImageUrl(imageId: Int, imageUrl: String, tagNames: List<String>?) {
         imageUrls[imageId] = imageUrl
+        imageTags[imageId] = tagNames
     }
 
     // 이미지 아이디에 해당하는 이미지 URL을 가져오는 메서드
     fun getImageUrlForId(imageId: Int): String? {
         return imageUrls[imageId]
+    }
+    fun getImageTagsForId(imageId: Int): List<String>? {
+        return imageTags[imageId]
     }
     // 새로운 이미지를 이미지 리스트에 추가하는 메서드
     fun addNewImage(imageId: Int) {
@@ -79,6 +84,7 @@ class SharedViewModel : ViewModel() {
 
             // Remove image URL from imageUrls list
             imageUrls.remove(imageId)
+            imageTags.remove(imageId)
 
             // 호출하여 이미지를 서버에서 삭제하는 로직 추가
             retrofitServiceWithToken.posedelfavorite(imageId).enqueue(object :

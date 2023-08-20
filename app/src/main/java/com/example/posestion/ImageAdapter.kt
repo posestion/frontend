@@ -25,7 +25,7 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
         val imageId = imageList[position]
 
         val imageUrl = sharedViewModel.getImageUrlForId(imageId) // 이미지 아이디에 해당하는 URL 가져오기
-
+        val imageTags = sharedViewModel.getImageTagsForId(imageId)
         // 이미지 URL을 Glide로 로드하여 이미지뷰에 표시합니다.
         Glide.with(holder.imageView.context)
             .load(imageUrl)
@@ -36,6 +36,8 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
         holder.tvMain.text = (position + 1).toString()
         Log.d("Image ID33", imageId.toString())
         holder.imageId = imageId // 이미지 ID를 ViewHolder에 저장합니다
+
+        holder.textTag.text = imageTags?.joinToString(", ")
 
         holder.imageView.setOnClickListener{
             val imageId = imageList[position]
@@ -73,6 +75,7 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val tvMain: TextView = itemView.findViewById(R.id.tv_main)
+        val textTag: TextView = itemView.findViewById(R.id.tagText1)
         val imageButton1: ImageButton = itemView.findViewById(R.id.imageButton1)
         var imageId: Int = 0 // 추가: 이미지 ID를 저장할 변수
         var isButtonFilled: Boolean = false

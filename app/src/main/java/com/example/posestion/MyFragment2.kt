@@ -47,7 +47,7 @@ class MyFragment2 : Fragment() {
         rvAdapter = MyRecyclerViewAdapter(viewModel)
 
         // 새로운 이미지뷰를 찾습니다. (XML에서 적절한 ID를 지정해야 합니다.)
-        val newImageView = rootView.findViewById<View>(R.id.imageView)
+        val newImageView = rootView.findViewById<View>(R.id.imageView1)
         val newImageViewId = R.drawable.rectangle_67
         Log.d("newImage ID1", newImageViewId.toString())
         // 새로운 이미지뷰에 클릭 리스너를 등록합니다.

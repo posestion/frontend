@@ -33,7 +33,7 @@ class MyFragment3 : Fragment() {
         Log.d("TokenDebug2", retrofitServiceWithToken.toString())
     }
 
-    private fun onHeartButtonClick(imageId: Int,imageUrl: String) {
+    private fun onHeartButtonClick(imageId: Int,imageUrl: String, tagNames: List<String>?) {
         Log.d(imageId.toString(),"bbb")
 
         retrofitServiceWithToken.poseaddfavorite(imageId).enqueue(object : Callback<RetrofitClient.PoseAddfavoriteResponse> {
@@ -43,7 +43,7 @@ class MyFragment3 : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     sharedViewModel.addNewImage(imageId)
-                    sharedViewModel.addImageUrl(imageId, imageUrl)
+                    sharedViewModel.addImageUrl(imageId, imageUrl, tagNames)
                 }
             }
             override fun onFailure(call: Call<RetrofitClient.PoseAddfavoriteResponse>, t: Throwable) {
@@ -87,6 +87,18 @@ class MyFragment3 : Fragment() {
                                 )
                             )
 
+                            val textView: TextView = rootView.findViewById(
+                                resources.getIdentifier(
+                                    "tagText${i + 1}",
+                                    "id",
+                                    requireContext().packageName
+                                )
+                            )
+
+                            val tagNames = hotboard.tagname?.joinToString(", ") // 각 태그를 쉼표와 공백으로 구분하여 하나의 문자열로 만듦
+                            textView.text = tagNames
+
+
                             // 이미지 URL 가져와서 이미지뷰에 로드
                             val imageUrl = hotboard.poseImage
                             Glide.with(requireContext())
@@ -106,7 +118,7 @@ class MyFragment3 : Fragment() {
                                 isButtonFilled = !isButtonFilled
                                 if (isButtonFilled) {
                                     imageButton.setBackgroundResource(com.example.posestion.R.drawable.fillheart)
-                                    onHeartButtonClick(hotboard.id,hotboard.poseImage)
+                                    onHeartButtonClick(hotboard.id,hotboard.poseImage, hotboard.tagname)
                                     Log.d("HeartButtonClick1", hotboard.id.toString())
                                 } else {
                                     imageButton.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)

@@ -306,7 +306,9 @@ class RetrofitClient {
         @SerializedName("content")
         val content: String,
         @SerializedName("pose_image")
-        val poseImage: String
+        val poseImage: String,
+        @SerializedName("tag_name")
+        val tagname: List<String>?
     )
 
     data class PoseFilterdate(
