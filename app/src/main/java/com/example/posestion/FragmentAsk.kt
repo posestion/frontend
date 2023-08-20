@@ -126,6 +126,7 @@ class FragmentAsk : Fragment() {
                                 Log.d("Retrofit", "success")
                                 val result = response.body()
                                 if(result != null){
+                                    filecount = 0
                                     filenamelist.clear()
                                     recyclerView.adapter?.notifyDataSetChanged()
                                     binding.FaskEditText.text.clear()
