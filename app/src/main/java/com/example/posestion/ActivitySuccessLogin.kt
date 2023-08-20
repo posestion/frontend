@@ -9,6 +9,7 @@ import com.example.posestion.databinding.ActivitySuccessLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.posestion.MyApplication.Companion.classlist
 
 class ActivitySuccessLogin : AppCompatActivity() {
 
@@ -39,6 +40,36 @@ class ActivitySuccessLogin : AppCompatActivity() {
                             editor.putInt("following", mypage.following)
                             editor.putInt("follower", mypage.follower)
                             editor.apply()
+
+                            if(mypage.expert != 0) {
+                                //내가 올린 강의
+                                val call2 =
+                                    RetrofitObject.getRetrofitService.myclass(token, mypage.nick)
+                                call2.enqueue(object : Callback<RetrofitClient.ResponsemyClass> {
+                                    override fun onResponse(
+                                        call: Call<RetrofitClient.ResponsemyClass>,
+                                        response: Response<RetrofitClient.ResponsemyClass>
+                                    ) {
+                                        if (response.isSuccessful) {
+                                            val response = response.body()
+                                            if (response != null) {
+                                                Log.d("Retrofit", response.message)
+                                                if (response.isSuccess) {
+                                                    classlist = response.result
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    override fun onFailure(
+                                        call: Call<RetrofitClient.ResponsemyClass>,
+                                        t: Throwable
+                                    ) {
+                                        val errorMessage = "Call Failed: ${t.message}"
+                                        Log.d("Retrofit", errorMessage)
+                                    }
+                                })
+                            }
 
                             val intent = Intent(this@ActivitySuccessLogin, ActivityMain::class.java)
                             startActivity(intent)

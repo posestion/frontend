@@ -1,5 +1,6 @@
 package com.example.posestion
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Rect
@@ -9,13 +10,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.posestion.MyApplication.Companion.classlist
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.FragmentMypageBinding
 import retrofit2.Call
@@ -27,13 +26,19 @@ class FragmentMypage : Fragment() {
     private lateinit var binding: FragmentMypageBinding
     private lateinit var recyclerViewcontents: RecyclerView
     private lateinit var recyclerViewclass: RecyclerView
+    private lateinit var classadapter: AdapterMypageClass
+    lateinit var activityMain: ActivityMain
     private val ContentsData = mutableListOf<DataContents>()
-    private val ClassData = mutableListOf<DataClass>()
     private var expert = false
     private val user = MyApplication.user
     private val editor = user.edit()
     private var token = ""
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        activityMain = context as ActivityMain
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,11 +59,15 @@ class FragmentMypage : Fragment() {
 
             val itemSpacingDecoration = ItemSpacingDecoration(dp28)
 
+            classadapter = AdapterMypageClass(resources, activityMain)
             recyclerViewclass = binding.fmypageRvClass
             recyclerViewclass.addItemDecoration(itemSpacingDecoration)
+            AdapterMypageClass(resources, activityMain).setList(classlist)
             recyclerViewclass.layoutManager =
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-            recyclerViewclass.adapter = AdapterMypageClass(ClassData, resources)
+            recyclerViewclass.adapter = classadapter
+            classadapter.setList(classlist)
+            classadapter.notifyDataSetChanged()
         }
 
         binding.fmypagePostNum.text = "${user.getInt("post", 0)}"
@@ -90,20 +99,44 @@ class FragmentMypage : Fragment() {
                                 val mypage = response.result[0]
                                 expert = mypage.expert != 0
                                 if(expert){
-                                    binding.fmypageViewGone.visibility = View.VISIBLE
-                                    binding.fmypageTextGone.visibility = View.VISIBLE
-                                    binding.fmypageRvClass.visibility = View.VISIBLE
-                                    binding.fmypageBtnClass.visibility = View.VISIBLE
+                                    //내가 올린 강의 받아오기
+                                    val call2 = RetrofitObject.getRetrofitService.myclass(token, mypage.nick)
+                                    call2.enqueue(object : Callback<RetrofitClient.ResponsemyClass> {
+                                        override fun onResponse(call: Call<RetrofitClient.ResponsemyClass>, response: Response<RetrofitClient.ResponsemyClass>) {
+                                            if (response.isSuccessful) {
+                                                val response = response.body()
+                                                if (response != null) {
+                                                    Log.d("Retrofit", response.message)
+                                                    if (response.isSuccess) {
+                                                        classlist = response.result
+                                                        binding.fmypageViewGone.visibility = View.VISIBLE
+                                                        binding.fmypageTextGone.visibility = View.VISIBLE
+                                                        binding.fmypageRvClass.visibility = View.VISIBLE
+                                                        binding.fmypageBtnClass.visibility = View.VISIBLE
 
-                                    val dp28 = (28 * Resources.getSystem().displayMetrics.density).toInt()
+                                                        val dp28 = (28 * Resources.getSystem().displayMetrics.density).toInt()
 
-                                    val itemSpacingDecoration = ItemSpacingDecoration(dp28)
+                                                        val itemSpacingDecoration = ItemSpacingDecoration(dp28)
 
-                                    recyclerViewclass = binding.fmypageRvClass
-                                    recyclerViewclass.addItemDecoration(itemSpacingDecoration)
-                                    recyclerViewclass.layoutManager =
-                                        StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                                    recyclerViewclass.adapter = AdapterMypageClass(ClassData, resources)
+                                                        classadapter = AdapterMypageClass(resources, activityMain)
+                                                        recyclerViewclass = binding.fmypageRvClass
+                                                        recyclerViewclass.addItemDecoration(itemSpacingDecoration)
+                                                        AdapterMypageClass(resources, activityMain).setList(classlist)
+                                                        recyclerViewclass.layoutManager =
+                                                            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+                                                        recyclerViewclass.adapter = classadapter
+                                                        classadapter.setList(classlist)
+                                                        classadapter.notifyDataSetChanged()
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        override fun onFailure(call: Call<RetrofitClient.ResponsemyClass>, t: Throwable) {
+                                            val errorMessage = "Call Failed: ${t.message}"
+                                            Log.d("Retrofit", errorMessage)
+                                        }
+                                    })
                                 }
                                 binding.fmypagePostNum.text = "${mypage.post}"
                                 binding.fmypageFollowNum.text = "${mypage.follower}"
