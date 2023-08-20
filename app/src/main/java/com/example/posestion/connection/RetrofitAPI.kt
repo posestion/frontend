@@ -94,5 +94,5 @@ interface RetrofitAPI {
     @GET("/app/cs/inquiry")
     fun myask(
         @Header("x-access-token") token: String,
-    ) : Call<RetrofitClient.ResponseDeletepost>
+    ) : Call<RetrofitClient.ResponsemyAsk>
 }

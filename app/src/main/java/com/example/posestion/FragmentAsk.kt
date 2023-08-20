@@ -161,7 +161,6 @@ class FragmentAsk : Fragment() {
 
         if (documentFile != null) {
             val fileName = documentFile.name
-            val mimeType = contentResolver.getType(uri)
 
             // 임시 파일 생성
             tempFile = File(requireContext().cacheDir, fileName)
@@ -176,5 +175,15 @@ class FragmentAsk : Fragment() {
             return tempFile
         }
         return null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        filecount = 0
+        filenamelist.clear()
+        recyclerView.adapter?.notifyDataSetChanged()
+        binding.FaskEditText.text.clear()
+        binding.FaskEditTitle.text.clear()
     }
 }
