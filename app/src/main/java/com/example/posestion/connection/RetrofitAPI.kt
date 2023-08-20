@@ -54,19 +54,30 @@ interface RetrofitAPI {
         @Path("nickname") nickname: String
     ): Call<RetrofitClient.Responsenickname>
 
-    //회원정보 불러오기
-    @GET("/app/getAllUsers")
-    fun getall(): Call<List<RetrofitClient.ResponseAll>>
-
     //내가 올린 컨텐츠
-    @GET("/app/mypage/myContent")
+    @GET("/app/profile/{nickname}/content")
     fun mycontents(
-        @Header("x-access-token") token: String
+        @Header("x-access-token") token: String,
+        @Path("nickname") nickname: String
     ): Call<RetrofitClient.ResponsemyContent>
+
+    //내가 올린 강의
+    @GET("/app/profile/{nickname}/class")
+    fun myclass(
+        @Header("x-access-token") token: String,
+        @Path("nickname") nickname: String
+    ): Call<RetrofitClient.ResponsemyClass>
 
     //마이페이지
     @GET("/app/mypage")
     fun mypage(
         @Header("x-access-token") token: String
     ) : Call<RetrofitClient.Responsemypage>
+
+    //이사잘 삭제
+    @GET("/app/wdyt/delete/{id}")
+    fun deletepost(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.ResponseDeletepost>
 }

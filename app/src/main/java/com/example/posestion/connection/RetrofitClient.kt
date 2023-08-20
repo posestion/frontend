@@ -150,18 +150,41 @@ class RetrofitClient {
     data class myContent(
         @SerializedName("category")
         val category: String,
+        @SerializedName("id")
+        val id: Int,
         @SerializedName("title")
         val title: String,
         @SerializedName("image")
         val image: String,
         @SerializedName("content")
         val content: String,
-        @SerializedName("like")
+        @SerializedName("like") // 0 : 내가 좋아요하지 않음 , 1 : 내가 좋아요함
         val like: Int,
         @SerializedName("Number_of_like")
         val likeNum: Int,
         @SerializedName("Number_of_reply")
         val replyNum: Int
+    )
+
+    //내가 올린 강의
+    data class ResponsemyClass(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<myClass>
+    )
+
+    data class myClass(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("image_url")
+        val image: String,
     )
 
     //마이페이지
@@ -191,5 +214,15 @@ class RetrofitClient {
         val following: Int,
         @SerializedName("inroduction")
         val inroduction: String?,
+    )
+
+    //이사잘 게시물 삭제
+    data class ResponseDeletepost(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String
     )
 }
