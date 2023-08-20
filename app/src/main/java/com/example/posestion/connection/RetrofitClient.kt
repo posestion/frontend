@@ -225,4 +225,55 @@ class RetrofitClient {
         @SerializedName("message")
         val message: String
     )
+
+    //문의하기
+    data class ResponseAsk(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String
+    )
+
+    //내 문의내역
+    data class ResponsemyAsk(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: askdata
+    )
+
+    data class askdata(
+        @SerializedName("answer_incomplete")
+        val answerincomplete: List<answerx>,
+        @SerializedName("answer_complete")
+        val answercomplete: List<answero>
+    )
+
+    data class answerx(
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("content")
+        val content: String,
+        @SerializedName("date")
+        val date: String
+    )
+
+    data class answero(
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("content")
+        val content: String,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("ans_name")
+        val ansname: String,
+        @SerializedName("ans_content")
+        val anscontent: String
+    )
 }

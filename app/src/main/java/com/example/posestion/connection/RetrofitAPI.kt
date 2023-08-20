@@ -80,4 +80,19 @@ interface RetrofitAPI {
         @Header("x-access-token") token: String,
         @Path("id") id: String
     ) : Call<RetrofitClient.ResponseDeletepost>
+
+    //문의하기
+    @Multipart
+    @POST("/app/cs/inquiry")
+    fun ask(
+        @Header("x-access-token") token: String,
+        @Part("title") marketingAgreement: RequestBody,
+        @Part("content") userId: RequestBody,
+        @Part images: List<MultipartBody.Part>
+    ): Call<RetrofitClient.ResponseAsk>
+
+    @GET("/app/cs/inquiry")
+    fun myask(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.ResponseDeletepost>
 }

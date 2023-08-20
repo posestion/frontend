@@ -9,6 +9,7 @@ class MyApplication : Application() {
     companion object {
         lateinit var user: SharedPreferences
         var classlist = listOf<RetrofitClient.myClass>()
+        var filecount = 0
     }
 
     override fun onCreate() {

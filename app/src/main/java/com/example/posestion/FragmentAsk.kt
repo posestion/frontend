@@ -16,10 +16,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.documentfile.provider.DocumentFile
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.posestion.MyApplication.Companion.filecount
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.FragmentAskBinding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 
 class FragmentAsk : Fragment() {
@@ -28,6 +36,13 @@ class FragmentAsk : Fragment() {
     private lateinit var textlength : TextView
     private lateinit var ask : EditText
     private lateinit var tempFile: File
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var fileadapter: AdapterAsk
+    private lateinit var filePart: MultipartBody.Part
+    private val filenamelist = mutableListOf<DataFile>()
+    private val filelist = mutableListOf<MultipartBody.Part>()
+    private val user = MyApplication.user
+    private var token = ""
 
     private val textlengthListener = object : TextWatcher {
 
@@ -49,7 +64,15 @@ class FragmentAsk : Fragment() {
                 val file = getFileFromUri(uri)
                 if (file != null) {
                     val filePath = file.absolutePath
-                    Log.d("File Path", filePath)
+                    val fileName = filePath.substring(filePath.lastIndexOf("/") + 1)
+                    val file = File(filePath)
+                    val mediaType = "*/*".toMediaTypeOrNull()
+                    val fileRequestBody = file.asRequestBody(mediaType)
+                    filePart = MultipartBody.Part.createFormData("file", file.name, fileRequestBody)
+                    filelist.add(filePart)
+                    filenamelist.add(DataFile(fileName))
+                    recyclerView.adapter?.notifyDataSetChanged()
+                    Log.d("Filelist", filelist.toString())
                 }
             }
         }
@@ -62,12 +85,64 @@ class FragmentAsk : Fragment() {
     ): View? {
         binding = FragmentAskBinding.inflate(layoutInflater)
 
+        token = user.getString("jwt", "").toString()
+        filecount = 0
+
+        recyclerView = binding.FaskRvFile
+        fileadapter = AdapterAsk(filenamelist, filelist)
+        recyclerView.layoutManager =
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.adapter = fileadapter
+
         textlength = binding.FaskTextLength
         ask = binding.FaskEditText
         ask.addTextChangedListener(textlengthListener)
 
         binding.FaskBtnFile.setOnClickListener {
-            openFilePicker()
+            if(filecount<3){
+                openFilePicker()
+                filecount++
+            }else{
+                Toast.makeText(requireContext(), "파일은 3개까지 첨부 가능합니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        binding.FaskBtnAsk.setOnClickListener {
+            if(binding.FaskEditText.text.length == 0){
+                Toast.makeText(requireContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }else if(binding.FaskEditTitle.text.length == 0){
+                Toast.makeText(requireContext(), "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }else if(binding.FaskEditText.text.length == 0 && binding.FaskEditTitle.text.length == 0){
+                Toast.makeText(requireContext(), "제목과 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }else{
+                val title = binding.FaskEditTitle.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+                val content = binding.FaskEditText.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
+                val call = RetrofitObject.getRetrofitService
+                call.ask(token, title, content, filelist)
+                    .enqueue(object : Callback<RetrofitClient.ResponseAsk> {
+                        override fun onResponse(call: Call<RetrofitClient.ResponseAsk>, response: Response<RetrofitClient.ResponseAsk>) {
+                            if (response.isSuccessful) {
+                                Log.d("Retrofit", "success")
+                                val result = response.body()
+                                if(result != null){
+                                    filenamelist.clear()
+                                    recyclerView.adapter?.notifyDataSetChanged()
+                                    binding.FaskEditText.text.clear()
+                                    binding.FaskEditTitle.text.clear()
+                                    Toast.makeText(requireContext(), "문의가 접수되었습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                val errorBody = response.errorBody()?.string()
+                                Log.d("Retrofit", "Response Error: $errorBody")
+                            }
+                        }
+                        override fun onFailure(call: Call<RetrofitClient.ResponseAsk>, t: Throwable) {
+                            val errorMessage = "Call Failed: ${t.message}"
+                            Log.d("Retrofit", errorMessage)
+                        }
+                    })
+            }
         }
 
         return binding.root
