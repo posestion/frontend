@@ -29,7 +29,7 @@ class ActivityClass : AppCompatActivity() {
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.adapter = AdapterClass(resources, this)
         classadapter.setList(classlist)
-        
+
         recyclerView.adapter?.notifyDataSetChanged()
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
