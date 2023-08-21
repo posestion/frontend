@@ -38,9 +38,9 @@ class FragmentAsk : Fragment() {
     private lateinit var tempFile: File
     private lateinit var recyclerView: RecyclerView
     private lateinit var fileadapter: AdapterAsk
-    private lateinit var filePart: MultipartBody.Part
     private val filenamelist = mutableListOf<DataFile>()
     private val filelist = mutableListOf<MultipartBody.Part>()
+    private val files = mutableListOf<File>()
     private val user = MyApplication.user
     private var token = ""
 
@@ -66,10 +66,8 @@ class FragmentAsk : Fragment() {
                     val filePath = file.absolutePath
                     val fileName = filePath.substring(filePath.lastIndexOf("/") + 1)
                     val file = File(filePath)
-                    val mediaType = "*/*".toMediaTypeOrNull()
-                    val fileRequestBody = file.asRequestBody(mediaType)
-                    filePart = MultipartBody.Part.createFormData("file", file.name, fileRequestBody)
-                    filelist.add(filePart)
+                    files.add(file)
+
                     filenamelist.add(DataFile(fileName))
                     recyclerView.adapter?.notifyDataSetChanged()
                     Log.d("Filelist", filelist.toString())
@@ -89,7 +87,7 @@ class FragmentAsk : Fragment() {
         filecount = 0
 
         recyclerView = binding.FaskRvFile
-        fileadapter = AdapterAsk(filenamelist, filelist)
+        fileadapter = AdapterAsk(filenamelist, files)
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.adapter = fileadapter
@@ -108,18 +106,23 @@ class FragmentAsk : Fragment() {
         }
 
         binding.FaskBtnAsk.setOnClickListener {
-            if(binding.FaskEditText.text.length == 0){
-                Toast.makeText(requireContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            if(binding.FaskEditText.text.length == 0 && binding.FaskEditTitle.text.length == 0){
+                Toast.makeText(requireContext(), "제목과 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }else if(binding.FaskEditTitle.text.length == 0){
                 Toast.makeText(requireContext(), "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
-            }else if(binding.FaskEditText.text.length == 0 && binding.FaskEditTitle.text.length == 0){
-                Toast.makeText(requireContext(), "제목과 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }else if(binding.FaskEditText.text.length == 0){
+                Toast.makeText(requireContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
             }else{
                 val title = binding.FaskEditTitle.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
                 val content = binding.FaskEditText.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
 
+                val fileParts: List<MultipartBody.Part> = files.map { file ->
+                    val requestFile = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+                    MultipartBody.Part.createFormData("files", file.name, requestFile)
+                }
+
                 val call = RetrofitObject.getRetrofitService
-                call.ask(token, title, content, filelist)
+                call.ask(token, title, content, fileParts)
                     .enqueue(object : Callback<RetrofitClient.ResponseAsk> {
                         override fun onResponse(call: Call<RetrofitClient.ResponseAsk>, response: Response<RetrofitClient.ResponseAsk>) {
                             if (response.isSuccessful) {
@@ -175,15 +178,5 @@ class FragmentAsk : Fragment() {
             return tempFile
         }
         return null
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        filecount = 0
-        filenamelist.clear()
-        recyclerView.adapter?.notifyDataSetChanged()
-        binding.FaskEditText.text.clear()
-        binding.FaskEditTitle.text.clear()
     }
 }

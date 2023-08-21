@@ -88,7 +88,7 @@ interface RetrofitAPI {
         @Header("x-access-token") token: String,
         @Part("title") marketingAgreement: RequestBody,
         @Part("content") userId: RequestBody,
-        @Part images: List<MultipartBody.Part>
+        @Part files: List<MultipartBody.Part>
     ): Call<RetrofitClient.ResponseAsk>
 
     @GET("/app/cs/inquiry")

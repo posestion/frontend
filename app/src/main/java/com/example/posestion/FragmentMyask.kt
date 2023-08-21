@@ -59,7 +59,7 @@ class FragmentMyask : Fragment() {
                             recyclerViewanswerx.layoutManager =
                                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
                             recyclerViewanswerx.adapter = answerxadapter
-                            
+
                             recyclerViewanswero.adapter?.notifyDataSetChanged()
                             recyclerViewanswerx.adapter?.notifyDataSetChanged()
                         }
