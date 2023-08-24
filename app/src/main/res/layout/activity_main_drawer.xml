@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="280dp"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/drawer_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/amatica_sc_bold"
+        android:text="POSESTION"
+        android:textColor="@color/maincolor"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_home"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="홈"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_text1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_pose"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="포즈상점"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_home" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_basket"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="장바구니"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_pose" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_camera"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="카메라"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_basket" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_clip"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="게시판"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_camera" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_contents"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="ㄴ 이사잘"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_clip" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_class"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="ㄴ 클래스"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_contents" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_mypage"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="마이페이지"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_class" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_center"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="ㄴ 고객센터"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_mypage" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_help"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="ㄴ 도움말"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_center" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/drawer_logout"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/solid_transparent"
+        android:gravity="start|center_vertical"
+        android:text="로그아웃"
+        android:textColor="@color/deepgray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/drawer_text1"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_help" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

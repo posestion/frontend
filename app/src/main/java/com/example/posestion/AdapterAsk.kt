@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.posestion.MyApplication.Companion.filecount
 import com.example.posestion.databinding.RvAskBinding
-import okhttp3.MultipartBody
 import java.io.File
 
 class AdapterAsk(
