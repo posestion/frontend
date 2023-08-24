@@ -1,19 +1,24 @@
 package com.example.posestion
 
 import android.app.AlertDialog
+import android.app.appsearch.SearchResult
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.example.posestion.connection.RetrofitAPI
+import com.example.posestion.connection.RetrofitClient
+import com.example.posestion.databinding.FragmentLayout2Binding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyFragment2 : Fragment() {
 
@@ -21,19 +26,45 @@ class MyFragment2 : Fragment() {
     private lateinit var imageAdapter: ImageAdapter
     private lateinit var viewModel: MyCustomViewModel
     private lateinit var rvAdapter: MyRecyclerViewAdapter
-
+    private lateinit var retrofitServiceWithToken: RetrofitAPI
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-        imageAdapter = ImageAdapter(
-            sharedViewModel = sharedViewModel,
-            showLargeImageDialog = showLargeImageDialog
-        )
+
+        val token = MyApplication.user.getString("jwt", "").toString()
+        Log.d("TokenDebug", "Token: $token")
+        retrofitServiceWithToken = RetrofitObject.getRetrofitServiceWithToken(token)
+        Log.d("TokenDebug2", retrofitServiceWithToken.toString())
     }
 
-    private fun onHeartButtonClick(imageId: Int) {
-        sharedViewModel.addNewImage(imageId)
-        Log.d(imageId.toString(), "bbb")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val searchResults = arguments?.getSerializable("searchResults") as? ArrayList<RetrofitClient.PoseSearch>
+        if (searchResults != null) {
+            // TODO: searchResults를 활용하여 원하는 작업 수행
+        }
+    }
+
+    private fun onHeartButtonClick(imageId: Int,imageUrl: String, tagNames: List<String>?) {
+        Log.d(imageId.toString(),"bbb")
+
+        retrofitServiceWithToken.poseaddfavorite(imageId).enqueue(object :
+            Callback<RetrofitClient.PoseAddfavoriteResponse> {
+            override fun onResponse(
+                call: Call<RetrofitClient.PoseAddfavoriteResponse>,
+                response: Response<RetrofitClient.PoseAddfavoriteResponse>
+            ) {
+                if (response.isSuccessful) {
+                    sharedViewModel.addNewImage(imageId)
+                    sharedViewModel.addImageUrl(imageId, imageUrl, tagNames)
+                }
+            }
+            override fun onFailure(call: Call<RetrofitClient.PoseAddfavoriteResponse>, t: Throwable) {
+                val errorMessage = "Call Failed: ${t.message}"
+                Log.d("Retrofit23", errorMessage)
+            }
+        })
     }
 
     override fun onCreateView(
@@ -41,188 +72,132 @@ class MyFragment2 : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_layout_2, container, false)
+        val RootView = inflater.inflate(R.layout.fragment_layout_2, container, false)
 
-        viewModel = ViewModelProvider(this).get(MyCustomViewModel::class.java)
-        rvAdapter = MyRecyclerViewAdapter(viewModel)
+        val binding = FragmentLayout2Binding.inflate(inflater, container, false)
 
-        // 새로운 이미지뷰를 찾습니다. (XML에서 적절한 ID를 지정해야 합니다.)
-        val newImageView = rootView.findViewById<View>(R.id.imageView1)
-        val newImageViewId = R.drawable.rectangle_67
-        Log.d("newImage ID1", newImageViewId.toString())
-        // 새로운 이미지뷰에 클릭 리스너를 등록합니다.
-        newImageView.setOnClickListener {
-            // 이미지를 크게 보여주는 AlertDialog를 표시합니다.
-            showLargeImageDialog(newImageViewId)
-        }
-        val buttonEvent = rootView.findViewById<View>(com.example.posestion.R.id.heartButton1)
-        var isButtonFilled = false
+        Log.d("rootview", RootView.toString())
+        retrofitServiceWithToken.posegetage()
+            .enqueue(object : Callback<RetrofitClient.PoseGetageResponse> {
+                override fun onResponse(
+                    call: Call<RetrofitClient.PoseGetageResponse>,
+                    response: Response<RetrofitClient.PoseGetageResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val getAgeResponse = response.body()
+                        val getAgeDataList = getAgeResponse?.result
 
-        buttonEvent.setOnClickListener {
-            isButtonFilled = !isButtonFilled
-            if (isButtonFilled) {
-                buttonEvent.setBackgroundResource(com.example.posestion.R.drawable.fillheart)
-                onHeartButtonClick(R.drawable.rectangle_67)
-            } else {
-                buttonEvent.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                sharedViewModel.removeImage(R.drawable.rectangle_67)
-            }
-        }
-        sharedViewModel.removedImage.observe(viewLifecycleOwner) { removedImageId ->
-            Log.d("removedImage ID2", removedImageId.toString())
-            Log.d("removedImage ID22", newImageViewId.toString())
-            if (removedImageId == newImageViewId) { // 이미지뷰의 ID를 직접 비교합니다.
-                buttonEvent.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                isButtonFilled = false
-            }
-        }
-        sharedViewModel.removedImage.observe(viewLifecycleOwner) { removedImageId ->
-            // Find the position of the removed image in the list
-            val position = imageAdapter.getImageList().indexOf(removedImageId)
-            if (position != -1) {
-                // Set the corresponding isButtonFilled value to false
-                imageAdapter.isButtonFilledList[position] = false
-                imageAdapter.notifyItemChanged(position)
-            }
-        }
+                        if (!getAgeDataList.isNullOrEmpty()) {
+                            for (i in 0 until 9) {
+                                val getage = getAgeDataList[i]
 
-        val newImageView2 = rootView.findViewById<View>(com.example.posestion.R.id.imageView2)
-        val newImageViewId2 = R.drawable.__icon__bell_
-        Log.d("newImage ID2", newImageViewId2.toString())
-        // 새로운 이미지뷰에 클릭 리스너를 등록합니다.
-        newImageView2.setOnClickListener {
-            // 이미지를 크게 보여주는 AlertDialog를 표시합니다.
-            showLargeImageDialog(newImageViewId2)
-        }
+                                Log.d("getage", getage.toString())
+                                val imageView: ImageView = RootView.findViewById(
+                                    resources.getIdentifier(
+                                        "imageView${i + 1}",
+                                        "id",
+                                        requireContext().packageName
+                                    )
+                                )
+                                val imageButton: ImageButton = RootView.findViewById(
+                                    resources.getIdentifier(
+                                        "heartButton${i + 1}",
+                                        "id",
+                                        requireContext().packageName
+                                    )
+                                )
 
-        val buttonEvent2 = rootView.findViewById<View>(com.example.posestion.R.id.heartButton2)
-        var isButtonFilled2 = false
-        buttonEvent2.setOnClickListener {
-            isButtonFilled2 = !isButtonFilled2
-            if (isButtonFilled2) {
-                buttonEvent2.setBackgroundResource(R.drawable.fillheart)
-                onHeartButtonClick(R.drawable.__icon__bell_)
+                                // 이미지 URL 가져와서 이미지뷰에 로드
+                                val imageUrl = getage.poseImage
+                                Glide.with(requireContext())
+                                    .load(imageUrl)
+                                    .centerCrop()
+                                    .into(imageView)
 
-            } else {
-                buttonEvent2.setBackgroundResource(R.drawable._icon__heart_)
-                sharedViewModel.removeImage(R.drawable.__icon__bell_)
-            }
-        }
-        sharedViewModel.removedImage.observe(viewLifecycleOwner) { removedImageId ->
-            Log.d("removedImage ID2", removedImageId.toString())
-            Log.d("removedImage ID22", newImageViewId2.toString())
-            if (removedImageId == newImageViewId2) { // 이미지뷰의 ID를 직접 비교합니다.
-                buttonEvent2.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                isButtonFilled = false
-            }
-        }
+                                imageView.setOnClickListener {
+                                    // 이미지를 크게 보여주는 AlertDialog를 표시합니다.
+                                    showLargeImageDialog(
+                                        getage.poseImage,
+                                        getage.title,
+                                        getage.content
+                                    )
+                                }
+                                // 버튼 동작 처리
+                                var isButtonFilled = false
+                                imageButton.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
 
-        val newImageView3 = rootView.findViewById<View>(com.example.posestion.R.id.imageView3)
-        val newImageViewId3 = R.drawable.baseline_search_24
-        // 새로운 이미지뷰에 클릭 리스너를 등록합니다.
-        newImageView3.setOnClickListener {
-            // 이미지를 크게 보여주는 AlertDialog를 표시합니다.
-            showLargeImageDialog(newImageViewId3)
-        }
-        val buttonEvent3 = rootView.findViewById<View>(com.example.posestion.R.id.heartButton3)
-        var isButtonFilled3 = false
+                                imageButton.setOnClickListener {
+                                    isButtonFilled = !isButtonFilled
+                                    if (isButtonFilled) {
+                                        imageButton.setBackgroundResource(com.example.posestion.R.drawable.fillheart)
+                                        onHeartButtonClick(
+                                            getage.id,
+                                            getage.poseImage,
+                                            getage.tagnames
+                                        )
+                                        Log.d("HeartButtonClick1", getage.id.toString())
+                                    } else {
+                                        imageButton.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
+                                        Log.d("HeartButtonClick", "Canceled Pose ID: ${getage.id}")
+                                        sharedViewModel.deleteImage(getage.id)
+                                    }
+                                }
+                                sharedViewModel.removedImage.observe(viewLifecycleOwner) { removedImageId ->
+                                    Log.d("removedImage ID2", removedImageId.toString())
+                                    Log.d("removedImage ID22", getage.id.toString())
+                                    if (removedImageId == getage.id) { // 이미지뷰의 ID를 직접 비교합니다.
+                                        imageButton.setBackgroundResource(R.drawable._icon__heart_)
+                                        isButtonFilled = false
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
 
-        buttonEvent3.setOnClickListener {
-            isButtonFilled3 = !isButtonFilled3
-            if (isButtonFilled3) {
-                buttonEvent3.setBackgroundResource(com.example.posestion.R.drawable.fillheart)
-                onHeartButtonClick(R.drawable.baseline_search_24)
-            } else {
-                buttonEvent3.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                sharedViewModel.removeImage(R.drawable.baseline_search_24)
-            }
-        }
-        sharedViewModel.removedImage.observe(viewLifecycleOwner) { removedImageId ->
-            Log.d("removedImage ID2", removedImageId.toString())
-            Log.d("removedImage ID22", newImageViewId3.toString())
-            if (removedImageId == newImageViewId3) { // 이미지뷰의 ID를 직접 비교합니다.
-                buttonEvent3.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                isButtonFilled = false
-            }
-        }
-        val newImageView4 = rootView.findViewById<View>(com.example.posestion.R.id.imageView4)
-        val newImageViewId4 = R.drawable.__icon__bell_
-        // 새로운 이미지뷰에 클릭 리스너를 등록합니다.
-        newImageView4.setOnClickListener {
-            // 이미지를 크게 보여주는 AlertDialog를 표시합니다.
-            showLargeImageDialog(newImageViewId4)
-        }
-        val buttonEvent4 = rootView.findViewById<View>(com.example.posestion.R.id.heartButton4)
-        var isButtonFilled4 = false
-
-        buttonEvent4.setOnClickListener {
-            isButtonFilled4 = !isButtonFilled4
-            if (isButtonFilled4) {
-                buttonEvent4.setBackgroundResource(com.example.posestion.R.drawable.fillheart)
-                onHeartButtonClick(R.drawable.__icon__bell_)
-            } else {
-                buttonEvent4.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                sharedViewModel.removeImage(R.drawable.__icon__bell_)
-            }
-        }
-        sharedViewModel.removedImage.observe(viewLifecycleOwner) { removedImageId ->
-            Log.d("removedImage ID2", removedImageId.toString())
-            Log.d("removedImage ID22", newImageViewId4.toString())
-            if (removedImageId == newImageViewId4) { // 이미지뷰의 ID를 직접 비교합니다.
-                buttonEvent4.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                isButtonFilled = false
-            }
-        }
-
-        val newImageView5 = rootView.findViewById<View>(com.example.posestion.R.id.imageView5)
-        // 새로운 이미지뷰에 클릭 리스너를 등록합니다.
-        val newImageViewId5 = R.drawable.baseline_search_24
-        newImageView5.setOnClickListener {
-            // 이미지를 크게 보여주는 AlertDialog를 표시합니다.
-            showLargeImageDialog(newImageViewId5)
-        }
-        val buttonEvent5 = rootView.findViewById<View>(com.example.posestion.R.id.heartButton5)
-        var isButtonFilled5 = false
-
-        buttonEvent5.setOnClickListener {
-            isButtonFilled5 = !isButtonFilled5
-            if (isButtonFilled5) {
-                buttonEvent5.setBackgroundResource(com.example.posestion.R.drawable.fillheart)
-                onHeartButtonClick(R.drawable.rectangle_67)
-            } else {
-                buttonEvent5.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                sharedViewModel.removeImage(R.drawable.rectangle_67)
-            }
-        }
-
-        return rootView
-
+                override fun onFailure(
+                    call: Call<RetrofitClient.PoseGetageResponse>, t: Throwable) {
+                    val errorMessage = "Call Failed: ${t.message}"
+                    Log.d("Retrofit27", errorMessage)
+                }
+            })
+        return RootView
     }
 
-    private val showLargeImageDialog: (Int) -> Unit = { imageId ->
-        // 이미지를 크게 보여주는 AlertDialog를 표시하는 로직을 작성
-        val inflater = LayoutInflater.from(requireContext())
-        val dialogView = inflater.inflate(R.layout.dialog_large_image, null)
+    private val showLargeImageDialog: (String, String, String) -> Unit =
+        { imageUrl, title, content ->
+            // 이미지를 크게 보여주는 AlertDialog를 표시하는 로직을 작성
+            val inflater = LayoutInflater.from(requireContext())
+            val dialogView = inflater.inflate(R.layout.dialog_large_image, null)
 
-        // 커스텀 레이아웃의 이미지뷰를 찾습니다.
-        val largeImageView = dialogView.findViewById<ImageView>(R.id.largeImageView)
-        largeImageView.setImageResource(imageId) // 이미지 설정
+            // 커스텀 레이아웃의 이미지뷰를 찾습니다.
+            val largeImageView = dialogView.findViewById<ImageView>(R.id.largeImageView)
+            Glide.with(requireContext())
+                .load(imageUrl)
+                .centerCrop()
+                .into(largeImageView)
 
-        // AlertDialog를 생성합니다.
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setView(dialogView)
+            val titleTextView = dialogView.findViewById<TextView>(R.id.textView3)
+            titleTextView.text = title
 
-        // AlertDialog를 표시합니다.
-        val alertDialog = builder.create()
-        alertDialog.show()
+            val contentTextView = dialogView.findViewById<TextView>(R.id.textView7)
+            contentTextView.text = content
 
-        val imageButton1 = dialogView.findViewById<ImageButton>(R.id.imageButton)
-        imageButton1.setOnClickListener {
-            showPopupMenu(it, imageId)
+            // AlertDialog를 생성합니다.
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setView(dialogView)
+
+            // AlertDialog를 표시합니다.
+            val alertDialog = builder.create()
+            alertDialog.show()
+
+            val imageButton1 = dialogView.findViewById<ImageButton>(R.id.imageButton)
+            imageButton1.setOnClickListener {
+                showPopupMenu(it,largeImageView.id)
+            }
         }
-    }
 
-    private fun showPopupMenu(view: View, imageId: Int) {
+        private fun showPopupMenu(view: View, imageId: Int) {
         val popupMenu = PopupMenu(requireContext(), view)
         popupMenu.inflate(R.menu.menu_second)
         popupMenu.setOnMenuItemClickListener { item ->

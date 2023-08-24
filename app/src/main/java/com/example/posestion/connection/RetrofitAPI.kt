@@ -74,9 +74,7 @@ interface RetrofitAPI {
     fun poseallbasket(): Call<RetrofitClient.PoseAllbasket>
 
     @GET("/pose/search")
-    fun posesearch(
-        @Part("word") word: String?,
-    ): Call<RetrofitClient.PoseSearch>
+    fun posesearch( @Query("word") word: String?=null): Call<RetrofitClient.PoseSearchResponse>
 
     @POST("/pose/addfavorite/{pose_id}")
     fun poseaddfavorite(@Path("pose_id") poseId: Int): Call<RetrofitClient.PoseAddfavoriteResponse>
@@ -91,7 +89,7 @@ interface RetrofitAPI {
     fun posehotboard(): Call<RetrofitClient.PoseHotboardResponse>
 
     @GET("/pose/filterdate")
-    fun posefilterdate(): Call<RetrofitClient.PoseFilterdate>
+    fun posefilterdate(): Call<RetrofitClient.PoseFilterdateResponse>
 
     @GET("/pose/filterpopular")
     fun posefilterpopular(): Call<RetrofitClient.PoseFilterpopular>
@@ -103,4 +101,7 @@ interface RetrofitAPI {
     fun mypage(
         @Header("x-access-token") token: String
     ) : Call<RetrofitClient.Responsemypage>
+
+    @GET("/pose/getAge")
+    fun posegetage(): Call<RetrofitClient.PoseGetageResponse>
 }

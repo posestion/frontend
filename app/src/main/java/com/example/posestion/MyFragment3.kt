@@ -1,7 +1,11 @@
 package com.example.posestion
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,10 +23,17 @@ import com.example.posestion.connection.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.Serializable
 
 class MyFragment3 : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var retrofitServiceWithToken: RetrofitAPI
+    private var filterdates: ArrayList<RetrofitClient.PoseFilterdate>? = null
+    inline fun <reified T : Parcelable> Intent.getParcelableArrayListExtraCompat(key: String): ArrayList<T>? =
+        when {
+            Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU -> getParcelableArrayListExtra(key, T::class.java)
+            else -> @Suppress("DEPRECATION") getParcelableArrayListExtra(key)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +42,139 @@ class MyFragment3 : Fragment() {
         Log.d("TokenDebug", "Token: $token")
         retrofitServiceWithToken = RetrofitObject.getRetrofitServiceWithToken(token)
         Log.d("TokenDebug2", retrofitServiceWithToken.toString())
+
+
+        Log.d("RetrofitSearch42", filterdates.toString())
+
+        var test= getArguments()?.getString("test1")
+        Log.d("RetrofitSearch44", test.toString())
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        Log.d("RetrofitSearch41", filterdates.toString())
+        filterdates?.let { nonNullFilterdates ->
+            for ((index, poseSearch) in nonNullFilterdates.withIndex()) {
+                val imageView: ImageView = view.findViewById(
+                    resources.getIdentifier(
+                        "imageView${index + 1}",
+                        "id",
+                        requireContext().packageName
+                    )
+                )
+                val imageButton: ImageButton = view.findViewById(
+                    resources.getIdentifier(
+                        "heartButton${index + 1}",
+                        "id",
+                        requireContext().packageName
+                    )
+                )
+                val textView: TextView? = view.findViewById(
+                    resources.getIdentifier(
+                        "tagText${index + 1}",
+                        "id",
+                        requireContext().packageName
+                    )
+                )
+
+                if (textView != null) {
+                    val tagNames = poseSearch.tagname
+                    Log.d("RetrofitSearch3", tagNames.toString())
+                    val tagText = if (!tagNames.isNullOrEmpty()) {
+                        "#$tagNames"
+                    } else {
+                        ""
+                    }
+                    textView.text = tagText
+                }
+                // 이미지 URL 가져와서 이미지뷰에 로드
+                val imageUrl = poseSearch.poseImage
+                Glide.with(requireContext())
+                    .load(imageUrl)
+                    .centerCrop()
+                    .into(imageView)
+
+                // 버튼 동작 처리
+                var isButtonFilled = false
+                imageButton.setBackgroundResource(R.drawable._icon__heart_)
+
+                imageButton.setOnClickListener {
+                    isButtonFilled = !isButtonFilled
+                    if (isButtonFilled) {
+                        imageButton.setBackgroundResource(R.drawable.fillheart)
+                        Log.d("HeartButtonClick1", poseSearch.id.toString())
+                    } else {
+                        imageButton.setBackgroundResource(R.drawable._icon__heart_)
+                        Log.d("HeartButtonClick", "Canceled Pose ID: ${poseSearch.id}")
+                        sharedViewModel.deleteImage(poseSearch.id)
+                    }
+                }
+            }
+        }
+
+        val searchResults = arguments?.getSerializable("searchResults") as? ArrayList<RetrofitClient.PoseSearch>
+        Log.d("RetrofitSearch4", searchResults.toString())
+        if (searchResults != null) {
+            for ((index, poseSearch) in searchResults.withIndex()) {
+                val imageView: ImageView = view.findViewById(
+                    resources.getIdentifier(
+                        "imageView${index + 1}",
+                        "id",
+                        requireContext().packageName
+                    )
+                )
+                val imageButton: ImageButton = view.findViewById(
+                    resources.getIdentifier(
+                        "heartButton${index + 1}",
+                        "id",
+                        requireContext().packageName
+                    )
+                )
+                val textView: TextView? = view.findViewById(
+                    resources.getIdentifier(
+                        "tagText${index + 1}",
+                        "id",
+                        requireContext().packageName
+                    )
+                )
+
+                if (textView != null) {
+                    val tagNames = poseSearch.tagname
+                    Log.d("RetrofitSearch3", tagNames.toString())
+                    val tagText = if (tagNames != null) {
+                        tagNames.filterNotNull().joinToString(", ") { tag -> "#$tag" }
+                    } else {
+                        ""
+                    }
+                    textView.text = tagText
+                }
+                // 이미지 URL 가져와서 이미지뷰에 로드
+                val imageUrl = poseSearch.poseImage
+                Glide.with(requireContext())
+                    .load(imageUrl)
+                    .centerCrop()
+                    .into(imageView)
+
+                // 버튼 동작 처리
+                var isButtonFilled = false
+                imageButton.setBackgroundResource(R.drawable._icon__heart_)
+
+                imageButton.setOnClickListener {
+                    isButtonFilled = !isButtonFilled
+                    if (isButtonFilled) {
+                        imageButton.setBackgroundResource(R.drawable.fillheart)
+                        onHeartButtonClick(poseSearch.id, poseSearch.poseImage, poseSearch.tagname)
+                        Log.d("HeartButtonClick1", poseSearch.id.toString())
+                    } else {
+                        imageButton.setBackgroundResource(R.drawable._icon__heart_)
+                        Log.d("HeartButtonClick", "Canceled Pose ID: ${poseSearch.id}")
+                        sharedViewModel.deleteImage(poseSearch.id)
+                    }
+                }
+            }
+        }
     }
 
     private fun onHeartButtonClick(imageId: Int,imageUrl: String, tagNames: List<String>?) {
@@ -87,17 +231,25 @@ class MyFragment3 : Fragment() {
                                 )
                             )
 
-                            val textView: TextView = rootView.findViewById(
-                                resources.getIdentifier(
-                                    "tagText${i + 1}",
-                                    "id",
-                                    requireContext().packageName
+                            requireActivity().runOnUiThread {
+                                val textView: TextView? = rootView.findViewById(
+                                    resources.getIdentifier(
+                                        "tagText${i + 1}",
+                                        "id",
+                                        requireContext().packageName
+                                    )
                                 )
-                            )
 
-                            val tagNames = hotboard.tagname?.joinToString(", ") // 각 태그를 쉼표와 공백으로 구분하여 하나의 문자열로 만듦
-                            textView.text = tagNames
-
+                                if (textView != null) {
+                                    val tagNames = hotboard.tagname
+                                    val tagText = if (tagNames != null) {
+                                        tagNames.filterNotNull().joinToString(", ") { tag -> "#$tag" }
+                                    } else {
+                                        ""
+                                    }
+                                    textView.text = tagText
+                                }
+                            }
 
                             // 이미지 URL 가져와서 이미지뷰에 로드
                             val imageUrl = hotboard.poseImage
@@ -138,7 +290,6 @@ class MyFragment3 : Fragment() {
                     }
                 }
             }
-
             override fun onFailure(call: Call<RetrofitClient.PoseHotboardResponse>, t: Throwable) {
                 val errorMessage = "Call Failed: ${t.message}"
                 Log.d("Retrofit22", errorMessage)
@@ -200,5 +351,13 @@ class MyFragment3 : Fragment() {
             }
         }
         popupMenu.show()
+    }
+
+    fun <T : Serializable?> getSerializable(activity: Activity, name: String, clazz: Class<T>): T
+    {
+        return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            activity.intent.getSerializableExtra(name, clazz)!!
+        else
+            activity.intent.getSerializableExtra(name) as T
     }
 }

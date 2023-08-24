@@ -37,7 +37,12 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
         Log.d("Image ID33", imageId.toString())
         holder.imageId = imageId // 이미지 ID를 ViewHolder에 저장합니다
 
-        holder.textTag.text = imageTags?.joinToString(", ")
+        if (imageTags != null) {
+            val tagsText = imageTags?.filterNotNull()?.joinToString(", ") { tag -> "#$tag" } ?: ""
+            holder.textTag.text = tagsText
+        } else {
+            holder.textTag.text = ""
+        }
 
         holder.imageView.setOnClickListener{
             val imageId = imageList[position]

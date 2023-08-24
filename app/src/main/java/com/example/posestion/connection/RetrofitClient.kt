@@ -207,6 +207,16 @@ class RetrofitClient {
         @SerializedName("pose_image")
         val poseImage: String
     )
+    data class PoseSearchResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseSearch>
+    )
 
     data class PoseSearch(
         @SerializedName("id")
@@ -224,7 +234,7 @@ class RetrofitClient {
         @SerializedName("pose_image")
         val poseImage: String,
         @SerializedName("tag_name")
-        val tagname: String?
+        val tagname: List<String>?
     )
     data class PoseAddfavoriteResponse(
         @SerializedName("isSuccess")
@@ -279,7 +289,7 @@ class RetrofitClient {
         @SerializedName("pose_image")
         val poseImage: String,
         @SerializedName("tag_name")
-        val tagname: String?
+        val tagname: List<String>?
     )
 
     data class PoseHotboardResponse(
@@ -311,6 +321,17 @@ class RetrofitClient {
         val tagname: List<String>?
     )
 
+    data class PoseFilterdateResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseFilterdate>
+    )
+
     data class PoseFilterdate(
         @SerializedName("id")
         val id: Int,
@@ -326,6 +347,10 @@ class RetrofitClient {
         val content: String?,
         @SerializedName("pose_image")
         val poseImage: String,
+        @SerializedName("pose_id")
+        val poseid: Int,
+        @SerializedName("tag_name")
+        val tagname: String?,
         @SerializedName("fav_count")
         val favcount: Int
     )
@@ -361,5 +386,35 @@ class RetrofitClient {
     data class Responsemypage(
         @SerializedName("token")
         val token: String?
+    )
+
+    data class PoseGetageResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseGetage>
+    )
+
+    data class PoseGetage(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("content")
+        val content: String,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_names")
+        val tagnames: List<String>?
     )
 }
