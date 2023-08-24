@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.posestion.connection.RetrofitAPI
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.ActivityMainBinding
@@ -56,11 +57,8 @@ class PoseshopFilter : AppCompatActivity() {
             }
         }
         binding.buttonLoad.setOnClickListener {
-            val fragment = PoseshopMainFragment()
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commitAllowingStateLoss()
+            val intent = Intent(this@PoseshopFilter, ActivityMain::class.java)
+            startActivity(intent)
         }
         binding.edittext.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, keyCode: Int, event: KeyEvent?): Boolean {

@@ -12,6 +12,9 @@ import android.widget.*
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.posestion.connection.RetrofitAPI
 import com.example.posestion.connection.RetrofitClient
@@ -27,6 +30,7 @@ class MyFragment2 : Fragment() {
     private lateinit var viewModel: MyCustomViewModel
     private lateinit var rvAdapter: MyRecyclerViewAdapter
     private lateinit var retrofitServiceWithToken: RetrofitAPI
+    private lateinit var customAdapter: CustomAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
@@ -35,15 +39,6 @@ class MyFragment2 : Fragment() {
         Log.d("TokenDebug", "Token: $token")
         retrofitServiceWithToken = RetrofitObject.getRetrofitServiceWithToken(token)
         Log.d("TokenDebug2", retrofitServiceWithToken.toString())
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val searchResults = arguments?.getSerializable("searchResults") as? ArrayList<RetrofitClient.PoseSearch>
-        if (searchResults != null) {
-            // TODO: searchResults를 활용하여 원하는 작업 수행
-        }
     }
 
     private fun onHeartButtonClick(imageId: Int,imageUrl: String, tagNames: List<String>?) {
@@ -72,96 +67,41 @@ class MyFragment2 : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val RootView = inflater.inflate(R.layout.fragment_layout_2, container, false)
+        val rootView = inflater.inflate(R.layout.newfragment_2, container, false)
 
-        val binding = FragmentLayout2Binding.inflate(inflater, container, false)
+        val recyclerView: RecyclerView = rootView.findViewById(R.id.recycler_view)
 
-        Log.d("rootview", RootView.toString())
-        retrofitServiceWithToken.posegetage()
-            .enqueue(object : Callback<RetrofitClient.PoseGetageResponse> {
-                override fun onResponse(
-                    call: Call<RetrofitClient.PoseGetageResponse>,
-                    response: Response<RetrofitClient.PoseGetageResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val getAgeResponse = response.body()
-                        val getAgeDataList = getAgeResponse?.result
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
-                        if (!getAgeDataList.isNullOrEmpty()) {
-                            for (i in 0 until 9) {
-                                val getage = getAgeDataList[i]
+        customAdapter = CustomAdapter(
+            sharedViewModel,
+            retrofitServiceWithToken,
+            viewLifecycleOwner, // 수정: viewLifecycleOwner 사용
+            showLargeImageDialog
+        )
+        recyclerView.adapter = customAdapter
 
-                                Log.d("getage", getage.toString())
-                                val imageView: ImageView = RootView.findViewById(
-                                    resources.getIdentifier(
-                                        "imageView${i + 1}",
-                                        "id",
-                                        requireContext().packageName
-                                    )
-                                )
-                                val imageButton: ImageButton = RootView.findViewById(
-                                    resources.getIdentifier(
-                                        "heartButton${i + 1}",
-                                        "id",
-                                        requireContext().packageName
-                                    )
-                                )
+        retrofitServiceWithToken.posegetage().enqueue(object : Callback<RetrofitClient.PoseGetageResponse> {
+            override fun onResponse(
+                call: Call<RetrofitClient.PoseGetageResponse>,
+                response: Response<RetrofitClient.PoseGetageResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val poseGetageResponse = response.body()
+                    val dataList: List<RetrofitClient.PoseGetage> = poseGetageResponse?.result ?: emptyList()
 
-                                // 이미지 URL 가져와서 이미지뷰에 로드
-                                val imageUrl = getage.poseImage
-                                Glide.with(requireContext())
-                                    .load(imageUrl)
-                                    .centerCrop()
-                                    .into(imageView)
-
-                                imageView.setOnClickListener {
-                                    // 이미지를 크게 보여주는 AlertDialog를 표시합니다.
-                                    showLargeImageDialog(
-                                        getage.poseImage,
-                                        getage.title,
-                                        getage.content
-                                    )
-                                }
-                                // 버튼 동작 처리
-                                var isButtonFilled = false
-                                imageButton.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-
-                                imageButton.setOnClickListener {
-                                    isButtonFilled = !isButtonFilled
-                                    if (isButtonFilled) {
-                                        imageButton.setBackgroundResource(com.example.posestion.R.drawable.fillheart)
-                                        onHeartButtonClick(
-                                            getage.id,
-                                            getage.poseImage,
-                                            getage.tagnames
-                                        )
-                                        Log.d("HeartButtonClick1", getage.id.toString())
-                                    } else {
-                                        imageButton.setBackgroundResource(com.example.posestion.R.drawable._icon__heart_)
-                                        Log.d("HeartButtonClick", "Canceled Pose ID: ${getage.id}")
-                                        sharedViewModel.deleteImage(getage.id)
-                                    }
-                                }
-                                sharedViewModel.removedImage.observe(viewLifecycleOwner) { removedImageId ->
-                                    Log.d("removedImage ID2", removedImageId.toString())
-                                    Log.d("removedImage ID22", getage.id.toString())
-                                    if (removedImageId == getage.id) { // 이미지뷰의 ID를 직접 비교합니다.
-                                        imageButton.setBackgroundResource(R.drawable._icon__heart_)
-                                        isButtonFilled = false
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    customAdapter.setData(dataList) // RecyclerView 데이터 업데이트
+                } else {
+                    // 서버 응답이 실패한 경우 처리
                 }
+            }
 
-                override fun onFailure(
-                    call: Call<RetrofitClient.PoseGetageResponse>, t: Throwable) {
-                    val errorMessage = "Call Failed: ${t.message}"
-                    Log.d("Retrofit27", errorMessage)
-                }
-            })
-        return RootView
+            override fun onFailure(call: Call<RetrofitClient.PoseGetageResponse>, t: Throwable) {
+                // 네트워크 요청이 실패한 경우 처리
+            }
+        })
+
+        return rootView
     }
 
     private val showLargeImageDialog: (String, String, String) -> Unit =
