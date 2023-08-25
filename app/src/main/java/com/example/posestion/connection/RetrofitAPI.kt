@@ -1,12 +1,23 @@
 package com.example.posestion.connection
 
+import android.content.SharedPreferences
+import com.example.posestion.MyApplication
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Multipart
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface RetrofitAPI {
 
+    //회원가입
     @Multipart
     @POST("/app/users")
     fun signup(
@@ -20,20 +31,25 @@ interface RetrofitAPI {
         @Part image: MultipartBody.Part
     ): Call<RetrofitClient.ResponseSignup>
 
+    //로그인
     @POST("/app/login")
     fun login(@Body request: RetrofitClient.Requestlogin): Call<RetrofitClient.Responselogin>
 
+    //아이디 찾기
     @POST("/app/users/findId")
     fun findid(@Body request: RetrofitClient.Requestfindid): Call<RetrofitClient.Responsefindid>
 
+    //비밀번호 초기화
     @PATCH("/app/users/pwReset")
     fun resetpw(@Body request: RetrofitClient.Requestpwreset): Call<RetrofitClient.Responsepwreset>
 
+    //아이디 중복확인
     @GET("/app/users/checkid/{id}")
     fun checkid(
         @Path("id") id: String
     ): Call<RetrofitClient.Responsecheckid>
 
+    //닉네임 중복확인
     @GET("/app/users/checkname/{nickname}")
     fun checknickname(
         @Path("nickname") nickname: String
@@ -97,6 +113,21 @@ interface RetrofitAPI {
     @GET("/pose/delete/:id")
     fun posedeletid(): Call<RetrofitClient.PoseDeleteid>
 
+    //내가 올린 컨텐츠
+    @GET("/app/profile/{nickname}/content")
+    fun mycontents(
+        @Header("x-access-token") token: String,
+        @Path("nickname") nickname: String
+    ): Call<RetrofitClient.ResponsemyContent>
+
+    //내가 올린 강의
+    @GET("/app/profile/{nickname}/class")
+    fun myclass(
+        @Header("x-access-token") token: String,
+        @Path("nickname") nickname: String
+    ): Call<RetrofitClient.ResponsemyClass>
+
+    //마이페이지
     @GET("/app/mypage")
     fun mypage(
         @Header("x-access-token") token: String
@@ -104,4 +135,26 @@ interface RetrofitAPI {
 
     @GET("/pose/getAge")
     fun posegetage(): Call<RetrofitClient.PoseGetageResponse>
+  
+    //이사잘 삭제
+    @GET("/app/wdyt/delete/{id}")
+    fun deletepost(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.ResponseDeletepost>
+
+    //문의하기
+    @Multipart
+    @POST("/app/cs/inquiry")
+    fun ask(
+        @Header("x-access-token") token: String,
+        @Part("title") marketingAgreement: RequestBody,
+        @Part("content") userId: RequestBody,
+        @Part files: List<MultipartBody.Part>
+    ): Call<RetrofitClient.ResponseAsk>
+
+    @GET("/app/cs/inquiry")
+    fun myask(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.ResponsemyAsk>
 }
