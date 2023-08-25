@@ -24,6 +24,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URLEncoder
 
 class PoseshopMainFragment : Fragment() {
     private lateinit var binding: PoseshopmainBinding
@@ -113,7 +114,8 @@ class PoseshopMainFragment : Fragment() {
 
     private fun performSearch(query: String) {
         Log.d("RetrofitSearch8", query)
-        retrofitServiceWithToken.posesearch(word = query).enqueue(object :
+        val encodedQuery = URLEncoder.encode(query, "utf-8")
+        retrofitServiceWithToken.posesearch(word = encodedQuery).enqueue(object :
             Callback<RetrofitClient.PoseSearchResponse> {
             override fun onResponse(
                 call: Call<RetrofitClient.PoseSearchResponse>,
