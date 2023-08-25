@@ -25,6 +25,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".board_10photo"
+            android:exported="false" />
+        <activity
+            android:name=".board_class_home"
+            android:exported="false" />
+        <activity
+            android:name=".board_mypick"
+            android:exported="false" />
+        <activity
+            android:name=".board_myclass"
+            android:exported="false" />
+        <activity
+            android:name=".board_class_view"
+            android:exported="false" />
+        <activity
             android:name=".ActivitySuccessSignup"
             android:exported="false" />
         <activity
@@ -57,6 +72,9 @@
         <activity
             android:name=".board_creation_page"
             android:configChanges="screenSize|orientation"
+            android:exported="false" />
+        <activity
+            android:name=".PoseShopMain"
             android:exported="false" />
         <activity
             android:name=".PoseshopMainFragment"
@@ -132,6 +150,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".BoardClassHomeBinding" />
         <activity android:name=".PoseShopingactiv"
                   android:exported="false"/>
         <activity android:name=".PoseshopFilter" 

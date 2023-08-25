@@ -128,7 +128,7 @@ class ActivityMain : AppCompatActivity() {
                 R.id.bnv_board -> {
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(binding.AmainFrame.id, FragmentMypage())
+                        .replace(binding.AmainFrame.id, board_home())
                         .commitAllowingStateLoss()
                     binding.AmainToolbarTitle.text = "게시판"
                     binding.AmainToolbarTitle.setTypeface(resources.getFont(R.font.sf_arabic_rounded), Typeface.BOLD)

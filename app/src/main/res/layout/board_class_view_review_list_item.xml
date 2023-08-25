@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/board_class_view_review_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/class_view_review_profile" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/board_class_view_review_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="다***"
+                android:textColor="@color/basic"
+                android:textSize="12sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/board_class_view_review_star1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/class_view_review_full_star" />
+
+                <ImageView
+                    android:id="@+id/board_class_view_review_star2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/class_view_review_empty_star" />
+
+                <ImageView
+                    android:id="@+id/board_class_view_review_star3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/class_view_review_empty_star" />
+
+                <ImageView
+                    android:id="@+id/board_class_view_review_star4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/class_view_review_empty_star" />
+
+                <ImageView
+                    android:id="@+id/board_class_view_review_star5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/class_view_review_empty_star" />
+
+                <View
+                    android:id="@+id/view9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/board_class_view_review_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="2023.07.04"
+                    android:textColor="@color/deepgray"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/board_class_view_review_contents"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="처음 문의했을 때 1분안에 바로 친절하게 답변해주셔서 결제했던건데 결과물이 그 이상이어서 너무 만족스럽습니다."
+                android:textSize="12sp"
+                android:textColor="@color/deepgray"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
