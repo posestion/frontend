@@ -25,6 +25,7 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View.OnTouchListener
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.AspectRatio
 import androidx.camera.core.CameraSelector
@@ -64,8 +65,6 @@ class CameraMainActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private var videoCapture: VideoCapture<Recorder>? = null
     private var recording: Recording? = null
-
-    private lateinit var cameraExecutor: ExecutorService
 
     private var isImageCapture: Boolean = true
     private var isFlashOn: Boolean = false
@@ -143,7 +142,6 @@ class CameraMainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        cameraExecutor.shutdown()
     }
 
     override fun onRequestPermissionsResult(

@@ -89,12 +89,6 @@
             android:name=".camera.CameraMainActivity"
             android:exported="false" />
         <activity
-            android:name=".camera.GlideExampleActivity"
-            android:exported="false" />
-        <activity
-            android:name=".camera.CameraMainActivity"
-            android:exported="false" />
-        <activity
             android:name=".ActivityJim"
             android:exported="false" />
         <activity
@@ -117,9 +111,6 @@
             android:exported="false" />
         <activity
             android:name=".ActivityChangeUser"
-            android:exported="false" />
-        <activity
-            android:name=".camera.GlideExampleActivity"
             android:exported="false" />
         <activity
             android:name=".ActivityFindpw"

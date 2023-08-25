@@ -533,7 +533,7 @@ class RetrofitClient {
         val message: String?
     )
 
-    data class Responsemypage(
+    data class Responsemypage1(
         @SerializedName("token")
         val token: String?
     )

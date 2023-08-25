@@ -8,7 +8,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.posestion.camera.CameraMainActivity
+import com.example.posestion.camera.CameraSettingActivity
 import com.example.posestion.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -34,43 +38,94 @@ class ActivityMain : AppCompatActivity() {
         drawerView = binding.AmainDrawer
 
         findViewById<Button>(R.id.drawer_home).setOnClickListener {
-
+            binding.AmainToolbar.visibility = View.VISIBLE
+            supportFragmentManager
+                .beginTransaction()
+                .replace(binding.AmainFrame.id, FragmentHome())
+                .commitAllowingStateLoss()
+            binding.AmainToolbarTitle.text = "POSESTION"
+            binding.AmainToolbarTitle.setTypeface(resources.getFont(R.font.amatica_sc_bold), Typeface.BOLD)
+            binding.AmainToolbarTitle.textSize = 24f
+            drawerLayout.closeDrawer(drawerView)
         }
 
         findViewById<Button>(R.id.drawer_pose).setOnClickListener {
-
+            binding.AmainToolbar.visibility = View.GONE
+            supportFragmentManager
+                .beginTransaction()
+                .replace(binding.AmainFrame.id, PoseshopMainFragment()) // Replace with your fragment
+                .commitAllowingStateLoss()
+            binding.AmainToolbarTitle.text = "포즈상점"
+            binding.AmainToolbarTitle.setTypeface(resources.getFont(R.font.sf_arabic_rounded), Typeface.BOLD)
+            binding.AmainToolbarTitle.textSize = 20f
+            bottomNavigationView.selectedItemId = R.id.bnv_pose
+            drawerLayout.closeDrawer(drawerView)
         }
 
         findViewById<Button>(R.id.drawer_basket).setOnClickListener {
-
+            val intent = Intent(this, PoseShopingactiv::class.java)
+            startActivity(intent)
+            drawerLayout.closeDrawer(drawerView)
         }
 
         findViewById<Button>(R.id.drawer_camera).setOnClickListener {
-
+            binding.AmainToolbar.visibility = View.VISIBLE
+            val intent = Intent(this, CameraMainActivity::class.java)
+            startActivity(intent)
+            drawerLayout.closeDrawer(drawerView)
         }
 
         findViewById<Button>(R.id.drawer_clip).setOnClickListener {
-
+            binding.AmainToolbar.visibility = View.VISIBLE
+            supportFragmentManager
+                .beginTransaction()
+                .replace(binding.AmainFrame.id, board_home())
+                .commitAllowingStateLoss()
+            binding.AmainToolbarTitle.text = "게시판"
+            binding.AmainToolbarTitle.setTypeface(resources.getFont(R.font.sf_arabic_rounded), Typeface.BOLD)
+            binding.AmainToolbarTitle.textSize = 20f
+            drawerLayout.closeDrawer(drawerView)
         }
 
         findViewById<Button>(R.id.drawer_contents).setOnClickListener {
+            binding.AmainToolbar.visibility = View.VISIBLE
+            val intent = Intent(this, board_listpage::class.java)
+            startActivity(intent)
+            drawerLayout.closeDrawer(drawerView)
 
         }
 
         findViewById<Button>(R.id.drawer_class).setOnClickListener {
-
+            binding.AmainToolbar.visibility = View.VISIBLE
+            val intent = Intent(this, board_class_home::class.java)
+            startActivity(intent)
+            drawerLayout.closeDrawer(drawerView)
         }
 
         findViewById<Button>(R.id.drawer_mypage).setOnClickListener {
-
+            binding.AmainToolbar.visibility = View.VISIBLE
+            supportFragmentManager
+                .beginTransaction()
+                .replace(binding.AmainFrame.id, FragmentMypage())
+                .commitAllowingStateLoss()
+            binding.AmainToolbarTitle.text = "마이페이지"
+            binding.AmainToolbarTitle.setTypeface(resources.getFont(R.font.sf_arabic_rounded), Typeface.BOLD)
+            binding.AmainToolbarTitle.textSize = 20f
+            drawerLayout.closeDrawer(drawerView)
         }
 
         findViewById<Button>(R.id.drawer_center).setOnClickListener {
-
+            binding.AmainToolbar.visibility = View.VISIBLE
+            val intent = Intent(this, ActivityCenter::class.java)
+            startActivity(intent)
+            drawerLayout.closeDrawer(drawerView)
         }
 
         findViewById<Button>(R.id.drawer_help).setOnClickListener {
-
+            binding.AmainToolbar.visibility = View.VISIBLE
+            val intent = Intent(this, ActivityHelp::class.java)
+            startActivity(intent)
+            drawerLayout.closeDrawer(drawerView)
         }
 
         findViewById<Button>(R.id.drawer_logout).setOnClickListener {
@@ -106,16 +161,21 @@ class ActivityMain : AppCompatActivity() {
                     true
                 }
                 R.id.bnv_camera -> {
+                    binding.AmainToolbar.visibility = View.VISIBLE
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(binding.AmainFrame.id, FragmentMypage())
+                        .replace(binding.AmainFrame.id, FragmentHome())
                         .commitAllowingStateLoss()
-                    binding.AmainToolbarTitle.text = "카메라"
-                    binding.AmainToolbarTitle.setTypeface(resources.getFont(R.font.sf_arabic_rounded), Typeface.BOLD)
-                    binding.AmainToolbarTitle.textSize = 20f
+                    binding.AmainToolbarTitle.text = "POSESTION"
+                    binding.AmainToolbarTitle.setTypeface(resources.getFont(R.font.amatica_sc_bold), Typeface.BOLD)
+                    binding.AmainToolbarTitle.textSize = 24f
+
+                    val intent = Intent(this, CameraMainActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.bnv_home -> {
+                    binding.AmainToolbar.visibility = View.VISIBLE
                     supportFragmentManager
                         .beginTransaction()
                         .replace(binding.AmainFrame.id, FragmentHome())
@@ -126,6 +186,7 @@ class ActivityMain : AppCompatActivity() {
                     true
                 }
                 R.id.bnv_board -> {
+                    binding.AmainToolbar.visibility = View.VISIBLE
                     supportFragmentManager
                         .beginTransaction()
                         .replace(binding.AmainFrame.id, board_home())
@@ -136,6 +197,7 @@ class ActivityMain : AppCompatActivity() {
                     true
                 }
                 R.id.bnv_mypage -> {
+                    binding.AmainToolbar.visibility = View.VISIBLE
                     supportFragmentManager
                         .beginTransaction()
                         .replace(binding.AmainFrame.id, FragmentMypage())
