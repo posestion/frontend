@@ -1,38 +1,40 @@
 package com.example.posestion
 
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.RvClassBinding
 
-class AdapterClass(private val ClassList: MutableList<com.example.posestion.DataClass>,
-                   private val resources: Resources
+class AdapterClass(private val resources: Resources,
+                   private val context: Context
 ): RecyclerView.Adapter<AdapterClass.viewHolder>() {
+
+    private var myclass = listOf<RetrofitClient.myClass>()
 
     inner class viewHolder(private val binding: RvClassBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(list : com.example.posestion.DataClass){
-            binding.RvclassTitle.text = list.title
-            val displayMetrics = resources.displayMetrics
-            val dpWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
-            val half = (((dpWidth/2)-30) * Resources.getSystem().displayMetrics.density).toInt()
+        fun bind(pos: Int){
+            val response = myclass[pos]
 
-            val Card = binding.RvclassCard
-            val layoutParams = Card.layoutParams
-            layoutParams.width = half
-            layoutParams.height = half
-            Card.layoutParams = layoutParams
+            val dp86 = (86 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = half
-            val drawableRes = list.image
-            val drawable = ResourcesCompat.getDrawable(resources, drawableRes, null)
+            val targetSize = dp86
+            val imageUrl = response.image
+            val imageView = binding.RvclassCard
+            binding.RvclassTitle.text = response.title
 
-            if (drawable != null) {
-                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((drawable as BitmapDrawable).bitmap, targetSize, targetSize, true))
+            Glide.with(context)
+                .load(imageUrl)
+                .into(imageView)
+
+            if (imageView != null) {
+                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((imageView as BitmapDrawable).bitmap, targetSize, targetSize, true))
 
                 binding.RvclassCard.setImageDrawable(scaledDrawable)
                 binding.RvclassCard.clipToOutline = true
@@ -45,8 +47,12 @@ class AdapterClass(private val ClassList: MutableList<com.example.posestion.Data
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        holder.bind(ClassList[position])
+        holder.bind(position)
     }
 
-    override fun getItemCount() = ClassList.size
+    fun setList(list: List<RetrofitClient.myClass>) {
+        myclass = list
+    }
+
+    override fun getItemCount() = myclass.size
 }
