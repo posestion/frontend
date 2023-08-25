@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".board_basic_classpage">
+    tools:context=".board_home">
 
+    <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,60 +14,84 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:orientation="vertical" >
 
+            <TextView
+                android:id="@+id/board_home_10photo_title"
+                android:textColor="@color/maincolor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="사진 찍기 고민될 땐, 10초 사진" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/board_home_10photo_list"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+            </androidx.recyclerview.widget.RecyclerView>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="23dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginRight="18dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/board_basic_myclass_title"
+                    android:id="@+id/board_home_listpage_title"
                     android:textStyle="bold"
                     android:textSize="16dp"
                     android:textColor="@color/maincolor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="내 강의실" />
+                    android:text="이사잘?" />
 
-               <View
+                <View
                     android:id="@+id/view3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/board_basic_myclass_btn"
+                    android:id="@+id/board_home_listpage_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/board_full_view_btn" />
+                    android:src="@drawable/board_full_view_btn_bold" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/board_home_listpage_list"
+                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/basic_myclass_list"/>
+                android:layout_height="match_parent" >
+
+            </androidx.recyclerview.widget.RecyclerView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="16dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/board_basic_mypick_title"
-                    android:textStyle="bold"
-                    android:textSize="16dp"
-                    android:textColor="@color/maincolor"
+                    android:id="@+id/board_home_class_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="내가 찜한 강의" />
+                    android:textColor="@color/maincolor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="클래스" />
 
                 <View
                     android:id="@+id/view4"
@@ -75,19 +100,22 @@
                     android:layout_weight="1" />
 
                 <ImageButton
-                    android:id="@+id/board_basic_mypick_btn"
+                    android:id="@+id/board_home_class_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/board_full_view_btn" />
+                    android:src="@drawable/board_full_view_btn_bold" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/board_home_class_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/basic_mypick_list"/>
+                android:layout_marginBottom="50dp"/>
         </LinearLayout>
     </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

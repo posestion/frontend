@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".board_myclass">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/board_myclass_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 강의실"
+            android:textColor="@color/maincolor"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/sf_arabic_rounded"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="19dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/board_myclass_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

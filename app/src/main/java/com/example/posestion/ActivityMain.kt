@@ -57,7 +57,7 @@ class ActivityMain : AppCompatActivity() {
                 R.id.bnv_board -> {
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(binding.AmainFrame.id, FragmentMypage())
+                        .replace(binding.AmainFrame.id, board_home())
                         .commitAllowingStateLoss()
                     true
                 }

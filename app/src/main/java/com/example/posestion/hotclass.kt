@@ -3,5 +3,7 @@ package com.example.posestion
 import android.media.Image
 
 data class hotclass(
-    val title: String
+    var heart: Boolean,
+    val title: String,
+    val image: Int
     )

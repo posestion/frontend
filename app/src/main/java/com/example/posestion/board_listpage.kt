@@ -1,8 +1,10 @@
 package com.example.posestion
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.posestion.databinding.ActivityBoardCreationPageBinding
 import com.example.posestion.databinding.ActivityBoardListpageBinding
 
 class board_listpage : AppCompatActivity() {
@@ -35,6 +37,11 @@ class board_listpage : AppCompatActivity() {
         setContentView(binding.root)
 
         initializeViews()
+
+        binding.boardListpageAdd.setOnClickListener {
+            val intent = Intent(this,ActivityBoardCreationPageBinding::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initializeViews(){

@@ -10,16 +10,28 @@ class board_basic_classpage : AppCompatActivity() {
     private lateinit var binding: ActivityBoardBasicClasspageBinding
 
     private val basic_myclass = listOf(
-        basic_myclass("인물 사진 잘 찍는 법 종결합니다"),
-        basic_myclass("똥손 탈출하는 전신샷 잘 찍는법"),
-        basic_myclass("인물 사진 잘 찍는 법 종결합니다"),
-        basic_myclass("똥손 탈출하는 전신샷 잘 찍는법")
+        basic_myclass(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
+        basic_myclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
+        basic_myclass(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
+        basic_myclass(false,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
+        basic_myclass(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
+        basic_myclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
+        basic_myclass(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
+        basic_myclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
+        basic_myclass(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
+        basic_myclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
     )
     private val basic_mypick = listOf(
-        basic_mypick("인물 사진 잘 찍는 법 종결합니다"),
-        basic_mypick("똥손 탈출하는 전신샷 잘 찍는법"),
-        basic_mypick("인물 사진 잘 찍는 법 종결합니다"),
-        basic_mypick("똥손 탈출하는 전신샷 잘 찍는법")
+        basic_mypick(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
+        basic_mypick(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
+        basic_mypick(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
+        basic_mypick(false,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
+        basic_mypick(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
+        basic_mypick(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
+        basic_mypick(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
+        basic_mypick(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
+        basic_mypick(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
+        basic_mypick(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

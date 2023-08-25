@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                app:srcCompat="@drawable/imageview"
+                app:srcCompat="@drawable/creation_page_imageview"
                 android:backgroundTint="@color/white"/>
 
 
