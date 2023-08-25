@@ -59,8 +59,11 @@
             android:configChanges="screenSize|orientation"
             android:exported="false" />
         <activity
-            android:name=".PoseShopMain"
-            android:exported="false" />
+            android:name=".PoseshopMainFragment"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false">
+        </activity>
         <activity
             android:name=".camera.GlideExampleActivity"
             android:exported="false" />

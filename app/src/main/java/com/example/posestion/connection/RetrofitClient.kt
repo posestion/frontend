@@ -276,4 +276,295 @@ class RetrofitClient {
         @SerializedName("ans_content")
         val anscontent: String
     )
+
+    //포즈상점//
+    data class PoseWrite(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String?
+    )
+
+    data class PoseBasket(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String?
+    )
+
+    data class PoseId(
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_name")
+        val tagname: String?
+    )
+
+    data class PoseBasketDelete(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String?
+    )
+
+    data class PoseAllView(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_name")
+        val tagname: String?
+    )
+
+    data class PoseAllbasket(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String
+    )
+    data class PoseSearchResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseSearch>
+    )
+
+    data class PoseSearch(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_name")
+        val tagname: List<String>?
+    )
+    data class PoseAddfavoriteResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: PoseAddfavorite
+    )
+    data class PoseAddfavorite(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String?,
+    )
+
+    data class PoseDelfavorite(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String?
+    )
+    data class PoseFavoriteviewResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseFavoriteview>
+    )
+    data class PoseFavoriteview(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_name")
+        val tagname: List<String>?
+    )
+
+    data class PoseHotboardResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseHotboard>
+    )
+    data class PoseHotboard(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("content")
+        val content: String,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_name")
+        val tagname: List<String>?
+    )
+
+    data class PoseFilterdateResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseFilterdate>
+    )
+
+    data class PoseFilterdate(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("pose_id")
+        val poseid: Int,
+        @SerializedName("tag_name")
+        val tagname: String?,
+        @SerializedName("fav_count")
+        val favcount: Int
+    )
+
+    data class PoseFilterpopular(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("fav_count")
+        val favcount: Int
+    )
+
+    data class PoseDeleteid(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String?
+    )
+
+    data class Responsemypage(
+        @SerializedName("token")
+        val token: String?
+    )
+
+    data class PoseGetageResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseGetage>
+    )
+
+    data class PoseGetage(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("content")
+        val content: String,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_names")
+        val tagnames: List<String>?
+    )
 }

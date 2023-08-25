@@ -5,6 +5,7 @@ import com.example.posestion.MyApplication
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.http.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -54,6 +55,64 @@ interface RetrofitAPI {
         @Path("nickname") nickname: String
     ): Call<RetrofitClient.Responsenickname>
 
+    @GET("/app/getAllUsers")
+    fun getall(): Call<RetrofitClient.ResponseAll>
+
+    //포즈 상점//
+    @Multipart
+    @POST("/pose/write")
+    fun posewrite(
+        @Part("title") title: RequestBody,
+        @Part("content") content: RequestBody,
+        @Part("tag") tags: List<RequestBody>,
+        @Part image: MultipartBody.Part
+    ): Call<RetrofitClient.PoseWrite>
+
+    @POST("/pose/basket")
+    fun posebasket(
+        @Part("pose_id") poseid: Int,
+    ): Call<RetrofitClient.PoseBasket>
+
+    @GET("/pose/:id")
+    fun poseid(
+        @Part("id") id: Int,
+    ): Call<RetrofitClient.PoseId>
+
+    @GET("/pose/posebasketDelete/:id")
+    fun posebasektdelete(
+        @Part("id") id: Int,
+    ): Call<RetrofitClient.PoseBasketDelete>
+
+    @GET("/pose/allView")
+    fun poseallview(): Call<RetrofitClient.PoseAllView>
+
+    @GET("/pose/allBakets")
+    fun poseallbasket(): Call<RetrofitClient.PoseAllbasket>
+
+    @GET("/pose/search")
+    fun posesearch( @Query("word") word: String?=null): Call<RetrofitClient.PoseSearchResponse>
+
+    @POST("/pose/addfavorite/{pose_id}")
+    fun poseaddfavorite(@Path("pose_id") poseId: Int): Call<RetrofitClient.PoseAddfavoriteResponse>
+
+    @GET("/pose/delfavorite/{pose_id}")
+    fun posedelfavorite(@Path("pose_id") poseId: Int): Call<RetrofitClient.PoseDelfavorite>
+
+    @GET("/pose/favoriteview")
+    fun posefavoriteview(): Call<RetrofitClient.PoseFavoriteviewResponse>
+
+    @GET("/pose/hotboard")
+    fun posehotboard(): Call<RetrofitClient.PoseHotboardResponse>
+
+    @GET("/pose/filterdate")
+    fun posefilterdate(): Call<RetrofitClient.PoseFilterdateResponse>
+
+    @GET("/pose/filterpopular")
+    fun posefilterpopular(): Call<RetrofitClient.PoseFilterpopular>
+
+    @GET("/pose/delete/:id")
+    fun posedeletid(): Call<RetrofitClient.PoseDeleteid>
+
     //내가 올린 컨텐츠
     @GET("/app/profile/{nickname}/content")
     fun mycontents(
@@ -74,6 +133,9 @@ interface RetrofitAPI {
         @Header("x-access-token") token: String
     ) : Call<RetrofitClient.Responsemypage>
 
+    @GET("/pose/getAge")
+    fun posegetage(): Call<RetrofitClient.PoseGetageResponse>
+  
     //이사잘 삭제
     @GET("/app/wdyt/delete/{id}")
     fun deletepost(

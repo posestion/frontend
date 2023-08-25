@@ -4,8 +4,4 @@
         android:id="@+id/item1"
         android:title="포즈삭제">
     </item>
-    <item
-        android:id="@+id/item2"
-        android:title="순서바꾸기">
-    </item>
 </menu>

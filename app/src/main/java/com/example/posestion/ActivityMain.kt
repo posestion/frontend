@@ -95,9 +95,10 @@ class ActivityMain : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.bnv_pose -> {
+                    binding.AmainToolbar.visibility = View.GONE
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(binding.AmainFrame.id, FragmentMypage())
+                        .replace(binding.AmainFrame.id, PoseshopMainFragment()) // Replace with your fragment
                         .commitAllowingStateLoss()
                     binding.AmainToolbarTitle.text = "포즈상점"
                     binding.AmainToolbarTitle.setTypeface(resources.getFont(R.font.sf_arabic_rounded), Typeface.BOLD)
