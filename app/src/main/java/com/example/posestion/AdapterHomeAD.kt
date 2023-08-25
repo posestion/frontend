@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 class AdapterHomeAD : PagerAdapter() {
 
     private var imagelist = mutableListOf<String>()
+    private var currentPage = 0
 
     override fun getCount(): Int {
         return imagelist.size
@@ -40,5 +41,13 @@ class AdapterHomeAD : PagerAdapter() {
 
     fun getimage(image: MutableList<String>){
         imagelist = image
+    }
+
+    fun getCurrentPage(): Int {
+        return currentPage
+    }
+
+    fun setCurrentPage(position: Int) {
+        currentPage = position
     }
 }
