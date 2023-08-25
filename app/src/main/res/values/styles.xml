@@ -14,4 +14,10 @@
     <style name="CustomMenuItemStyle">
         <item name="android:background">@color/maincolor</item>
     </style>
+
+    <style name="nvmenutextstyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/deepgray</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.posestion.MyApplication.Companion.classlist
 import com.example.posestion.databinding.ActivityClassBinding
 
 class ActivityClass : AppCompatActivity() {
 
     private val binding: ActivityClassBinding by lazy { ActivityClassBinding.inflate(layoutInflater) }
-    private val myDataSet = mutableListOf<DataClass>()
     private lateinit var recyclerView: RecyclerView
+    private lateinit var classadapter: AdapterClass
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +24,11 @@ class ActivityClass : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         recyclerView = binding.AclassRv
-
+        classadapter = AdapterClass(resources, this)
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        recyclerView.adapter = AdapterClass(myDataSet, resources)
-
+        recyclerView.adapter = AdapterClass(resources, this)
+        classadapter.setList(classlist)
 
         recyclerView.adapter?.notifyDataSetChanged()
     }

@@ -22,11 +22,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/imageView1"
+                android:layout_width="154dp"
+                android:layout_height="155dp"
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,9 +39,35 @@
                 android:layout_marginTop="7dp"
                 android:layout_marginEnd="4dp"
                 android:background="@android:color/transparent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="@+id/imageView1"
+                app:layout_constraintTop_toTopOf="@+id/imageView1"
                 app:srcCompat="@drawable/_icon__heart_" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:text="1"
+                android:textColor="@color/maincolor"
+                android:textSize="14dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                app:layout_constraintStart_toStartOf="@+id/imageView1"
+                app:layout_constraintTop_toBottomOf="@+id/imageView1" />
+
+            <TextView
+                android:id="@+id/tagText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="TextView"
+                android:textColor="@color/deepgray"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/textView1"
+                app:layout_constraintTop_toBottomOf="@+id/imageView1" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -65,14 +90,40 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView2"
                 app:srcCompat="@drawable/_icon__heart_" />
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="2"
+                android:textColor="@color/maincolor"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+            <TextView
+                android:id="@+id/tagText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="TextView"
+                android:textColor="@color/deepgray"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="154dp"
                 android:layout_height="155dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="53dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView1"
                 app:srcCompat="@drawable/rectangle_67" />
 
             <ImageButton
@@ -85,13 +136,38 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3"
                 app:srcCompat="@drawable/_icon__heart_" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:text="3"
+                android:textColor="@color/maincolor"
+                android:textSize="14dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                app:layout_constraintStart_toStartOf="@+id/imageView3"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+            <TextView
+                android:id="@+id/tagText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="TextView"
+                android:textColor="@color/deepgray"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="154dp"
                 android:layout_height="155dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="53dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3"
                 app:srcCompat="@drawable/rectangle_67" />
@@ -106,13 +182,38 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="@+id/imageView5"
                 app:srcCompat="@drawable/_icon__heart_" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:text="5"
+                android:textColor="@color/maincolor"
+                android:textSize="14dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                app:layout_constraintStart_toStartOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+            <TextView
+                android:id="@+id/tagText5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="TextView"
+                android:textColor="@color/deepgray"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="154dp"
                 android:layout_height="155dp"
                 android:layout_marginStart="194dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="53dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2"
                 app:srcCompat="@drawable/rectangle_67" />
@@ -127,13 +228,38 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="@+id/imageView4"
                 app:srcCompat="@drawable/_icon__heart_" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="4"
+                android:textColor="@color/maincolor"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+            <TextView
+                android:id="@+id/tagText4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="TextView"
+                android:textColor="@color/deepgray"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="154dp"
                 android:layout_height="155dp"
                 android:layout_marginStart="194dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="53dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView4"
                 app:srcCompat="@drawable/rectangle_67" />
@@ -148,13 +274,38 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView6"
                 app:layout_constraintTop_toTopOf="@+id/imageView6"
                 app:srcCompat="@drawable/_icon__heart_" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="6"
+                android:textColor="@color/maincolor"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView6"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+            <TextView
+                android:id="@+id/tagText6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="TextView"
+                android:textColor="@color/deepgray"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="154dp"
                 android:layout_height="155dp"
                 android:layout_marginStart="17dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="53dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView5"
                 app:srcCompat="@drawable/rectangle_67" />
@@ -169,13 +320,38 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toTopOf="@+id/imageView7"
                 app:srcCompat="@drawable/_icon__heart_" />
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:text="7"
+                android:textColor="@color/maincolor"
+                android:textSize="14dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+            <TextView
+                android:id="@+id/tagText7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="TextView"
+                android:textColor="@color/deepgray"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
             <ImageView
                 android:id="@+id/imageView8"
                 android:layout_width="154dp"
                 android:layout_height="155dp"
                 android:layout_marginStart="194dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="53dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView6"
                 app:srcCompat="@drawable/rectangle_67" />
@@ -190,6 +366,31 @@
                 app:layout_constraintEnd_toEndOf="@+id/imageView8"
                 app:layout_constraintTop_toTopOf="@+id/imageView8"
                 app:srcCompat="@drawable/_icon__heart_" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="8"
+                android:textColor="@color/maincolor"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView8"
+                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+            <TextView
+                android:id="@+id/tagText8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/sf_arabic_rounded"
+                android:text="TextView"
+                android:textColor="@color/deepgray"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

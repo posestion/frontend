@@ -9,20 +9,29 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.posestion.connection.RetrofitAPI
 import com.example.posestion.databinding.PoseshopmainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class PoseShopMain : AppCompatActivity() {
     private lateinit var binding: PoseshopmainBinding
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var viewModel: MyCustomViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= PoseshopmainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PoseshopMainFragment())
+                .commit()
+        }
 
+        val receivedValue = intent.getStringExtra("key_name")
+        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MyCustomViewModel::class.java)
         binding.viewpager.apply{
             adapter=MyPagerAdapter(context as FragmentActivity)
         }
@@ -33,10 +42,15 @@ class PoseShopMain : AppCompatActivity() {
             tab.text = tabTitles[position]
         }.attach()
 
-        binding.sbutton.setOnClickListener({
+        binding.sbutton.setOnClickListener {
             val intent = Intent(this, PoseShopingactiv::class.java)
+            intent.putExtra("key_name", receivedValue)
+            intent.putIntegerArrayListExtra(
+                "addedImageIds",
+                ArrayList(viewModel.addedImageIds.value)
+            )
             startActivity(intent)
-        })
+        }
         binding.filter.setOnClickListener({
             val intent = Intent(this, PoseshopFilter::class.java)
             startActivity(intent)

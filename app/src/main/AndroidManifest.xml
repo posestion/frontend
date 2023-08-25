@@ -40,6 +40,15 @@
             android:name=".board_class_view"
             android:exported="false" />
         <activity
+            android:name=".ActivitySuccessSignup"
+            android:exported="false" />
+        <activity
+            android:name=".ActivitySuccessLogin"
+            android:exported="false" />
+        <activity
+            android:name=".camera.CameraSettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".board_basic_classpage"
             android:exported="false" />
         <activity
@@ -66,6 +75,18 @@
             android:exported="false" />
         <activity
             android:name=".PoseShopMain"
+            android:exported="false" />
+        <activity
+            android:name=".PoseshopMainFragment"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".camera.GlideExampleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".camera.CameraMainActivity"
             android:exported="false" />
         <activity
             android:name=".camera.GlideExampleActivity"
@@ -129,9 +150,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PoseShopingactiv" />
-        <activity android:name=".PoseshopFilter" />
         <activity android:name=".BoardClassHomeBinding" />
+        <activity android:name=".PoseShopingactiv"
+                  android:exported="false"/>
+        <activity android:name=".PoseshopFilter" 
+                  android:exported="false"/>
     </application>
 
 </manifest>
