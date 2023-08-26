@@ -1,26 +1,25 @@
 package com.example.posestion
 
+import android.app.Activity
 import android.app.appsearch.SearchResult
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.posestion.connection.RetrofitAPI
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.PoseshopmainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.Gson
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +30,33 @@ class PoseshopMainFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var viewModel: MyCustomViewModel
     private lateinit var retrofitServiceWithToken: RetrofitAPI
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private val filterActivityResultLauncher = registerForActivityResult(
+    ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        Log.d("Retrofit82", result.resultCode.toString())
+        Log.d("Retrofit83", AppCompatActivity.RESULT_OK.toString())
+        if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            val bundle = result.data?.extras
+            Log.d("Retrofit86", bundle.toString())
+            val serializable = bundle?.get("filter_dates")
+            Log.d("Retrofit88", serializable.toString())
+            val serializabled = bundle?.get("filter_populates")
+            Log.d("Retrofit88", serializabled.toString())
+            if (serializable is ArrayList<*>) {
+                val filterDates = serializable.filterIsInstance<RetrofitClient.PoseFilterdate>()
+                sharedViewModel.setFilterDates(filterDates)
+                Log.d("Retrofit89", filterDates.toString())
+            }
+            else if(serializabled is ArrayList<*>){
+                val filterPopulates = serializabled.filterIsInstance<RetrofitClient.PoseFilterpopular>()
+                sharedViewModel.setFilterPopulates(filterPopulates)
+                Log.d("Retrofit89", filterPopulates.toString())
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
@@ -51,6 +77,7 @@ class PoseshopMainFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -67,7 +94,6 @@ class PoseshopMainFragment : Fragment() {
             tab.text = tabTitles[position]
         }.attach()
 
-
         binding.sbutton.setOnClickListener {
             val intent = Intent(requireContext(), PoseShopingactiv::class.java)
             intent.putExtra("key_name", receivedValue)
@@ -79,7 +105,7 @@ class PoseshopMainFragment : Fragment() {
         binding.filter.setOnClickListener {
             val intent = Intent(requireContext(), PoseshopFilter::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-            startActivity(intent)
+            filterActivityResultLauncher.launch(intent)
         }
 
         binding.edittext.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
@@ -129,16 +155,8 @@ class PoseshopMainFragment : Fragment() {
                             poseSearchResponse.result
                         if (searchResults != null) {
                             Log.d("RetrofitSearch5", "Search results: $searchResults")
-
-                            val bundle = Bundle()
-                            bundle.putSerializable("searchResults", ArrayList(searchResults))
-
-                            val fragment2 = MyFragment2()
-                            fragment2.arguments = bundle
-
-                            val fragment3 = MyFragment3()
-                            fragment3.arguments = bundle
-                            Log.d("RetrofitSearch4", "Fragment3 arguments: ${fragment3.arguments}")
+                            // 어댑터에 검색 결과를 전달하고 화면을 업데이트
+                            sharedViewModel.setSearchResults(searchResults)
                         } else {
                             Log.d("RetrofitSearch6", "Search results are null")
                         }

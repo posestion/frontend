@@ -104,11 +104,11 @@ interface RetrofitAPI {
     @GET("/pose/hotboard")
     fun posehotboard(): Call<RetrofitClient.PoseHotboardResponse>
 
-    @GET("/pose/filterdate")
+    @GET("/pose/ageNewest")
     fun posefilterdate(): Call<RetrofitClient.PoseFilterdateResponse>
 
-    @GET("/pose/filterpopular")
-    fun posefilterpopular(): Call<RetrofitClient.PoseFilterpopular>
+    @GET("/pose/agePopular")
+    fun posefilterpopular(): Call<RetrofitClient.PoseFilterpopularResponse>
 
     @GET("/pose/delete/:id")
     fun posedeletid(): Call<RetrofitClient.PoseDeleteid>

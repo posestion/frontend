@@ -29,11 +29,7 @@ class MyFragment3 : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var retrofitServiceWithToken: RetrofitAPI
     private var filterdates: ArrayList<RetrofitClient.PoseFilterdate>? = null
-    inline fun <reified T : Parcelable> Intent.getParcelableArrayListExtraCompat(key: String): ArrayList<T>? =
-        when {
-            Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU -> getParcelableArrayListExtra(key, T::class.java)
-            else -> @Suppress("DEPRECATION") getParcelableArrayListExtra(key)
-        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,133 +44,6 @@ class MyFragment3 : Fragment() {
 
         var test= getArguments()?.getString("test1")
         Log.d("RetrofitSearch44", test.toString())
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        Log.d("RetrofitSearch41", filterdates.toString())
-        filterdates?.let { nonNullFilterdates ->
-            for ((index, poseSearch) in nonNullFilterdates.withIndex()) {
-                val imageView: ImageView = view.findViewById(
-                    resources.getIdentifier(
-                        "imageView${index + 1}",
-                        "id",
-                        requireContext().packageName
-                    )
-                )
-                val imageButton: ImageButton = view.findViewById(
-                    resources.getIdentifier(
-                        "heartButton${index + 1}",
-                        "id",
-                        requireContext().packageName
-                    )
-                )
-                val textView: TextView? = view.findViewById(
-                    resources.getIdentifier(
-                        "tagText${index + 1}",
-                        "id",
-                        requireContext().packageName
-                    )
-                )
-
-                if (textView != null) {
-                    val tagNames = poseSearch.tagname
-                    Log.d("RetrofitSearch3", tagNames.toString())
-                    val tagText = if (!tagNames.isNullOrEmpty()) {
-                        "#$tagNames"
-                    } else {
-                        ""
-                    }
-                    textView.text = tagText
-                }
-                // 이미지 URL 가져와서 이미지뷰에 로드
-                val imageUrl = poseSearch.poseImage
-                Glide.with(requireContext())
-                    .load(imageUrl)
-                    .centerCrop()
-                    .into(imageView)
-
-                // 버튼 동작 처리
-                var isButtonFilled = false
-                imageButton.setBackgroundResource(R.drawable._icon__heart_)
-
-                imageButton.setOnClickListener {
-                    isButtonFilled = !isButtonFilled
-                    if (isButtonFilled) {
-                        imageButton.setBackgroundResource(R.drawable.fillheart)
-                        Log.d("HeartButtonClick1", poseSearch.id.toString())
-                    } else {
-                        imageButton.setBackgroundResource(R.drawable._icon__heart_)
-                        Log.d("HeartButtonClick", "Canceled Pose ID: ${poseSearch.id}")
-                        sharedViewModel.deleteImage(poseSearch.id)
-                    }
-                }
-            }
-        }
-
-        val searchResults = arguments?.getSerializable("searchResults") as? ArrayList<RetrofitClient.PoseSearch>
-        Log.d("RetrofitSearch4", searchResults.toString())
-        if (searchResults != null) {
-            for ((index, poseSearch) in searchResults.withIndex()) {
-                val imageView: ImageView = view.findViewById(
-                    resources.getIdentifier(
-                        "imageView${index + 1}",
-                        "id",
-                        requireContext().packageName
-                    )
-                )
-                val imageButton: ImageButton = view.findViewById(
-                    resources.getIdentifier(
-                        "heartButton${index + 1}",
-                        "id",
-                        requireContext().packageName
-                    )
-                )
-                val textView: TextView? = view.findViewById(
-                    resources.getIdentifier(
-                        "tagText${index + 1}",
-                        "id",
-                        requireContext().packageName
-                    )
-                )
-
-                if (textView != null) {
-                    val tagNames = poseSearch.tagname
-                    Log.d("RetrofitSearch3", tagNames.toString())
-                    val tagText = if (tagNames != null) {
-                        tagNames.filterNotNull().joinToString(", ") { tag -> "#$tag" }
-                    } else {
-                        ""
-                    }
-                    textView.text = tagText
-                }
-                // 이미지 URL 가져와서 이미지뷰에 로드
-                val imageUrl = poseSearch.poseImage
-                Glide.with(requireContext())
-                    .load(imageUrl)
-                    .centerCrop()
-                    .into(imageView)
-
-                // 버튼 동작 처리
-                var isButtonFilled = false
-                imageButton.setBackgroundResource(R.drawable._icon__heart_)
-
-                imageButton.setOnClickListener {
-                    isButtonFilled = !isButtonFilled
-                    if (isButtonFilled) {
-                        imageButton.setBackgroundResource(R.drawable.fillheart)
-                        onHeartButtonClick(poseSearch.id, poseSearch.poseImage, poseSearch.tagname)
-                        Log.d("HeartButtonClick1", poseSearch.id.toString())
-                    } else {
-                        imageButton.setBackgroundResource(R.drawable._icon__heart_)
-                        Log.d("HeartButtonClick", "Canceled Pose ID: ${poseSearch.id}")
-                        sharedViewModel.deleteImage(poseSearch.id)
-                    }
-                }
-            }
-        }
     }
 
     private fun onHeartButtonClick(imageId: Int,imageUrl: String, tagNames: List<String>?) {

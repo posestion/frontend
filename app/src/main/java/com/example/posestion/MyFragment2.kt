@@ -1,24 +1,19 @@
 package com.example.posestion
 
 import android.app.AlertDialog
-import android.app.appsearch.SearchResult
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.posestion.connection.RetrofitAPI
 import com.example.posestion.connection.RetrofitClient
-import com.example.posestion.databinding.FragmentLayout2Binding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +26,7 @@ class MyFragment2 : Fragment() {
     private lateinit var rvAdapter: MyRecyclerViewAdapter
     private lateinit var retrofitServiceWithToken: RetrofitAPI
     private lateinit var customAdapter: CustomAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
@@ -59,6 +55,59 @@ class MyFragment2 : Fragment() {
                 val errorMessage = "Call Failed: ${t.message}"
                 Log.d("Retrofit23", errorMessage)
             }
+        })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // SharedViewModel을 가져와서 검색 결과 데이터를 가져옴
+        sharedViewModel.searchResults.observe(viewLifecycleOwner, { searchResults ->
+            Log.d("Retrofit28", searchResults.toString())
+            customAdapter.setData(searchResults.map { poseSearch ->
+                RetrofitClient.PoseGetage(
+                    id = poseSearch.id,
+                    poseImage = poseSearch.poseImage,
+                    title = poseSearch.title.toString(),
+                    content = poseSearch.content.toString(),
+                    tagnames = poseSearch.tagname,
+                    date = poseSearch.date,
+                    userId = poseSearch.userId,
+                    view = poseSearch.view
+                )
+            })
+        })
+
+        sharedViewModel.filterDates.observe(viewLifecycleOwner, { filterDates ->
+            Log.d("Retrofit29", filterDates.toString())
+            customAdapter.setData(filterDates.map { poseFilter ->
+                RetrofitClient.PoseGetage(
+                    id = poseFilter.id,
+                    poseImage = poseFilter.poseImage,
+                    title = poseFilter.title.toString(),
+                    content = poseFilter.content.toString(),
+                    tagnames = poseFilter.tagnames,
+                    date = poseFilter.date,
+                    userId = poseFilter.userId,
+                    view = poseFilter.view
+                )
+            })
+        })
+
+        sharedViewModel.filterPopulates.observe(viewLifecycleOwner, { filterPopulates ->
+            Log.d("Retrofit29-2", filterPopulates.toString())
+            customAdapter.setData(filterPopulates.map { poseFilter ->
+                RetrofitClient.PoseGetage(
+                    id = poseFilter.id,
+                    poseImage = poseFilter.poseImage,
+                    title = poseFilter.title.toString(),
+                    content = poseFilter.content.toString(),
+                    tagnames = poseFilter.tagnames,
+                    date = poseFilter.date,
+                    userId = poseFilter.userId,
+                    view = poseFilter.view
+                )
+            })
         })
     }
 

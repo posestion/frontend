@@ -1,5 +1,6 @@
 package com.example.posestion
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -111,5 +112,47 @@ class SharedViewModel : ViewModel() {
     fun notifyImageRemoved(imageId: Int) {
         _removedImage.value = imageId
         Log.d("Image ID39", _removedImage.value.toString())
+    }
+
+    private val _searchResults = MutableLiveData<List<RetrofitClient.PoseSearch>>()
+    val searchResults: LiveData<List<RetrofitClient.PoseSearch>> = _searchResults
+
+    fun setSearchResults(results: List<RetrofitClient.PoseSearch>) {
+        _searchResults.value = results
+    }
+
+    private val _filterDates = MutableLiveData<List<RetrofitClient.PoseFilterdate>>()
+    val filterDates: LiveData<List<RetrofitClient.PoseFilterdate>> get() = _filterDates
+
+    fun setFilterDates(dates: List<RetrofitClient.PoseFilterdate>) {
+        _filterDates.value = dates
+        Log.d("Retrofit87",  _filterDates.value.toString())
+    }
+
+    fun getFilterDates(): List<RetrofitClient.PoseFilterdate>? {
+        Log.d("Retrofit86", filterDates.value.toString())
+        return filterDates.value
+    }
+
+
+    private val _filterPopulates = MutableLiveData<List<RetrofitClient.PoseFilterpopular>>()
+    val filterPopulates: LiveData<List<RetrofitClient.PoseFilterpopular>> get() = _filterPopulates
+
+    fun setFilterPopulates(populates: List<RetrofitClient.PoseFilterpopular>?) {
+        _filterPopulates.value = populates
+    }
+
+    fun getFilterPopulates(): List<RetrofitClient.PoseFilterpopular>? {
+        return filterPopulates.value
+    }
+
+    private var resultBundle: Bundle? = null
+
+    fun getResultBundle(): Bundle? {
+        return resultBundle
+    }
+
+    fun setResultBundle(bundle: Bundle) {
+        resultBundle = bundle
     }
 }
