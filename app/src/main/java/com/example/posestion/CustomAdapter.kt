@@ -22,7 +22,7 @@ import timber.log.Timber.Forest.tag
 class CustomAdapter(    private val sharedViewModel: SharedViewModel,
                         private val retrofitServiceWithToken: RetrofitAPI,
                         private val lifecycleOwner: LifecycleOwner,
-                        private val showLargeImageDialog: (String, String, String) -> Unit
+                        private val showLargeImageDialog: (String, String, String,Int) -> Unit
 ) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     private val getAgeDataList = mutableListOf<RetrofitClient.PoseGetage>()
@@ -97,9 +97,11 @@ class CustomAdapter(    private val sharedViewModel: SharedViewModel,
             imageView.setOnClickListener{
                 val item = getAgeDataList[adapterPosition]
                 val imageUrl = item.poseImage
+                val imageId = item.id
                 val title = item.title
                 val content = item.content
-                showLargeImageDialog(imageUrl, title, content)
+                val poseId= item.poseId
+                showLargeImageDialog(imageUrl, title, content,poseId)
             }
 
         }

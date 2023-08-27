@@ -377,6 +377,8 @@ class RetrofitClient {
         val view: Int,
         @SerializedName("user_id")
         val userId: Int,
+        @SerializedName("pose_id")
+        val poseId: Int,
         @SerializedName("title")
         val title: String?,
         @SerializedName("content")
@@ -572,6 +574,8 @@ class RetrofitClient {
         val view: Int,
         @SerializedName("user_id")
         val userId: Int,
+        @SerializedName("pose_id")
+        val poseId: Int,
         @SerializedName("title")
         val title: String,
         @SerializedName("content")
@@ -580,5 +584,9 @@ class RetrofitClient {
         val poseImage: String,
         @SerializedName("tag_names")
         val tagnames: List<String>?
+    )
+
+    data class PoseRequestBody(
+        @SerializedName("pose_id") val poseId: Int
     )
 }

@@ -98,7 +98,10 @@ class PoseshopMainFragment : Fragment() {
             val intent = Intent(requireContext(), PoseShopingactiv::class.java)
             intent.putExtra("key_name", receivedValue)
             intent.putIntegerArrayListExtra("addedImageIds", ArrayList(viewModel.addedImageIds.value))
+            val imageUrlsList = viewModel.getAllImageUrls()
+            intent.putStringArrayListExtra("addedImageUrls", ArrayList(imageUrlsList))
             Log.d("MyRecyclerViewAdapter91", viewModel.addedImageIds.value.toString())
+            Log.d("MyRecyclerViewAdapter95", imageUrlsList.toString())
             startActivity(intent)
         }
 

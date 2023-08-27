@@ -68,19 +68,18 @@ interface RetrofitAPI {
         @Part image: MultipartBody.Part
     ): Call<RetrofitClient.PoseWrite>
 
+
     @POST("/pose/basket")
-    fun posebasket(
-        @Part("pose_id") poseid: Int,
-    ): Call<RetrofitClient.PoseBasket>
+    fun posebasket(@Body requestBody: RetrofitClient.PoseRequestBody): Call<RetrofitClient.PoseBasket>
 
     @GET("/pose/:id")
     fun poseid(
         @Part("id") id: Int,
     ): Call<RetrofitClient.PoseId>
 
-    @GET("/pose/posebasketDelete/:id")
+    @GET("/pose/posebasketDelete/{id}")
     fun posebasektdelete(
-        @Part("id") id: Int,
+        @Path("id") id: Int,
     ): Call<RetrofitClient.PoseBasketDelete>
 
     @GET("/pose/allView")

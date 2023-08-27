@@ -19,11 +19,13 @@ import com.example.posestion.databinding.PoseshopBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URLEncoder
 
 class PoseshopFilter : AppCompatActivity() {
     private lateinit var binding: PoseshopBinding
     private lateinit var retrofitServiceWithToken: RetrofitAPI
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var filterViewModel: PoseshopFilterSearchViewModel
 
     object SharedGlobals {
         var filterDatesBundle: Bundle? = null
@@ -36,6 +38,7 @@ class PoseshopFilter : AppCompatActivity() {
         setContentView(binding.root)
 
         sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+        filterViewModel= ViewModelProvider(this).get(PoseshopFilterSearchViewModel::class.java)
 
         val token = MyApplication.user.getString("jwt", "").toString()
         Log.d("TokenDebug", "Token: $token")
@@ -79,19 +82,35 @@ class PoseshopFilter : AppCompatActivity() {
             override fun onEditorAction(v: TextView?, keyCode: Int, event: KeyEvent?): Boolean {
                 if (event != null) {
                     if (event.action == KeyEvent.ACTION_DOWN && keyCode === KeyEvent.KEYCODE_ENTER) {
-                        //키패드 내리기
+                        val searchQuery = binding.edittext.text.toString().trim()
                         val imm: InputMethodManager =
                             getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                         imm.hideSoftInputFromWindow(binding.edittext.getWindowToken(), 0)
 
-                        //처리
-                        //prcss()
+                        // 검색어가 비어있지 않은 경우 API 호출
+                        if (searchQuery.isNotEmpty()) {
+                            performSearch(searchQuery)
+                            Log.d("RetrofitSearch1", "performSearch called")
+                        }
                         return true
                     }
                 }
                 return false
             }
         })
+
+        binding.radioGraphics4.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radioButton_1 -> {
+                    // "포함" 라디오 버튼 선택 시의 동작
+                    filterResults(true)
+                }
+                R.id.radioButton_2 -> {
+                    // "제외" 라디오 버튼 선택 시의 동작
+                    filterResults(false)
+                }
+            }
+        }
 
     }
 
@@ -164,6 +183,41 @@ class PoseshopFilter : AppCompatActivity() {
                 Log.d("Retrofit25", errorMessage)
             }
         })
+    }
+
+    private fun performSearch(query: String) {
+        Log.d("RetrofitSearch8", query)
+        val encodedQuery = URLEncoder.encode(query, "utf-8")
+        retrofitServiceWithToken.posesearch(word = encodedQuery).enqueue(object :
+            Callback<RetrofitClient.PoseSearchResponse> {
+            override fun onResponse(
+                call: Call<RetrofitClient.PoseSearchResponse>,
+                response: Response<RetrofitClient.PoseSearchResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val poseSearchResponse = response.body()
+                    Log.d("RetrofitSearch7", poseSearchResponse.toString())
+                    if (poseSearchResponse?.isSuccess == true) {
+                        val searchResults: List<RetrofitClient.PoseSearch> =
+                            poseSearchResponse.result
+                        if (searchResults != null) {
+                            Log.d("RetrofitSearch5", "Search results: $searchResults")
+                            // 어댑터에 검색 결과를 전달하고 화면을 업데이트
+                            filterViewModel.setSearchResults(searchResults)
+                        } else {
+                            Log.d("RetrofitSearch6", "Search results are null")
+                        }
+                    }
+                }
+            }
+            override fun onFailure(call: Call<RetrofitClient.PoseSearchResponse>, t: Throwable) {
+                val errorMessage = "Call Failed: ${t.message}"
+                Log.d("RetrofitSearch", errorMessage)
+            }
+        })
+    }
+
+    private fun filterResults(include: Boolean) {
     }
 }
 

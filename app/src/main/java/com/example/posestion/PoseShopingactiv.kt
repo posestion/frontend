@@ -34,6 +34,7 @@ class PoseShopingactiv: AppCompatActivity() {
 
         val receivedValue = intent.getStringExtra("key_name")
         val addedImageIds = intent.getIntegerArrayListExtra("addedImageIds") ?: ArrayList()
+        val addedImageUrls = intent.getStringArrayListExtra("addedImageUrls")
         Log.d("ReceivedValue", receivedValue ?: "No value received")
 
         binding.recyclerView.layoutManager = GridLayoutManager(this, 2)
@@ -42,8 +43,14 @@ class PoseShopingactiv: AppCompatActivity() {
         val removedImageIds = ArrayList(viewModel.getRemovedImageIds())
         intent.putIntegerArrayListExtra("removedImageIds", removedImageIds)
 
-        addedImageIds.forEach { imageId ->
-            viewModel.addImageId(imageId)
+        if (addedImageUrls != null) {
+            addedImageIds.forEachIndexed { index, imageId ->
+                viewModel.addImageId(imageId)
+                val imageUrl = addedImageUrls.getOrNull(index)
+                if (imageUrl != null) {
+                    viewModel.addImageUrl(imageId, imageUrl)
+                }
+            }
         }
         removedImageIds.forEach { imageId ->
             viewModel.removeImageId(imageId)
@@ -74,9 +81,6 @@ class PoseShopingactiv: AppCompatActivity() {
         }
 
         binding.bbutton.setOnClickListener {
-            val intent = Intent(this, PoseShopMain::class.java)
-            intent.putExtra("key_name", "Hello from previous activity")
-            startActivity(intent)
         }
 
         // MyRecyclerViewAdapter에 showPopupMenu 함수를 호출할 수 있도록 인터페이스를 추가합니다.
@@ -99,9 +103,8 @@ class PoseShopingactiv: AppCompatActivity() {
                         val removedImageId = rvAdapter.getImageIdAtPosition(position)
                         rvAdapter.removeData(position)
 
-                        // 이미지 아이디를 삭제하는 작업을 수행합니다.
-                        viewModel.removeImageId(removedImageId)
-
+                        viewModel.deleteImage(removedImageId)
+                        Log.d("RetrofitDelFavorite3", viewModel.deleteImage(removedImageId).toString())
                         true
                     }
                     else -> false
