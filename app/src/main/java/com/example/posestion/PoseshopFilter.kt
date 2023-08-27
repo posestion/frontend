@@ -114,6 +114,11 @@ class PoseshopFilter : AppCompatActivity() {
                 }
             }
         }
+        binding.buttonSave.setOnClickListener{
+            SharedGlobals.filterDatesBundle = null
+            SharedGlobals.filterPopulatesBundle = null
+            binding.buttonLoad.text = " 개 결과보기"
+        }
 
     }
 
