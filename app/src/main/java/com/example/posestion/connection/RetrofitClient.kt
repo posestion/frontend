@@ -135,58 +135,6 @@ class RetrofitClient {
         val name: String
     )
 
-    //내가 올린 컨텐츠
-    data class ResponsemyContent(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String,
-        @SerializedName("result")
-        val result: List<myContent>
-    )
-
-    data class myContent(
-        @SerializedName("category")
-        val category: String,
-        @SerializedName("id")
-        val id: Int,
-        @SerializedName("title")
-        val title: String,
-        @SerializedName("image")
-        val image: String,
-        @SerializedName("content")
-        val content: String,
-        @SerializedName("like") // 0 : 내가 좋아요하지 않음 , 1 : 내가 좋아요함
-        val like: Int,
-        @SerializedName("Number_of_like")
-        val likeNum: Int,
-        @SerializedName("Number_of_reply")
-        val replyNum: Int
-    )
-
-    //내가 올린 강의
-    data class ResponsemyClass(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String,
-        @SerializedName("result")
-        val result: List<myClass>
-    )
-
-    data class myClass(
-        @SerializedName("id")
-        val id: Int,
-        @SerializedName("title")
-        val title: String,
-        @SerializedName("image_url")
-        val image: String,
-    )
-
     //마이페이지
     data class Responsemypage(
         @SerializedName("isSuccess")
@@ -214,6 +162,142 @@ class RetrofitClient {
         val following: Int,
         @SerializedName("inroduction")
         val inroduction: String?,
+        @SerializedName("class") //최대 3개
+        val mypageclass: List<mypageclass>,
+        @SerializedName("poseDrawer") //최대 5개
+        val poseDrawer: List<mypageposeDrawer>,
+        @SerializedName("myContent") //최대 4개
+        val myContent: List<mypageContent>,
+    )
+
+    data class mypageclass(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("image_url")
+        val image: String,
+        @SerializedName("hits")
+        val hits: Int, //조회수
+        @SerializedName("dibs")
+        val dibs: Int, //1이면 찜
+    )
+
+    data class mypageposeDrawer(
+        @SerializedName("image")
+        val image: String
+    )
+
+    data class mypageContent(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("image")
+        val image: String,
+        @SerializedName("content")
+        val content: String,
+        @SerializedName("like")
+        val like: Int, //1 내가 좋아요 누름 0 안누름
+        @SerializedName("Number_of_like")
+        val likenum: Int,
+        @SerializedName("Number_of_reply")
+        val replynum: String,
+        @SerializedName("date")
+        val date: String
+    )
+
+    //마이페이지->내가 올린 강의
+    data class Responsemypageclass(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<mypageclass>
+    )
+
+    //마이페이지->내가 올린 포즈
+    data class Responsemypagepose(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<mypose>
+    )
+
+    data class mypose(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("image_url")
+        val image: String,
+        @SerializedName("hits")
+        val hits: Int, //조회수
+    )
+
+    //마이페이지->내가 올린 컨텐츠
+    data class Responsemypagecontents(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: contestsResult
+    )
+
+    data class contestsResult(
+        @SerializedName("wdyt")
+        val wdyt: List<mypageContent>,
+        @SerializedName("10s_photo")
+        val photo: List<mypagephoto>
+    )
+
+    data class mypagephoto(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("expertTF")
+        val expert: Int, //1이면 전문가
+        @SerializedName("pose_image")
+        val poseimage: String,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("profile_image")
+        val profileimage: String
+    )
+
+    //내가 올린 10초 사진 전부
+    data class Responsemypagephoto(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<mypagephoto>
+    )
+
+    //내가 올린 이사잘 전부
+    data class Responsemypagewdyt(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<mypageContent>
     )
 
     //이사잘 게시물 삭제

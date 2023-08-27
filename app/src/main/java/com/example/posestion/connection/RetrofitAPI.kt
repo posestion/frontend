@@ -113,25 +113,59 @@ interface RetrofitAPI {
     @GET("/pose/delete/:id")
     fun posedeletid(): Call<RetrofitClient.PoseDeleteid>
 
-    //내가 올린 컨텐츠
-    @GET("/app/profile/{nickname}/content")
-    fun mycontents(
-        @Header("x-access-token") token: String,
-        @Path("nickname") nickname: String
-    ): Call<RetrofitClient.ResponsemyContent>
-
-    //내가 올린 강의
-    @GET("/app/profile/{nickname}/class")
-    fun myclass(
-        @Header("x-access-token") token: String,
-        @Path("nickname") nickname: String
-    ): Call<RetrofitClient.ResponsemyClass>
-
     //마이페이지
-    @GET("/app/mypage")
+    @GET("/app/myPage")
     fun mypage(
         @Header("x-access-token") token: String
     ) : Call<RetrofitClient.Responsemypage>
+
+    //마이페이지 내가올린 강의
+    @GET("/app/myPage/myClass")
+    fun mypageclass(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypageclass>
+
+    //마이페이지 내가올린 포즈
+    @GET("/app/mypage/poseDrawer")
+    fun mypagepose(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagepose>
+
+    //마이페이지 내가 올린 컨텐츠 4개씩
+    @GET("/app/mypage/myContent")
+    fun mypagecontents(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagecontents>
+
+    //마이페이지 내가 올린 10초 사진 전부
+    @GET("/app/mypage/myContent/10sPhoto")
+    fun mypagephoto(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagephoto>
+
+    //마이페이지 내가 올린 이사잘 전부
+    @GET("/app/mypage/myContent/wdyt")
+    fun mypagewdyt(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagewdyt>
+
+    //게시글 보관함
+    @GET("/app/myPage/store/wdyt")
+    fun mypagestorewdyt(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagewdyt>
+
+    //10초사진 보관함
+    @GET("/app/myPage/store/10sPhoto")
+    fun mypagestorephoto(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagephoto>
+
+    //강의 보관함
+    @GET("/app/myPage/store/class")
+    fun mypagestoreclass(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypageclass>
 
     @GET("/pose/getAge")
     fun posegetage(): Call<RetrofitClient.PoseGetageResponse>
