@@ -57,6 +57,18 @@ class PoseshopMainFragment : Fragment() {
         }
     }
 
+    private val poseshopActivityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        Log.d("Retrofit82", result.resultCode.toString())
+        Log.d("Retrofit83", AppCompatActivity.RESULT_OK.toString())
+        if (result.resultCode == Activity.RESULT_OK) {
+            val deletedPoseId = result.data?.getIntExtra("deletedPoseId", -1)
+            if (deletedPoseId != null && deletedPoseId != -1) {
+                viewModel.deleteImage(deletedPoseId)
+            }
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
@@ -102,7 +114,7 @@ class PoseshopMainFragment : Fragment() {
             intent.putStringArrayListExtra("addedImageUrls", ArrayList(imageUrlsList))
             Log.d("MyRecyclerViewAdapter91", viewModel.addedImageIds.value.toString())
             Log.d("MyRecyclerViewAdapter95", imageUrlsList.toString())
-            startActivity(intent)
+            poseshopActivityResultLauncher.launch(intent)
         }
 
         binding.filter.setOnClickListener {

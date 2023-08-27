@@ -1,5 +1,6 @@
 package com.example.posestion
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,9 @@ class PoseShopingactiv: AppCompatActivity() {
     private lateinit var viewModel: MyCustomViewModel
     private lateinit var rvAdapter: MyRecyclerViewAdapter
 
+    object SharedGlobals {
+        var poseshopDelete: Int? = null
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = PoseshopshoppingBinding.inflate(layoutInflater)
@@ -81,7 +85,14 @@ class PoseShopingactiv: AppCompatActivity() {
         }
 
         binding.bbutton.setOnClickListener {
+            val resultIntent = Intent()
+            resultIntent.putExtra("deletedPoseId", SharedGlobals.poseshopDelete)
+            setResult(Activity.RESULT_OK, resultIntent)
+            SharedGlobals.poseshopDelete=null
+            finish()
         }
+
+
 
         // MyRecyclerViewAdapter에 showPopupMenu 함수를 호출할 수 있도록 인터페이스를 추가합니다.
         rvAdapter.setOnPopupMenuClickListener(object : MyRecyclerViewAdapter.OnPopupMenuClickListener {
@@ -99,12 +110,10 @@ class PoseShopingactiv: AppCompatActivity() {
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.item1 -> {
-                        // "포즈삭제" 메뉴 아이템을 선택한 경우의 동작을 처리합니다.
-                        val removedImageId = rvAdapter.getImageIdAtPosition(position)
                         rvAdapter.removeData(position)
+                        SharedGlobals.poseshopDelete=imageId
 
-                        viewModel.deleteImage(removedImageId)
-                        Log.d("RetrofitDelFavorite3", viewModel.deleteImage(removedImageId).toString())
+                        Log.d("RetrofitDelFavorite6", position.toString())
                         true
                     }
                     else -> false
@@ -114,6 +123,14 @@ class PoseShopingactiv: AppCompatActivity() {
         } else {
             // 이미지 아이디를 가져오는데 문제가 있을 경우에 대한 처리
         }
+    }
+
+    override fun onBackPressed() {
+        val resultIntent = Intent()
+        resultIntent.putExtra("deletedPoseId", SharedGlobals.poseshopDelete)
+        setResult(Activity.RESULT_OK, resultIntent)
+        SharedGlobals.poseshopDelete = null
+        super.onBackPressed()
     }
 }
 

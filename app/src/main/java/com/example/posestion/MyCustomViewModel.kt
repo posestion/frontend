@@ -89,14 +89,14 @@ class MyCustomViewModel : ViewModel() {
 
     fun deleteImage(imageId: Int) {
         val imageUrl = getImageUrlForId(imageId) // 예시로 getImageUrlForId 함수를 정의해서 사용합니다.
-
-        val currentList = _imageList.value.orEmpty().toMutableList()
+        val currentList = _addedImageIds.value.orEmpty().toMutableList()
         val position = currentList.indexOf(imageId)
 
+        Log.d("RetrofitDelFavorite5", position.toString())
         if (position != -1) {
             currentList.removeAt(position)
-            _imageList.value = currentList
-
+            _addedImageIds.value = currentList
+            removedImageIds.add(imageId)
             notifyImageRemoved(imageId)
 
             // Remove image URL from imageUrls list

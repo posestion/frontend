@@ -61,6 +61,9 @@ class PoseshopFilter : AppCompatActivity() {
                 }
             }
         }
+
+        binding.buttonLoad.text = " 개 결과보기"
+
         binding.buttonLoad.setOnClickListener {
             val resultIntent = Intent()
             if(SharedGlobals.filterDatesBundle!=null)
@@ -135,6 +138,8 @@ class PoseshopFilter : AppCompatActivity() {
 
                             Log.d("Retrofit29", bundle.toString())
                             SharedGlobals.filterDatesBundle = bundle
+                            val dataSize = result.size
+                            binding.buttonLoad.text = "$dataSize 개 결과보기"
                         }
                         SharedGlobals.filterPopulatesBundle = null
                     }
@@ -170,6 +175,9 @@ class PoseshopFilter : AppCompatActivity() {
 
                         Log.d("Retrofit29", bundle.toString())
                         SharedGlobals.filterPopulatesBundle = bundle
+
+                        val dataSize = resulted.size
+                        binding.buttonLoad.text = "$dataSize 개 결과보기"
                     }
                     SharedGlobals.filterDatesBundle = null
                 }
