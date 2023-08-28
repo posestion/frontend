@@ -169,7 +169,7 @@ class PoseshopMainFragment : Fragment() {
                         val searchResults: List<RetrofitClient.PoseSearch> =
                             poseSearchResponse.result
                         if (searchResults != null) {
-                            Log.d("RetrofitSearch5", "Search results: $searchResults")
+                            Log.d("RetrofitSearch51", "Search results: $searchResults")
                             // 어댑터에 검색 결과를 전달하고 화면을 업데이트
                             sharedViewModel.setSearchResults(searchResults)
                         } else {
@@ -181,6 +181,34 @@ class PoseshopMainFragment : Fragment() {
             override fun onFailure(call: Call<RetrofitClient.PoseSearchResponse>, t: Throwable) {
                 val errorMessage = "Call Failed: ${t.message}"
                 Log.d("RetrofitSearch", errorMessage)
+            }
+        })
+
+        retrofitServiceWithToken.posesearchhot(word = encodedQuery).enqueue(object :
+            Callback<RetrofitClient.PoseSearchHotResponse> {
+            override fun onResponse(
+                call: Call<RetrofitClient.PoseSearchHotResponse>,
+                response: Response<RetrofitClient.PoseSearchHotResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val poseSearchResponse = response.body()
+                    Log.d("RetrofitSearch72", poseSearchResponse.toString())
+                    if (poseSearchResponse?.isSuccess == true) {
+                        val searchResults: List<RetrofitClient.PoseSearchHot> =
+                            poseSearchResponse.result
+                        if (searchResults != null) {
+                            Log.d("RetrofitSearch52", "Search results: $searchResults")
+                            // 어댑터에 검색 결과를 전달하고 화면을 업데이트
+                            sharedViewModel.setSearchHotResults(searchResults)
+                        } else {
+                            Log.d("RetrofitSearch6", "Search results are null")
+                        }
+                    }
+                }
+            }
+            override fun onFailure(call: Call<RetrofitClient.PoseSearchHotResponse>, t: Throwable) {
+                val errorMessage = "Call Failed: ${t.message}"
+                Log.d("RetrofitSearch522", errorMessage)
             }
         })
     }

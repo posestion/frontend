@@ -91,6 +91,9 @@ interface RetrofitAPI {
     @GET("/pose/search")
     fun posesearch( @Query("word") word: String?=null): Call<RetrofitClient.PoseSearchResponse>
 
+    @GET("/pose/searchHot")
+    fun posesearchhot( @Query("word") word: String?=null): Call<RetrofitClient.PoseSearchHotResponse>
+
     @POST("/pose/addfavorite/{pose_id}")
     fun poseaddfavorite(@Path("pose_id") poseId: Int): Call<RetrofitClient.PoseAddfavoriteResponse>
 

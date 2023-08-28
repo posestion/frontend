@@ -26,17 +26,27 @@ class SharedViewModel : ViewModel() {
     private val _buttonStateList = MutableLiveData<List<Boolean>>()
 
     private val imageUrls = mutableMapOf<Int, String>()
+    private val imageTitles = mutableMapOf<Int, String>()
+    private val imageContents = mutableMapOf<Int, String>()
     private val imageTags = mutableMapOf<Int, List<String>?>()
 
     // 이미지 아이디와 이미지 URL을 매핑해서 맵에 추가하는 메서드
-    fun addImageUrl(imageId: Int, imageUrl: String, tagNames: List<String>?) {
+    fun addImageUrl(imageId: Int, imageUrl: String,imageTitle: String, imageContent: String, tagNames: List<String>?) {
         imageUrls[imageId] = imageUrl
+        imageTitles[imageId] = imageTitle
+        imageContents[imageId] = imageContent
         imageTags[imageId] = tagNames
     }
 
     // 이미지 아이디에 해당하는 이미지 URL을 가져오는 메서드
     fun getImageUrlForId(imageId: Int): String? {
         return imageUrls[imageId]
+    }
+    fun getImageTitleForId(imageId: Int): String? {
+        return imageTitles[imageId]
+    }
+    fun getImageContentForId(imageId: Int): String? {
+        return imageContents[imageId]
     }
     fun getImageTagsForId(imageId: Int): List<String>? {
         return imageTags[imageId]
@@ -119,6 +129,13 @@ class SharedViewModel : ViewModel() {
 
     fun setSearchResults(results: List<RetrofitClient.PoseSearch>) {
         _searchResults.value = results
+    }
+
+    private val _searchhotResults = MutableLiveData<List<RetrofitClient.PoseSearchHot>>()
+    val searchhotResults: LiveData<List<RetrofitClient.PoseSearchHot>> = _searchhotResults
+
+    fun setSearchHotResults(results: List<RetrofitClient.PoseSearchHot>) {
+        _searchhotResults.value = results
     }
 
     private val _filterDates = MutableLiveData<List<RetrofitClient.PoseFilterdate>>()

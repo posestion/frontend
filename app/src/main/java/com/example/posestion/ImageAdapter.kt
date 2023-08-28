@@ -9,9 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlin.reflect.KFunction0
 
-class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), private val sharedViewModel: SharedViewModel,  private val showLargeImageDialog: (Int) -> Unit ) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), private val sharedViewModel: SharedViewModel, private val showLargeImageDialog: (String, String, String, Int, List<String>?) -> Unit) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.grid_item_layout, parent, false)
         Log.d("Image ID66", itemView.toString())
@@ -26,6 +25,8 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
 
         val imageUrl = sharedViewModel.getImageUrlForId(imageId) // 이미지 아이디에 해당하는 URL 가져오기
         val imageTags = sharedViewModel.getImageTagsForId(imageId)
+        val imageTitle = sharedViewModel.getImageTitleForId(imageId)
+        val imageContent = sharedViewModel.getImageContentForId(imageId)
         // 이미지 URL을 Glide로 로드하여 이미지뷰에 표시합니다.
         Glide.with(holder.imageView.context)
             .load(imageUrl)
@@ -38,15 +39,15 @@ class ImageAdapter(private var imageList: MutableList<Int> = mutableListOf(), pr
         holder.imageId = imageId // 이미지 ID를 ViewHolder에 저장합니다
 
         if (imageTags != null) {
-            val tagsText = imageTags?.filterNotNull()?.joinToString(", ") { tag -> "#$tag" } ?: ""
+            val tagsText = imageTags?.filterNotNull()?.joinToString(" ") { tag -> "#$tag" } ?: ""
             holder.textTag.text = tagsText
         } else {
             holder.textTag.text = ""
         }
 
         holder.imageView.setOnClickListener{
-            val imageId = imageList[position]
-            showLargeImageDialog(imageId) // 이미지 클릭 시 다이얼로그 표시
+            showLargeImageDialog(
+                imageUrl.toString(), imageTitle.toString(), imageContent.toString(),imageId,imageTags) // 이미지 클릭 시 다이얼로그 표시
         }
 
         holder.isButtonFilled = isButtonFilledList.getOrNull(position) == true

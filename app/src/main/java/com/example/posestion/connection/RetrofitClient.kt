@@ -388,6 +388,38 @@ class RetrofitClient {
         @SerializedName("tag_name")
         val tagname: List<String>?
     )
+
+    data class PoseSearchHotResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseSearchHot>
+    )
+
+    data class PoseSearchHot(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("pose_id")
+        val poseId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_name")
+        val tagname: List<String>?
+    )
     data class PoseAddfavoriteResponse(
         @SerializedName("isSuccess")
         val isSuccess: Boolean,

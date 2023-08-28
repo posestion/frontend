@@ -39,27 +39,6 @@ class MyFragment2 : Fragment() {
         Log.d("TokenDebug2", retrofitServiceWithToken.toString())
     }
 
-    private fun onHeartButtonClick(imageId: Int,imageUrl: String, tagNames: List<String>?) {
-        Log.d(imageId.toString(),"bbb")
-
-        retrofitServiceWithToken.poseaddfavorite(imageId).enqueue(object :
-            Callback<RetrofitClient.PoseAddfavoriteResponse> {
-            override fun onResponse(
-                call: Call<RetrofitClient.PoseAddfavoriteResponse>,
-                response: Response<RetrofitClient.PoseAddfavoriteResponse>
-            ) {
-                if (response.isSuccessful) {
-                    sharedViewModel.addNewImage(imageId)
-                    sharedViewModel.addImageUrl(imageId, imageUrl, tagNames)
-                }
-            }
-            override fun onFailure(call: Call<RetrofitClient.PoseAddfavoriteResponse>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit23", errorMessage)
-            }
-        })
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -159,8 +138,8 @@ class MyFragment2 : Fragment() {
         return rootView
     }
 
-    private val showLargeImageDialog: (String, String, String, Int) -> Unit =
-        { imageUrl, title, content, imageId ->
+    private val showLargeImageDialog: (String, String, String, Int,List<String>?) -> Unit =
+        { imageUrl, title, content, imageId, tagnames ->
             // 이미지를 크게 보여주는 AlertDialog를 표시하는 로직을 작성
             val inflater = LayoutInflater.from(requireContext())
             val dialogView = inflater.inflate(R.layout.dialog_large_image, null)
@@ -177,6 +156,15 @@ class MyFragment2 : Fragment() {
 
             val contentTextView = dialogView.findViewById<TextView>(R.id.textView7)
             contentTextView.text = content
+
+            val tagTextView = dialogView.findViewById<TextView>(R.id.textView13)
+
+            if (tagTextView.text!= null) {
+                val tagsText = tagnames?.filterNotNull()?.joinToString(" ") { tag -> "#$tag" } ?: ""
+                tagTextView.text = tagsText
+            } else {
+                tagTextView.text = ""
+            }
 
             // AlertDialog를 생성합니다.
             val builder = AlertDialog.Builder(requireContext())

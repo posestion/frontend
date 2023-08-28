@@ -92,7 +92,6 @@ class PoseshopFilter : AppCompatActivity() {
 
                         // 검색어가 비어있지 않은 경우 API 호출
                         if (searchQuery.isNotEmpty()) {
-                            performSearch(searchQuery)
                             Log.d("RetrofitSearch1", "performSearch called")
                         }
                         return true
@@ -106,11 +105,9 @@ class PoseshopFilter : AppCompatActivity() {
             when (checkedId) {
                 R.id.radioButton_1 -> {
                     // "포함" 라디오 버튼 선택 시의 동작
-                    filterResults(true)
                 }
                 R.id.radioButton_2 -> {
                     // "제외" 라디오 버튼 선택 시의 동작
-                    filterResults(false)
                 }
             }
         }
@@ -198,39 +195,5 @@ class PoseshopFilter : AppCompatActivity() {
         })
     }
 
-    private fun performSearch(query: String) {
-        Log.d("RetrofitSearch8", query)
-        val encodedQuery = URLEncoder.encode(query, "utf-8")
-        retrofitServiceWithToken.posesearch(word = encodedQuery).enqueue(object :
-            Callback<RetrofitClient.PoseSearchResponse> {
-            override fun onResponse(
-                call: Call<RetrofitClient.PoseSearchResponse>,
-                response: Response<RetrofitClient.PoseSearchResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val poseSearchResponse = response.body()
-                    Log.d("RetrofitSearch7", poseSearchResponse.toString())
-                    if (poseSearchResponse?.isSuccess == true) {
-                        val searchResults: List<RetrofitClient.PoseSearch> =
-                            poseSearchResponse.result
-                        if (searchResults != null) {
-                            Log.d("RetrofitSearch5", "Search results: $searchResults")
-                            // 어댑터에 검색 결과를 전달하고 화면을 업데이트
-                            filterViewModel.setSearchResults(searchResults)
-                        } else {
-                            Log.d("RetrofitSearch6", "Search results are null")
-                        }
-                    }
-                }
-            }
-            override fun onFailure(call: Call<RetrofitClient.PoseSearchResponse>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("RetrofitSearch", errorMessage)
-            }
-        })
-    }
-
-    private fun filterResults(include: Boolean) {
-    }
 }
 

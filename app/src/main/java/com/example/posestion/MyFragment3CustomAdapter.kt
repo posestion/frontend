@@ -17,15 +17,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CustomAdapter(private val sharedViewModel: SharedViewModel,
-                    private val retrofitServiceWithToken: RetrofitAPI,
-                    private val lifecycleOwner: LifecycleOwner,
-                    private val showLargeImageDialog: (String, String, String, Int, List<String>?) -> Unit
-) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class MyFragment3CustomAdapter(private val sharedViewModel: SharedViewModel,
+                               private val retrofitServiceWithToken: RetrofitAPI,
+                               private val lifecycleOwner: LifecycleOwner,
+                               private val showLargeImageDialog: (String, String, String, Int, List<String>?) -> Unit
+) : RecyclerView.Adapter<MyFragment3CustomAdapter.ViewHolder>() {
 
-    private val getAgeDataList = mutableListOf<RetrofitClient.PoseGetage>()
+    private val getAgeDataList = mutableListOf<RetrofitClient.PoseHotboard>()
 
-    fun setData(dataList: List<RetrofitClient.PoseGetage>) { // 수정: PoseGetage로 변경
+    fun setData(dataList: List<RetrofitClient.PoseHotboard>) { // 수정: PoseGetage로 변경
         getAgeDataList.clear()
         getAgeDataList.addAll(dataList)
         notifyDataSetChanged()
@@ -43,7 +43,7 @@ class CustomAdapter(private val sharedViewModel: SharedViewModel,
         holder.tvMain.text = (position + 1).toString()
 
         if (holder.textTag!= null) {
-            val tagsText = item.tagnames?.filterNotNull()?.joinToString(" ") { tag -> "#$tag" } ?: ""
+            val tagsText = item.tagname?.filterNotNull()?.joinToString(" ") { tag -> "#$tag" } ?: ""
             holder.textTag.text = tagsText
         } else {
             holder.textTag.text = ""
@@ -70,7 +70,7 @@ class CustomAdapter(private val sharedViewModel: SharedViewModel,
                     val getage = getAgeDataList[position]
                     if (isButtonFilled) {
                         imageButton.setBackgroundResource(R.drawable.fillheart)
-                        onHeartButtonClick(getage.id, getage.poseImage,getage.title,getage.content, getage.tagnames)
+                        onHeartButtonClick(getage.id, getage.poseImage,getage.title,getage.content, getage.tagname)
                         Log.d("HeartButtonClick1", getage.id.toString())
                     } else {
                         imageButton.setBackgroundResource(R.drawable._icon__heart_)
@@ -98,14 +98,13 @@ class CustomAdapter(private val sharedViewModel: SharedViewModel,
                 val imageId = item.id
                 val title = item.title
                 val content = item.content
-                val poseId= item.poseId
-                val tagNames=item.tagnames
-                showLargeImageDialog(imageUrl, title, content,poseId,tagNames)
+                val tagNames=item.tagname
+                showLargeImageDialog(imageUrl, title, content,imageId,tagNames)
             }
 
         }
 
-        fun bind(item: RetrofitClient.PoseGetage) {
+        fun bind(item: RetrofitClient.PoseHotboard) {
             Glide.with(itemView.context)
                 .load(item.poseImage)
                 .centerCrop()
