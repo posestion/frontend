@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/f"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentMypage">
@@ -43,12 +44,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -232,37 +231,38 @@
                 android:id="@+id/fmypage_text_gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="-10dp"
                 android:layout_marginTop="8dp"
                 android:text="내가 올린 강의"
                 android:textColor="@color/maincolor"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/cardView"
+                app:layout_constraintStart_toStartOf="@+id/fmypage_text6"
                 app:layout_constraintTop_toBottomOf="@+id/fmypage_view1" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fmypage_btn_class"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="-10dp"
                 android:background="@drawable/solid_transparent"
-                android:text="전체보기 >"
+                android:text="전체보기 "
                 android:textColor="@color/gray"
                 android:textSize="12sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/fmypage_text_gone"
-                app:layout_constraintEnd_toEndOf="@+id/cardView" />
+                app:layout_constraintEnd_toEndOf="@+id/fmypage_rv_class"
+                app:layout_constraintTop_toTopOf="@+id/fmypage_text_gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fmypage_rv_class"
-                android:layout_width="320dp"
+                android:layout_width="348dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/fmypage_text_gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fmypage_text_gone" />
 
             <View
@@ -280,45 +280,36 @@
                 android:id="@+id/fmypage_text6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
-                android:text="기본 서랍"
+                android:text="포즈 서랍"
                 android:textColor="@color/maincolor"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/fmypage_text_gone"
+                app:layout_constraintStart_toStartOf="@+id/fmypage_rv_pose"
                 app:layout_constraintTop_toBottomOf="@+id/fmypage_view_gone" />
 
-            <TextView
-                android:id="@+id/fmypage_text7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="찜한 포즈 10개"
-                android:textColor="@color/gray"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/fmypage_text6"
-                app:layout_constraintStart_toEndOf="@+id/fmypage_text6"
-                app:layout_constraintTop_toTopOf="@+id/fmypage_text6" />
-
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/fmypage_btn_jim"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
+                android:id="@+id/fmypage_btn_pose"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="-10dp"
                 android:background="@drawable/solid_transparent"
-                android:text="전체보기 >"
+                android:text="전체보기"
                 android:textColor="@color/gray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/fmypage_text6"
-                app:layout_constraintEnd_toEndOf="@+id/cardView" />
+                app:layout_constraintEnd_toEndOf="@+id/fmypage_rv_pose"
+                app:layout_constraintTop_toTopOf="@+id/fmypage_text6" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fmypage_rv_jim"
+                android:id="@+id/fmypage_rv_pose"
                 android:layout_width="320dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/fmypage_text6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fmypage_text6" />
 
             <View
@@ -329,7 +320,7 @@
                 android:background="@color/lightgray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fmypage_rv_jim" />
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_rv_pose" />
 
             <TextView
                 android:id="@+id/fmypage_text8"
@@ -345,24 +336,24 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fmypage_btn_content"
-                android:layout_width="60dp"
-                android:layout_height="20dp"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="-10dp"
                 android:background="@drawable/solid_transparent"
-                android:text="전체보기 >"
+                android:text="전체보기"
                 android:textColor="@color/gray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/fmypage_text8"
-                app:layout_constraintEnd_toEndOf="@+id/cardView" />
+                app:layout_constraintEnd_toEndOf="@+id/fmypage_rv_content"
+                app:layout_constraintTop_toTopOf="@+id/fmypage_text8" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fmypage_rv_content"
                 android:layout_width="320dp"
-                android:layout_height="220dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/fmypage_text8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fmypage_text8" />
 
             <ImageButton
@@ -395,6 +386,51 @@
                 app:layout_constraintEnd_toEndOf="@+id/fmypage_btn_pen"
                 app:layout_constraintStart_toStartOf="@+id/fmypage_btn_pen"
                 app:layout_constraintTop_toBottomOf="@+id/fmypage_btn_pen" />
+
+            <ImageView
+                android:id="@+id/fmypage_image1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/svg_right"
+                app:layout_constraintBottom_toBottomOf="@+id/fmypage_btn_pose"
+                app:layout_constraintEnd_toEndOf="@+id/fmypage_btn_pose"
+                app:layout_constraintTop_toTopOf="@+id/fmypage_btn_pose" />
+
+            <ImageView
+                android:id="@+id/fmypage_image2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/svg_right"
+                app:layout_constraintBottom_toBottomOf="@+id/fmypage_btn_content"
+                app:layout_constraintEnd_toEndOf="@+id/fmypage_btn_content"
+                app:layout_constraintTop_toTopOf="@+id/fmypage_btn_content" />
+
+            <ImageView
+                android:id="@+id/fmypage_image3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/svg_right"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/fmypage_btn_class"
+                app:layout_constraintEnd_toEndOf="@+id/fmypage_btn_class"
+                app:layout_constraintTop_toTopOf="@+id/fmypage_btn_class" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fmypage_btn_box"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/solid_maincolor_6dp"
+                android:text="내 보관함 가기"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_rv_content" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityClass">
+    tools:context=".ActivityPose">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/Aclass_toolbar"
+        android:id="@+id/Apose_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_toolbar"
@@ -19,25 +19,25 @@
         app:layout_constraintTop_toTopOf="parent" >
 
         <TextView
-            android:id="@+id/Aclass_title"
+            android:id="@+id/Apose_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="내가 올린 강의"
+            android:text="포즈 서랍"
             android:textColor="@color/maincolor"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="165dp"
+            tools:layout_editor_absoluteX="178dp"
             tools:layout_editor_absoluteY="16dp" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Aclass_rv"
+        android:id="@+id/Apose_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Aclass_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/Apose_toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

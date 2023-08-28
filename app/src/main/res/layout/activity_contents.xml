@@ -13,7 +13,7 @@
         android:background="@drawable/custom_toolbar"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:menu="@menu/contents_menu"
+        app:menu="@menu/search_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="내가 올린 컨텐츠"
+            android:text="내가 올린 이사잘"
             android:textColor="@color/maincolor"
             android:textSize="20sp"
             android:textStyle="bold"

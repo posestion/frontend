@@ -163,11 +163,11 @@ class RetrofitClient {
         @SerializedName("inroduction")
         val inroduction: String?,
         @SerializedName("class") //최대 3개
-        val mypageclass: List<mypageclass>,
+        val mypageclass: MutableList<mypageclass>?,
         @SerializedName("poseDrawer") //최대 5개
-        val poseDrawer: List<mypageposeDrawer>,
+        val poseDrawer: MutableList<mypageposeDrawer>?,
         @SerializedName("myContent") //최대 4개
-        val myContent: List<mypageContent>,
+        val myContent: MutableList<mypageContent>?,
     )
 
     data class mypageclass(
@@ -202,7 +202,7 @@ class RetrofitClient {
         @SerializedName("Number_of_like")
         val likenum: Int,
         @SerializedName("Number_of_reply")
-        val replynum: String,
+        val replynum: Int,
         @SerializedName("date")
         val date: String
     )
@@ -216,7 +216,7 @@ class RetrofitClient {
         @SerializedName("message")
         val message: String,
         @SerializedName("result")
-        val result: List<mypageclass>
+        val result: MutableList<mypageclass>?
     )
 
     //마이페이지->내가 올린 포즈
@@ -228,7 +228,7 @@ class RetrofitClient {
         @SerializedName("message")
         val message: String,
         @SerializedName("result")
-        val result: List<mypose>
+        val result: MutableList<mypose>?
     )
 
     data class mypose(
@@ -256,9 +256,9 @@ class RetrofitClient {
 
     data class contestsResult(
         @SerializedName("wdyt")
-        val wdyt: List<mypageContent>,
+        val wdyt: MutableList<mypageContent>?,
         @SerializedName("10s_photo")
-        val photo: List<mypagephoto>
+        val photo: MutableList<mypagephoto>?
     )
 
     data class mypagephoto(
@@ -285,7 +285,7 @@ class RetrofitClient {
         @SerializedName("message")
         val message: String,
         @SerializedName("result")
-        val result: List<mypagephoto>
+        val result: MutableList<mypagephoto>?
     )
 
     //내가 올린 이사잘 전부
@@ -297,7 +297,7 @@ class RetrofitClient {
         @SerializedName("message")
         val message: String,
         @SerializedName("result")
-        val result: List<mypageContent>
+        val result: MutableList<mypageContent>?
     )
 
     //이사잘 게시물 삭제

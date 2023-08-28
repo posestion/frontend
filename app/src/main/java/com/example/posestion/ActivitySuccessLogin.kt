@@ -10,6 +10,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.example.posestion.MyApplication.Companion.classlist
+import com.example.posestion.MyApplication.Companion.contentslist
+import com.example.posestion.MyApplication.Companion.poselist
 
 class ActivitySuccessLogin : AppCompatActivity() {
 
@@ -42,33 +44,15 @@ class ActivitySuccessLogin : AppCompatActivity() {
                             editor.apply()
 
                             if(mypage.expert != 0) {
-                                //내가 올린 강의
-                                val call2 =
-                                    RetrofitObject.getRetrofitService.myclass(token, mypage.nick)
-                                call2.enqueue(object : Callback<RetrofitClient.ResponsemyClass> {
-                                    override fun onResponse(
-                                        call: Call<RetrofitClient.ResponsemyClass>,
-                                        response: Response<RetrofitClient.ResponsemyClass>
-                                    ) {
-                                        if (response.isSuccessful) {
-                                            val response = response.body()
-                                            if (response != null) {
-                                                Log.d("Retrofit", response.message)
-                                                if (response.isSuccess) {
-                                                    classlist = response.result
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    override fun onFailure(
-                                        call: Call<RetrofitClient.ResponsemyClass>,
-                                        t: Throwable
-                                    ) {
-                                        val errorMessage = "Call Failed: ${t.message}"
-                                        Log.d("Retrofit", errorMessage)
-                                    }
-                                })
+                                if(mypage.mypageclass != null){
+                                    classlist = mypage.mypageclass
+                                }
+                            }
+                            if(mypage.myContent != null){
+                                contentslist = mypage.myContent
+                            }
+                            if(mypage.poseDrawer != null){
+                                poselist = mypage.poseDrawer
                             }
 
                             val intent = Intent(this@ActivitySuccessLogin, ActivityMain::class.java)
