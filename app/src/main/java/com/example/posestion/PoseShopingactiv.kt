@@ -26,7 +26,8 @@ class PoseShopingactiv: AppCompatActivity() {
     private lateinit var rvAdapter: MyRecyclerViewAdapter
 
     object SharedGlobals {
-        var poseshopDelete: Int? = null
+        var poseshopDelete: MutableList<Int>? = null
+        var poseshopDeleteList: MutableList<Int>? = null
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,13 +81,54 @@ class PoseShopingactiv: AppCompatActivity() {
         }
 
         binding.checkBox.setOnClickListener {
-            val selectedImageIds = rvAdapter.getSelectedImageIds()
-            rvAdapter.removeSelectedItems()
+            val allItem=viewModel.getAllImageIds()
+            val deletedImageIds = mutableListOf<Int>()
+            if (isButtonFilled) {
+                for (i in allItem.indices.reversed()) {
+                    val imageId = allItem[i]
+                    rvAdapter.removeData(i)
+                    deletedImageIds.add(imageId)
+                }
+
+                // 삭제된 이미지 ID 리스트를 공유 변수에 저장
+                SharedGlobals.poseshopDeleteList = deletedImageIds
+            }
         }
 
         binding.bbutton.setOnClickListener {
             val resultIntent = Intent()
-            resultIntent.putExtra("deletedPoseId", SharedGlobals.poseshopDelete)
+            if(SharedGlobals.poseshopDelete!=null&& SharedGlobals.poseshopDeleteList==null)
+            {
+                SharedGlobals.poseshopDelete?.let { deletedImageIds ->
+                    val deletedImageIdsArrayList = ArrayList<Int>(deletedImageIds)
+                    resultIntent.putIntegerArrayListExtra("deletedPoseId", deletedImageIdsArrayList)
+                }
+            }
+            else if(SharedGlobals.poseshopDelete==null&& SharedGlobals.poseshopDeleteList!=null)
+            {
+                SharedGlobals.poseshopDeleteList?.let { deletedImageIds ->
+                    val deletedImageIdsArrayList = ArrayList<Int>(deletedImageIds)
+                    resultIntent.putIntegerArrayListExtra("deletedPoseId", deletedImageIdsArrayList)
+                }
+            }
+            else if(SharedGlobals.poseshopDelete!=null&& SharedGlobals.poseshopDeleteList!=null)
+            {
+                val combinedList = ArrayList<Int>()
+                val poseshopDelete = SharedGlobals.poseshopDelete // 변수로 저장
+
+                // SharedGlobals.poseshopDelete의 요소들 추가
+                if (poseshopDelete != null) {
+                    combinedList.addAll(poseshopDelete)
+                }
+
+                // SharedGlobals.poseshopDeleteList의 요소들 추가
+                val poseshopDeleteList = SharedGlobals.poseshopDeleteList // 변수로 저장
+                if (poseshopDeleteList != null) {
+                    combinedList.addAll(poseshopDeleteList)
+                }
+
+                resultIntent.putIntegerArrayListExtra("deletedPoseId", combinedList)
+            }
             setResult(Activity.RESULT_OK, resultIntent)
             SharedGlobals.poseshopDelete=null
             finish()
@@ -111,7 +153,10 @@ class PoseShopingactiv: AppCompatActivity() {
                 when (item.itemId) {
                     R.id.item1 -> {
                         rvAdapter.removeData(position)
-                        SharedGlobals.poseshopDelete=imageId
+                        if (SharedGlobals.poseshopDelete == null) {
+                            SharedGlobals.poseshopDelete = mutableListOf()
+                        }
+                        SharedGlobals.poseshopDelete?.add(imageId)
 
                         Log.d("RetrofitDelFavorite6", position.toString())
                         true
@@ -127,7 +172,10 @@ class PoseShopingactiv: AppCompatActivity() {
 
     override fun onBackPressed() {
         val resultIntent = Intent()
-        resultIntent.putExtra("deletedPoseId", SharedGlobals.poseshopDelete)
+        SharedGlobals.poseshopDelete?.let { deletedImageIds ->
+            val deletedImageIdsArrayList = ArrayList<Int>(deletedImageIds)
+            resultIntent.putIntegerArrayListExtra("deletedPoseId", deletedImageIdsArrayList)
+        }
         setResult(Activity.RESULT_OK, resultIntent)
         SharedGlobals.poseshopDelete = null
         super.onBackPressed()

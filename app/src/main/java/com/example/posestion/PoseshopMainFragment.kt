@@ -23,6 +23,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URLDecoder
 import java.net.URLEncoder
 
 class PoseshopMainFragment : Fragment() {
@@ -63,9 +64,11 @@ class PoseshopMainFragment : Fragment() {
         Log.d("Retrofit82", result.resultCode.toString())
         Log.d("Retrofit83", AppCompatActivity.RESULT_OK.toString())
         if (result.resultCode == Activity.RESULT_OK) {
-            val deletedPoseId = result.data?.getIntExtra("deletedPoseId", -1)
-            if (deletedPoseId != null && deletedPoseId != -1) {
-                viewModel.deleteImage(deletedPoseId)
+            val deletedImageIds = result.data?.getIntegerArrayListExtra("deletedPoseId")
+            if (deletedImageIds != null && deletedImageIds.isNotEmpty()) {
+                for (imageId in deletedImageIds) {
+                    viewModel.deleteImage(imageId)
+                }
             }
         }
     }
@@ -139,6 +142,8 @@ class PoseshopMainFragment : Fragment() {
                 if (searchQuery.isNotEmpty()) {
                     performSearch(searchQuery)
                     Log.d("RetrofitSearch1", "performSearch called")
+                    performSearchHot(searchQuery)
+                    Log.d("RetrofitSearch12", "performSearchHot called")
                 }
 
                 true
@@ -155,13 +160,16 @@ class PoseshopMainFragment : Fragment() {
 
     private fun performSearch(query: String) {
         Log.d("RetrofitSearch8", query)
-        val encodedQuery = URLEncoder.encode(query, "utf-8")
-        retrofitServiceWithToken.posesearch(word = encodedQuery).enqueue(object :
+        val encodedQuery = URLEncoder.encode(query, "UTF-8")
+        Log.d("RetrofitSearch81", encodedQuery)
+        val decodedQuery = URLDecoder.decode(encodedQuery, "UTF-8")
+        retrofitServiceWithToken.posesearch(word = decodedQuery).enqueue(object :
             Callback<RetrofitClient.PoseSearchResponse> {
             override fun onResponse(
                 call: Call<RetrofitClient.PoseSearchResponse>,
                 response: Response<RetrofitClient.PoseSearchResponse>
             ) {
+                Log.d("RetrofitSearch73", response.toString())
                 if (response.isSuccessful) {
                     val poseSearchResponse = response.body()
                     Log.d("RetrofitSearch7", poseSearchResponse.toString())
@@ -183,13 +191,18 @@ class PoseshopMainFragment : Fragment() {
                 Log.d("RetrofitSearch", errorMessage)
             }
         })
-
-        retrofitServiceWithToken.posesearchhot(word = encodedQuery).enqueue(object :
+    }
+    private fun performSearchHot(query: String) {
+        Log.d("RetrofitSearch8", query)
+        val encodedQuery = URLEncoder.encode(query, "UTF-8")
+        val decodedQuery = URLDecoder.decode(encodedQuery, "UTF-8")
+        retrofitServiceWithToken.posesearchhot(hot = decodedQuery).enqueue(object :
             Callback<RetrofitClient.PoseSearchHotResponse> {
             override fun onResponse(
                 call: Call<RetrofitClient.PoseSearchHotResponse>,
                 response: Response<RetrofitClient.PoseSearchHotResponse>
             ) {
+                Log.d("RetrofitSearch72", response.toString())
                 if (response.isSuccessful) {
                     val poseSearchResponse = response.body()
                     Log.d("RetrofitSearch72", poseSearchResponse.toString())
