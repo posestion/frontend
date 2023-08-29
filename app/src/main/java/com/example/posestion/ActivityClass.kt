@@ -67,7 +67,7 @@ class ActivityClass : AppCompatActivity() {
         inflater.inflate(R.menu.search_menu, menu)
         return true
     }
-    
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_search -> {

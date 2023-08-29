@@ -14,9 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.RvContentsBinding
 
-class AdapterContents(private val ContentsList: MutableList<RetrofitClient.mypageContent>,
-                      private val context: Context,
-                      private val resources: Resources): RecyclerView.Adapter<AdapterContents.viewHolder>() {
+class AdapterBoxContents (private val ContentsList: MutableList<RetrofitClient.mypageContent>,
+                          private val context: Context,
+                          private val resources: Resources
+): RecyclerView.Adapter<AdapterBoxContents.viewHolder>() {
 
     inner class viewHolder(private val binding: RvContentsBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -42,25 +43,19 @@ class AdapterContents(private val ContentsList: MutableList<RetrofitClient.mypag
             }
 
             binding.RvcontentsBtnMenu.setOnClickListener {
-                val popupMenuView = LayoutInflater.from(context).inflate(R.layout.custom_popup, null)
+                val popupMenuView = LayoutInflater.from(context).inflate(R.layout.custom_box_popup, null)
                 val popupWindow = PopupWindow(popupMenuView, pixels, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-                val deleteButton = popupMenuView.findViewById<Button>(R.id.popup_delete)
-                val editButton = popupMenuView.findViewById<Button>(R.id.popup_edit)
-                val keepButton = popupMenuView.findViewById<Button>(R.id.popup_keep)
+                val deleteButton = popupMenuView.findViewById<Button>(R.id.cboxpopup_btn_delete)
+                val outboxButton = popupMenuView.findViewById<Button>(R.id.cboxpopup_btn_out)
 
                 deleteButton.setOnClickListener {
                     Toast.makeText(context, "Delete 버튼 클릭", Toast.LENGTH_SHORT).show()
                     popupWindow.dismiss()
                 }
 
-                editButton.setOnClickListener {
-                    Toast.makeText(context, "Edit 버튼 클릭", Toast.LENGTH_SHORT).show()
-                    popupWindow.dismiss()
-                }
-
-                keepButton.setOnClickListener {
-                    Toast.makeText(context, "Keep 버튼 클릭", Toast.LENGTH_SHORT).show()
+                outboxButton.setOnClickListener {
+                    Toast.makeText(context, "꺼내기 버튼 클릭", Toast.LENGTH_SHORT).show()
                     popupWindow.dismiss()
                 }
 

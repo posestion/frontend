@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.posestion.MyApplication.Companion.boxclasslist
 import com.example.posestion.databinding.ActivityBoxClassBinding
 
 class ActivityBoxClass : AppCompatActivity() {
 
     private val binding: ActivityBoxClassBinding by lazy { ActivityBoxClassBinding.inflate(layoutInflater) }
+    private lateinit var recyclerViewclass: RecyclerView
+    private lateinit var classadapter: AdapterBoxClass
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +24,14 @@ class ActivityBoxClass : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        recyclerViewclass = binding.aboxclassRv
+        classadapter = AdapterBoxClass(boxclasslist, resources, this)
+
+        recyclerViewclass.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerViewclass.adapter = classadapter
+        classadapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

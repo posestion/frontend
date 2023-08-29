@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.posestion.MyApplication.Companion.boxphotolist
 import com.example.posestion.databinding.ActivityBoxPhotoBinding
 
 class ActivityBoxPhoto : AppCompatActivity() {
 
     private val binding: ActivityBoxPhotoBinding by lazy { ActivityBoxPhotoBinding.inflate(layoutInflater) }
+    private lateinit var recyclerViewphoto: RecyclerView
+    private lateinit var photoadapter: AdapterPhoto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +24,14 @@ class ActivityBoxPhoto : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        recyclerViewphoto = binding.aboxphotoRv
+        photoadapter = AdapterPhoto(boxphotolist, this)
+
+        recyclerViewphoto.layoutManager =
+            StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        recyclerViewphoto.adapter = photoadapter
+        photoadapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
