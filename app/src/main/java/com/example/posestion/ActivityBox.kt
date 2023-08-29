@@ -48,20 +48,22 @@ class ActivityBox : AppCompatActivity() {
                         Log.d("Retrofit", response.message)
                         if (response.isSuccess) {
                             if(response.result != null){
-                                boxcontentslist = response.result
-                                val contentslist = mutableListOf<RetrofitClient.mypageContent>()
-                                contentslist.add(boxcontentslist[0])
+                                if(response.result.size != 0){
+                                    boxcontentslist = response.result
+                                    val contentslist = mutableListOf<RetrofitClient.mypageContent>()
+                                    contentslist.add(boxcontentslist[0])
 
-                                recyclerViewcontents = binding.aboxRvContents
-                                contentsadapter = AdapterMypageContents(contentslist, resources, this@ActivityBox)
+                                    recyclerViewcontents = binding.aboxRvContents
+                                    contentsadapter = AdapterMypageContents(contentslist, resources, this@ActivityBox)
 
-                                val dividerItemDecoration = DividerItemDecoration(this@ActivityBox, LinearLayoutManager.VERTICAL)
-                                recyclerViewcontents.addItemDecoration(dividerItemDecoration)
+                                    val dividerItemDecoration = DividerItemDecoration(this@ActivityBox, LinearLayoutManager.VERTICAL)
+                                    recyclerViewcontents.addItemDecoration(dividerItemDecoration)
 
-                                recyclerViewcontents.layoutManager =
-                                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-                                recyclerViewcontents.adapter = contentsadapter
-                                contentsadapter.notifyDataSetChanged()
+                                    recyclerViewcontents.layoutManager =
+                                        StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+                                    recyclerViewcontents.adapter = contentsadapter
+                                    contentsadapter.notifyDataSetChanged()
+                                }
                             }
                         }
                     }
@@ -83,24 +85,26 @@ class ActivityBox : AppCompatActivity() {
                         Log.d("Retrofit", response.message)
                         if (response.isSuccess) {
                             if(response.result != null){
-                                boxphotolist = response.result
-                                val photolist = mutableListOf<RetrofitClient.mypagephoto>()
-                                if(boxphotolist.size <= 3){
-                                    for(i in 0..boxphotolist.size){
-                                        photolist.add(boxphotolist[i])
+                                if(response.result.size != 0){
+                                    boxphotolist = response.result
+                                    val photolist = mutableListOf<RetrofitClient.mypagephoto>()
+                                    if(boxphotolist.size <= 3){
+                                        for(i in 0..boxphotolist.size){
+                                            photolist.add(boxphotolist[i])
+                                        }
+                                    }else{
+                                        for(i in 0..2){
+                                            photolist.add(boxphotolist[i])
+                                        }
                                     }
-                                }else{
-                                    for(i in 0..2){
-                                        photolist.add(boxphotolist[i])
-                                    }
-                                }
-                                recyclerViewphoto = binding.aboxRvPhoto
-                                photoadapter = AdapterPhoto(photolist, this@ActivityBox)
+                                    recyclerViewphoto = binding.aboxRvPhoto
+                                    photoadapter = AdapterPhoto(photolist, this@ActivityBox)
 
-                                recyclerViewphoto.layoutManager =
-                                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                                recyclerViewphoto.adapter = photoadapter
-                                photoadapter.notifyDataSetChanged()
+                                    recyclerViewphoto.layoutManager =
+                                        StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+                                    recyclerViewphoto.adapter = photoadapter
+                                    photoadapter.notifyDataSetChanged()
+                                }
                             }
                         }
                     }
@@ -122,24 +126,26 @@ class ActivityBox : AppCompatActivity() {
                         Log.d("Retrofit", response.message)
                         if (response.isSuccess) {
                             if(response.result != null){
-                                boxclasslist = response.result
-                                val classlist = mutableListOf<RetrofitClient.mypageclass>()
-                                if(boxclasslist.size <= 3){
-                                    for(i in 0..boxclasslist.size){
-                                        classlist.add(boxclasslist[i])
+                                if(response.result.size != 0){
+                                    boxclasslist = response.result
+                                    val classlist = mutableListOf<RetrofitClient.mypageclass>()
+                                    if(boxclasslist.size <= 3){
+                                        for(i in 0..boxclasslist.size){
+                                            classlist.add(boxclasslist[i])
+                                        }
+                                    }else{
+                                        for(i in 0..2){
+                                            classlist.add(boxclasslist[i])
+                                        }
                                     }
-                                }else{
-                                    for(i in 0..2){
-                                        classlist.add(boxclasslist[i])
-                                    }
-                                }
-                                recyclerViewclass = binding.aboxRvClass
-                                classadapter = AdapterMypageClass(classlist, resources, this@ActivityBox)
+                                    recyclerViewclass = binding.aboxRvClass
+                                    classadapter = AdapterMypageClass(classlist, resources, this@ActivityBox)
 
-                                recyclerViewclass.layoutManager =
-                                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                                recyclerViewclass.adapter = classadapter
-                                classadapter.notifyDataSetChanged()
+                                    recyclerViewclass.layoutManager =
+                                        StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+                                    recyclerViewclass.adapter = classadapter
+                                    classadapter.notifyDataSetChanged()
+                                }
                             }
                         }
                     }
