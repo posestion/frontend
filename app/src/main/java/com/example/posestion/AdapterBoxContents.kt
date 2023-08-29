@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,11 +14,17 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.RvContentsBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AdapterBoxContents (private val ContentsList: MutableList<RetrofitClient.mypageContent>,
                           private val context: Context,
                           private val resources: Resources
 ): RecyclerView.Adapter<AdapterBoxContents.viewHolder>() {
+
+    private val user = MyApplication.user
+    private val token = user.getString("jwt", "").toString()
 
     inner class viewHolder(private val binding: RvContentsBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -50,12 +57,50 @@ class AdapterBoxContents (private val ContentsList: MutableList<RetrofitClient.m
                 val outboxButton = popupMenuView.findViewById<Button>(R.id.cboxpopup_btn_out)
 
                 deleteButton.setOnClickListener {
-                    Toast.makeText(context, "Delete 버튼 클릭", Toast.LENGTH_SHORT).show()
+                    val call = RetrofitObject.getRetrofitService.deletepost(token, list.id.toString())
+                    call.enqueue(object : Callback<RetrofitClient.Responseusually> {
+                        override fun onResponse(call: Call<RetrofitClient.Responseusually>, response: Response<RetrofitClient.Responseusually>) {
+                            if (response.isSuccessful) {
+                                val response = response.body()
+                                if(response != null){
+                                    if(response.isSuccess){
+                                        ContentsList.removeAt(adapterPosition)
+                                        notifyItemRemoved(adapterPosition)
+                                        Toast.makeText(context, "이사잘이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<RetrofitClient.Responseusually>, t: Throwable) {
+                            val errorMessage = "Call Failed: ${t.message}"
+                            Log.d("Retrofit", errorMessage)
+                        }
+                    })
                     popupWindow.dismiss()
                 }
 
                 outboxButton.setOnClickListener {
-                    Toast.makeText(context, "꺼내기 버튼 클릭", Toast.LENGTH_SHORT).show()
+                    val call = RetrofitObject.getRetrofitService.boxoutpost(token, list.id.toString())
+                    call.enqueue(object : Callback<RetrofitClient.Responseusually> {
+                        override fun onResponse(call: Call<RetrofitClient.Responseusually>, response: Response<RetrofitClient.Responseusually>) {
+                            if (response.isSuccessful) {
+                                val response = response.body()
+                                if(response != null){
+                                    if(response.isSuccess){
+                                        ContentsList.removeAt(adapterPosition)
+                                        notifyItemRemoved(adapterPosition)
+                                        Toast.makeText(context, "이사잘이 보관함에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<RetrofitClient.Responseusually>, t: Throwable) {
+                            val errorMessage = "Call Failed: ${t.message}"
+                            Log.d("Retrofit", errorMessage)
+                        }
+                    })
                     popupWindow.dismiss()
                 }
 

@@ -300,8 +300,8 @@ class RetrofitClient {
         val result: MutableList<mypageContent>?
     )
 
-    //이사잘 게시물 삭제
-    data class ResponseDeletepost(
+    //보편적인 Response
+    data class Responseusually(
         @SerializedName("isSuccess")
         val isSuccess: Boolean,
         @SerializedName("code")

@@ -169,13 +169,41 @@ interface RetrofitAPI {
 
     @GET("/pose/getAge")
     fun posegetage(): Call<RetrofitClient.PoseGetageResponse>
+
+    //이사잘 보관함에 넣기
+    @GET("/app/wdyt/store/{id}")
+    fun boxinpost(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
   
     //이사잘 삭제
     @GET("/app/wdyt/delete/{id}")
     fun deletepost(
         @Header("x-access-token") token: String,
         @Path("id") id: String
-    ) : Call<RetrofitClient.ResponseDeletepost>
+    ) : Call<RetrofitClient.Responseusually>
+
+    //이사잘 보관함 꺼내기
+    @GET("/app/wdyt/takeOut/{id}")
+    fun boxoutpost(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
+
+    //클라스 삭제
+    @GET("/app/class/deleteClass/{id}")
+    fun deleteclass(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
+
+    //클라스 꺼내기
+    @GET("/app/class/takeOut/{id}")
+    fun boxoutclass(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
 
     //문의하기
     @Multipart

@@ -134,14 +134,17 @@ class ActivityLogin : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val response = response.body()
                         if(response != null){
-                            if(response.isSuccess){
+                            if(response.isSuccess) {
                                 val token = response.result.jwt
                                 editor.putString("id", id)
                                 editor.putString("pw", pw)
                                 editor.putString("jwt", token)
                                 editor.apply()
-                                val intent = Intent(this@ActivityLogin, ActivitySuccessLogin::class.java)
+                                val intent =
+                                    Intent(this@ActivityLogin, ActivitySuccessLogin::class.java)
                                 startActivity(intent)
+                            }else{
+                                Toast.makeText(this@ActivityLogin, "로그인 정보가 올바르지 않습니다.", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
