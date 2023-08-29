@@ -41,6 +41,7 @@ class ActivitySuccessLogin : AppCompatActivity() {
                             editor.putInt("post", mypage.post)
                             editor.putInt("following", mypage.following)
                             editor.putInt("follower", mypage.follower)
+                            editor.putString("intro", mypage.introduction)
                             editor.apply()
 
                             if(mypage.expert != 0) {

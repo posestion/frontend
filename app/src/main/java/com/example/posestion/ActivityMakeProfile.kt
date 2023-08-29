@@ -25,6 +25,7 @@ import com.example.posestion.databinding.ActivityMakeProfileBinding
 import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
@@ -44,6 +45,7 @@ class ActivityMakeProfile : AppCompatActivity() {
     private lateinit var nickchecktext: TextView
     private lateinit var profilenickname: String
     private lateinit var imagePart: MultipartBody.Part
+    private var introduction = ""
 
     private val nickcheckwatcherListener = object : TextWatcher {
 
@@ -66,6 +68,7 @@ class ActivityMakeProfile : AppCompatActivity() {
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             val length = binding.AmakeprofileEditIntro.text.length
+            introduction = binding.AmakeprofileEditIntro.text.toString()
             binding.AmakeprofileTextIntro.text = "${length}/20"
         }
 
@@ -128,25 +131,24 @@ class ActivityMakeProfile : AppCompatActivity() {
             val nickname = profilenickname.toRequestBody("text/plain".toMediaTypeOrNull())
             val username = intent.getStringExtra("name").toString().toRequestBody("text/plain".toMediaTypeOrNull())
             val name = intent.getStringExtra("name").toString()
+            val intro = introduction.toRequestBody("text/plain".toMediaTypeOrNull())
 
             val call = RetrofitObject.getRetrofitService
-            call.signup(marketingAgreement, userId, password, phoneNumber, birth, nickname, username, imagePart)
+            call.signup(marketingAgreement, userId, password, phoneNumber, birth, nickname, username, intro, imagePart)
                 .enqueue(object : Callback<RetrofitClient.ResponseSignup> {
                     override fun onResponse(call: Call<RetrofitClient.ResponseSignup>, response: Response<RetrofitClient.ResponseSignup>) {
                         if (response.isSuccessful) {
-                            Log.d("Retrofit", "success")
-                            val result = response.body()
-                            Log.d("Retrofit", result.toString())
-                            if(result != null){
-                                Log.d("Retrofit", result.message.toString())
-                                val intent = Intent(this@ActivityMakeProfile, ActivitySuccessSignup::class.java)
-                                intent.putExtra("name", name)
-                                startActivity(intent)
-                                finish()
+                            val response = response.body()
+                            if(response != null){
+                                if(response.isSuccess){
+                                    val intent = Intent(this@ActivityMakeProfile, ActivitySuccessSignup::class.java)
+                                    intent.putExtra("name", name)
+                                    startActivity(intent)
+                                    finish()
+                                }else{
+                                    Toast.makeText(this@ActivityMakeProfile, response.message, Toast.LENGTH_SHORT).show()
+                                }
                             }
-                        } else {
-                            val errorBody = response.errorBody()?.string()
-                            Log.d("Retrofit", "Response Error: $errorBody")
                         }
                     }
                     override fun onFailure(call: Call<RetrofitClient.ResponseSignup>, t: Throwable) {

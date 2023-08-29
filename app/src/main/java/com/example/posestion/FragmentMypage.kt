@@ -94,6 +94,10 @@ class FragmentMypage : Fragment() {
         binding.fmypageFollowNum.text = "${user.getInt("follower", 0)}"
         binding.fmypageFollowingNum.text = "${user.getInt("following", 0)}"
         binding.fmypageTextNick.text = "${user.getString("nick", "")}"
+        binding.fmypageTextIntroduce.text = "${user.getString("intro", "")}"
+        if(binding.fmypageTextIntroduce.text == ""){
+            binding.fmypageTextIntroduce.visibility = View.GONE
+        }
 
         val imageUrl = user.getString("profileimage", "")
         val imageView = binding.fmypageProfile

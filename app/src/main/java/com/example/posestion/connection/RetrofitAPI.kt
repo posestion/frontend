@@ -28,6 +28,7 @@ interface RetrofitAPI {
         @Part("birth") birth: RequestBody,
         @Part("nickname") nickname: RequestBody,
         @Part("username") username: RequestBody,
+        @Part("introduction") introduction: RequestBody?,
         @Part image: MultipartBody.Part
     ): Call<RetrofitClient.ResponseSignup>
 
@@ -194,6 +195,13 @@ interface RetrofitAPI {
     //클라스 삭제
     @GET("/app/class/deleteClass/{id}")
     fun deleteclass(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
+
+    //클래스 보관함에 넣기
+    @GET("/app/class/takeOut/{id}")
+    fun boxinclass(
         @Header("x-access-token") token: String,
         @Path("id") id: String
     ) : Call<RetrofitClient.Responseusually>

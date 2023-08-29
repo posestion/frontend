@@ -28,6 +28,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="TextView"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/rvboxclass_image"
         app:layout_constraintTop_toBottomOf="@+id/rvboxclass_image" />

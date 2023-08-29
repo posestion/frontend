@@ -432,6 +432,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fmypage_rv_content" />
 
+            <TextView
+                android:id="@+id/fmypage_text_introduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:text="TextView"
+                android:textColor="@color/deepgray"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/fmypage_text1"
+                app:layout_constraintTop_toBottomOf="@+id/fmypage_text1" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

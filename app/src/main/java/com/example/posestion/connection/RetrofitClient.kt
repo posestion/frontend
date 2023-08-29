@@ -161,7 +161,7 @@ class RetrofitClient {
         @SerializedName("following")
         val following: Int,
         @SerializedName("inroduction")
-        val inroduction: String?,
+        val introduction: String?,
         @SerializedName("class") //최대 3개
         val mypageclass: MutableList<mypageclass>?,
         @SerializedName("poseDrawer") //최대 5개
