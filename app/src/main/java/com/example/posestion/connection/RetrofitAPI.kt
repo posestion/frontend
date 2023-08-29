@@ -240,4 +240,10 @@ interface RetrofitAPI {
     fun myask(
         @Header("x-access-token") token: String,
     ) : Call<RetrofitClient.ResponsemyAsk>
+
+    //광고
+    @GET("/board/getAd")
+    fun getad(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.ResponseHomeAd>
 }

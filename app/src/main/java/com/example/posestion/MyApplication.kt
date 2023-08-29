@@ -18,6 +18,7 @@ class MyApplication : Application() {
         var boxcontentslist = mutableListOf<RetrofitClient.mypageContent>()
         var boxphotolist = mutableListOf<RetrofitClient.mypagephoto>()
         var boxclasslist = mutableListOf<RetrofitClient.mypageclass>()
+        var adlist = mutableListOf<RetrofitClient.HomeAd>()
         var filecount = 0
     }
 

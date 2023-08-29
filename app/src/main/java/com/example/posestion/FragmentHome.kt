@@ -3,10 +3,12 @@ package com.example.posestion
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
+import com.example.posestion.MyApplication.Companion.adlist
 import com.example.posestion.databinding.FragmentHomeBinding
 
 class FragmentHome : Fragment() {
@@ -16,7 +18,6 @@ class FragmentHome : Fragment() {
     private lateinit var adadapter: AdapterHomeAD
     private lateinit var pagetext: TextView
     private var currentPage = 0
-    private var adlist = mutableListOf<String>()
     private var page = 1
 
     override fun onCreateView(
@@ -27,14 +28,13 @@ class FragmentHome : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
         pagetext = binding.FhomeTextPage
-
-        //adlist.add("") url 주소 넣기
+        pagetext.text = "1/${adlist.size}"
 
         viewPager = binding.FhomeViewpager
-        adadapter = AdapterHomeAD()
-        adadapter.getimage(adlist)
+        adadapter = AdapterHomeAD(adlist, viewPager)
 
         viewPager.adapter = adadapter
+        adadapter.startAutoScroll()
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -52,8 +52,28 @@ class FragmentHome : Fragment() {
             }
         })
 
+        viewPager.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    adadapter.stopAutoScroll()
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    // 터치 이동 이벤트 처리
+                }
+                MotionEvent.ACTION_UP -> {
+                    adadapter.startAutoScroll()
+                }
+            }
+            true
+        }
+
         viewPager.setCurrentItem(currentPage)
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adadapter.stopAutoScroll()
     }
 }

@@ -332,6 +332,25 @@ class RetrofitClient {
         val anscontent: String
     )
 
+    //홈화면의 광고
+    data class ResponseHomeAd(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<HomeAd>
+    )
+
+    data class HomeAd(
+        @SerializedName("brand_name")
+        val brandname: String,
+        @SerializedName("banner_image")
+        val bannerimage: String,
+    )
+
     //포즈상점//
     data class PoseWrite(
         @SerializedName("isSuccess")
