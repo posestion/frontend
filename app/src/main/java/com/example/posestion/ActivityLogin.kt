@@ -144,7 +144,7 @@ class ActivityLogin : AppCompatActivity() {
                                     Intent(this@ActivityLogin, ActivitySuccessLogin::class.java)
                                 startActivity(intent)
                             }else{
-                                Toast.makeText(this@ActivityLogin, "로그인 정보가 올바르지 않습니다.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@ActivityLogin, response.message, Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

@@ -19,9 +19,9 @@ class AdapterClass(private val classlist: MutableList<RetrofitClient.mypageclass
     inner class viewHolder(private val binding: RvClassBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(list: RetrofitClient.mypageclass){
-            val dp86 = (86 * Resources.getSystem().displayMetrics.density).toInt()
+            val dp150 = (150 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = dp86
+            val targetSize = dp150
             val imageUrl = list.image
             val imageView = binding.RvclassCard
             binding.RvclassTitle.text = list.title
