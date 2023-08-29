@@ -123,8 +123,8 @@ class FragmentAsk : Fragment() {
 
                 val call = RetrofitObject.getRetrofitService
                 call.ask(token, title, content, fileParts)
-                    .enqueue(object : Callback<RetrofitClient.ResponseAsk> {
-                        override fun onResponse(call: Call<RetrofitClient.ResponseAsk>, response: Response<RetrofitClient.ResponseAsk>) {
+                    .enqueue(object : Callback<RetrofitClient.Responseusually> {
+                        override fun onResponse(call: Call<RetrofitClient.Responseusually>, response: Response<RetrofitClient.Responseusually>) {
                             if (response.isSuccessful) {
                                 Log.d("Retrofit", "success")
                                 val result = response.body()
@@ -141,7 +141,7 @@ class FragmentAsk : Fragment() {
                                 Log.d("Retrofit", "Response Error: $errorBody")
                             }
                         }
-                        override fun onFailure(call: Call<RetrofitClient.ResponseAsk>, t: Throwable) {
+                        override fun onFailure(call: Call<RetrofitClient.Responseusually>, t: Throwable) {
                             val errorMessage = "Call Failed: ${t.message}"
                             Log.d("Retrofit", errorMessage)
                         }

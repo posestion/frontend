@@ -28,9 +28,9 @@ interface RetrofitAPI {
         @Part("birth") birth: RequestBody,
         @Part("nickname") nickname: RequestBody,
         @Part("username") username: RequestBody,
-        @Part("introduction") introduction: RequestBody?,
+        @Part("introduction") introduction: RequestBody,
         @Part image: MultipartBody.Part
-    ): Call<RetrofitClient.ResponseSignup>
+    ): Call<RetrofitClient.Responseusually>
 
     //로그인
     @POST("/app/login")
@@ -42,7 +42,7 @@ interface RetrofitAPI {
 
     //비밀번호 초기화
     @PATCH("/app/users/pwReset")
-    fun resetpw(@Body request: RetrofitClient.Requestpwreset): Call<RetrofitClient.Responsepwreset>
+    fun resetpw(@Body request: RetrofitClient.Requestpwreset): Call<RetrofitClient.Responseusually>
 
     //아이디 중복확인
     @GET("/app/users/checkid/{id}")
@@ -213,6 +213,18 @@ interface RetrofitAPI {
         @Path("id") id: String
     ) : Call<RetrofitClient.Responseusually>
 
+    //회원정보 수정
+    @Multipart
+    @PATCH("/app/userchange")
+    fun changeuser(
+        @Part image: MultipartBody.Part,
+        @Part("nickname") nickname: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("birth") birth: RequestBody,
+        @Part("phone_num") phoneNumber: RequestBody,
+        @Part("introduction") introduction: RequestBody
+    ): Call<RetrofitClient.Responseusually>
+
     //문의하기
     @Multipart
     @POST("/app/cs/inquiry")
@@ -221,7 +233,7 @@ interface RetrofitAPI {
         @Part("title") marketingAgreement: RequestBody,
         @Part("content") userId: RequestBody,
         @Part files: List<MultipartBody.Part>
-    ): Call<RetrofitClient.ResponseAsk>
+    ): Call<RetrofitClient.Responseusually>
 
     @GET("/app/cs/inquiry")
     fun myask(

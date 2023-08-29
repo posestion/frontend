@@ -66,15 +66,6 @@ class RetrofitClient {
         val userpw: String
     )
 
-    data class Responsepwreset(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String
-    )
-
     //아이디 중복확인
     data class Responsecheckid(
         @SerializedName("isSuccess")
@@ -107,16 +98,6 @@ class RetrofitClient {
     data class NicknameResult(
         @SerializedName("nickname")
         val nickname: String
-    )
-
-    //회원가입
-    data class ResponseSignup(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String
     )
 
     //회원 정보
@@ -302,16 +283,6 @@ class RetrofitClient {
 
     //보편적인 Response
     data class Responseusually(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String
-    )
-
-    //문의하기
-    data class ResponseAsk(
         @SerializedName("isSuccess")
         val isSuccess: Boolean,
         @SerializedName("code")

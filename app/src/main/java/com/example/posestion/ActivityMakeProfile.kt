@@ -135,8 +135,8 @@ class ActivityMakeProfile : AppCompatActivity() {
 
             val call = RetrofitObject.getRetrofitService
             call.signup(marketingAgreement, userId, password, phoneNumber, birth, nickname, username, intro, imagePart)
-                .enqueue(object : Callback<RetrofitClient.ResponseSignup> {
-                    override fun onResponse(call: Call<RetrofitClient.ResponseSignup>, response: Response<RetrofitClient.ResponseSignup>) {
+                .enqueue(object : Callback<RetrofitClient.Responseusually> {
+                    override fun onResponse(call: Call<RetrofitClient.Responseusually>, response: Response<RetrofitClient.Responseusually>) {
                         if (response.isSuccessful) {
                             val response = response.body()
                             if(response != null){
@@ -151,7 +151,7 @@ class ActivityMakeProfile : AppCompatActivity() {
                             }
                         }
                     }
-                    override fun onFailure(call: Call<RetrofitClient.ResponseSignup>, t: Throwable) {
+                    override fun onFailure(call: Call<RetrofitClient.Responseusually>, t: Throwable) {
                         val errorMessage = "Call Failed: ${t.message}"
                         Log.d("Retrofit", errorMessage)
                     }

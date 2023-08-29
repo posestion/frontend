@@ -23,12 +23,14 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.ActivityChangeUserBinding
 import de.hdodenhof.circleimageview.CircleImageView
@@ -53,12 +55,11 @@ class ActivityChangeUser : AppCompatActivity() {
     private lateinit var pwchecktext : TextView
     private lateinit var pwtext : TextView
     private lateinit var timerTask : Timer
-    private lateinit var pw : String
-    private lateinit var phonenum : String
     private lateinit var imagePart: MultipartBody.Part
     private lateinit var changeprofileimage: ImageButton
     private lateinit var profilenickname: String
-    private var profile: CircleImageView? = null
+    private lateinit var profile : CircleImageView
+    private val user = MyApplication.user
     private var pwcheck = false
     private var nickcheck = false
     private var timer = 0
@@ -177,6 +178,18 @@ class ActivityChangeUser : AppCompatActivity() {
         nickedit.addTextChangedListener(nickcheckwatcherListener)
         binding.AchangeEditIntro.addTextChangedListener(introwatcherListener)
 
+        //프로필 받아오기
+        val imageUrl = user.getString("profileimage", "")
+
+        Glide.with(this)
+            .load(imageUrl)
+            .into(profile)
+
+        //프로필 이미지 초기화
+        binding.AchangeBtnDeleteprofile.setOnClickListener {
+            profile.setImageResource(R.drawable.image_profile)
+        }
+
         //toolbar 설정
         setSupportActionBar(binding.AchangeToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -196,7 +209,7 @@ class ActivityChangeUser : AppCompatActivity() {
             spinner_phone.adapter = adapter
         }
 
-        //회원 탈퇴 눌렀을 때
+        //회원 탈퇴 버튼 만들기
         val out = binding.AchangeTextOut
         val spanout = SpannableStringBuilder("회원 탈퇴")
         val clickout = object : ClickableSpan() {
@@ -240,7 +253,6 @@ class ActivityChangeUser : AppCompatActivity() {
         binding.AchangeBtnChecknum.setOnClickListener {
             timerTask.cancel()
             binding.AchangeTextNum.text = "03:00"
-            //binding.AsignupBtnChecknum.isClickable = false
         }
 
         spanresend.setSpan(clickresend, 0, spanresend.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

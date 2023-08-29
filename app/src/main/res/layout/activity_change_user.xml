@@ -24,7 +24,7 @@
                 android:layout_width="99dp"
                 android:layout_height="99dp"
                 android:layout_marginTop="37dp"
-                android:src="@drawable/iamge_profile"
+                android:src="@drawable/image_profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginBottom="35dp"
-                android:text="비밀번호"
+                android:text="비밀번호 변경(선택)"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_pw"
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="35dp"
-                android:text="닉네임 입력"
+                android:text="닉네임 변경(선택)"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_nick"
@@ -190,7 +190,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginBottom="35dp"
-                android:text="생년월일 입력(선택)"
+                android:text="생년월일 변경(선택)"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_birth"
@@ -411,7 +411,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginBottom="35dp"
-                android:text="한줄 소개 (선택)"
+                android:text="한줄 소개 변경(선택)"
                 android:textColor="@color/deepgray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/Achange_edit_intro"
@@ -427,6 +427,18 @@
                 android:textColor="@color/gray"
                 app:layout_constraintEnd_toEndOf="@+id/Achange_edit_intro"
                 app:layout_constraintTop_toTopOf="@+id/Achange_edit_intro" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Achange_btn_deleteprofile"
+                android:layout_width="87dp"
+                android:layout_height="38dp"
+                android:background="@drawable/solid_maincolor_6dp"
+                android:text="사진 삭제"
+                android:textColor="@color/deepgray"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/Achange_image_profile"
+                app:layout_constraintEnd_toEndOf="@+id/Achange_btn_checknick" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
