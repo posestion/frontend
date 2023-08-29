@@ -11,9 +11,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Achange_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/Achange_toolbar"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -231,7 +232,6 @@
                 android:hint="휴대전화 번호를 입력해주세요."
                 android:inputType="phone"
                 android:maxLength="11"
-                android:textColor="@color/designgray"
                 android:textColorHint="@color/designgray"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/Achange_edit_birth"
@@ -399,9 +399,9 @@
                 android:ems="10"
                 android:hint="나를 한줄로 소개해보세요."
                 android:inputType="text"
+                android:maxLength="20"
                 android:textColorHint="@color/designgray"
                 android:textSize="14sp"
-                android:maxLength="20"
                 app:layout_constraintStart_toStartOf="@+id/Achange_edit_birth"
                 app:layout_constraintTop_toBottomOf="@+id/Achange_text5" />
 

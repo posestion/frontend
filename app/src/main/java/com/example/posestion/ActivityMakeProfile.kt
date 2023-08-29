@@ -56,6 +56,7 @@ class ActivityMakeProfile : AppCompatActivity() {
             if (nickchecktext.visibility == View.VISIBLE) {
                 nickchecktext.visibility = View.INVISIBLE
             }
+            nickcheck = false
         }
 
         override fun afterTextChanged(s: Editable?) {}

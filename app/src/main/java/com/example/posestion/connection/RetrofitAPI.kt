@@ -217,9 +217,10 @@ interface RetrofitAPI {
     @Multipart
     @PATCH("/app/userchange")
     fun changeuser(
+        @Header("x-access-token") token: String,
         @Part image: MultipartBody.Part,
         @Part("nickname") nickname: RequestBody,
-        @Part("password") password: RequestBody,
+        @Part("password") password: RequestBody?,
         @Part("birth") birth: RequestBody,
         @Part("phone_num") phoneNumber: RequestBody,
         @Part("introduction") introduction: RequestBody

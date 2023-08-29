@@ -32,7 +32,6 @@ class ActivitySuccessLogin : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val response = response.body()
                     if (response != null) {
-                        Log.d("Retrofit", response.message)
                         if (response.isSuccess) {
                             val mypage = response.result[0]
                             editor.putInt("expert", mypage.expert)
