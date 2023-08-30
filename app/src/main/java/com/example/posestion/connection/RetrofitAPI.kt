@@ -69,19 +69,18 @@ interface RetrofitAPI {
         @Part image: MultipartBody.Part
     ): Call<RetrofitClient.PoseWrite>
 
+
     @POST("/pose/basket")
-    fun posebasket(
-        @Part("pose_id") poseid: Int,
-    ): Call<RetrofitClient.PoseBasket>
+    fun posebasket(@Body requestBody: RetrofitClient.PoseRequestBody): Call<RetrofitClient.PoseBasket>
 
     @GET("/pose/:id")
     fun poseid(
         @Part("id") id: Int,
     ): Call<RetrofitClient.PoseId>
 
-    @GET("/pose/posebasketDelete/:id")
+    @GET("/pose/posebasketDelete/{id}")
     fun posebasektdelete(
-        @Part("id") id: Int,
+        @Path("id") id: Int,
     ): Call<RetrofitClient.PoseBasketDelete>
 
     @GET("/pose/allView")
@@ -92,6 +91,9 @@ interface RetrofitAPI {
 
     @GET("/pose/search")
     fun posesearch( @Query("word") word: String?=null): Call<RetrofitClient.PoseSearchResponse>
+
+    @GET("/pose/hotSearch")
+    fun posesearchhot( @Query("hot") hot: String?=null): Call<RetrofitClient.PoseSearchHotResponse>
 
     @POST("/pose/addfavorite/{pose_id}")
     fun poseaddfavorite(@Path("pose_id") poseId: Int): Call<RetrofitClient.PoseAddfavoriteResponse>
@@ -105,11 +107,11 @@ interface RetrofitAPI {
     @GET("/pose/hotboard")
     fun posehotboard(): Call<RetrofitClient.PoseHotboardResponse>
 
-    @GET("/pose/filterdate")
+    @GET("/pose/ageNewest")
     fun posefilterdate(): Call<RetrofitClient.PoseFilterdateResponse>
 
-    @GET("/pose/filterpopular")
-    fun posefilterpopular(): Call<RetrofitClient.PoseFilterpopular>
+    @GET("/pose/agePopular")
+    fun posefilterpopular(): Call<RetrofitClient.PoseFilterpopularResponse>
 
     @GET("/pose/delete/:id")
     fun posedeletid(): Call<RetrofitClient.PoseDeleteid>

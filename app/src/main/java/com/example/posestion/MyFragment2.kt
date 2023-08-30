@@ -1,24 +1,19 @@
 package com.example.posestion
 
 import android.app.AlertDialog
-import android.app.appsearch.SearchResult
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.posestion.connection.RetrofitAPI
 import com.example.posestion.connection.RetrofitClient
-import com.example.posestion.databinding.FragmentLayout2Binding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,9 +26,12 @@ class MyFragment2 : Fragment() {
     private lateinit var rvAdapter: MyRecyclerViewAdapter
     private lateinit var retrofitServiceWithToken: RetrofitAPI
     private lateinit var customAdapter: CustomAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
+        viewModel = ViewModelProvider(requireActivity()).get(MyCustomViewModel::class.java)
 
         val token = MyApplication.user.getString("jwt", "").toString()
         Log.d("TokenDebug", "Token: $token")
@@ -41,24 +39,59 @@ class MyFragment2 : Fragment() {
         Log.d("TokenDebug2", retrofitServiceWithToken.toString())
     }
 
-    private fun onHeartButtonClick(imageId: Int,imageUrl: String, tagNames: List<String>?) {
-        Log.d(imageId.toString(),"bbb")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        retrofitServiceWithToken.poseaddfavorite(imageId).enqueue(object :
-            Callback<RetrofitClient.PoseAddfavoriteResponse> {
-            override fun onResponse(
-                call: Call<RetrofitClient.PoseAddfavoriteResponse>,
-                response: Response<RetrofitClient.PoseAddfavoriteResponse>
-            ) {
-                if (response.isSuccessful) {
-                    sharedViewModel.addNewImage(imageId)
-                    sharedViewModel.addImageUrl(imageId, imageUrl, tagNames)
-                }
-            }
-            override fun onFailure(call: Call<RetrofitClient.PoseAddfavoriteResponse>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit23", errorMessage)
-            }
+        // SharedViewModel을 가져와서 검색 결과 데이터를 가져옴
+        sharedViewModel.searchResults.observe(viewLifecycleOwner, { searchResults ->
+            Log.d("Retrofit28", searchResults.toString())
+            customAdapter.setData(searchResults.map { poseSearch ->
+                RetrofitClient.PoseGetage(
+                    id = poseSearch.id,
+                    poseImage = poseSearch.poseImage,
+                    title = poseSearch.title.toString(),
+                    content = poseSearch.content.toString(),
+                    tagnames = poseSearch.tagname,
+                    date = poseSearch.date,
+                    poseId=poseSearch.poseId,
+                    userId = poseSearch.userId,
+                    view = poseSearch.view
+                )
+            })
+        })
+
+        sharedViewModel.filterDates.observe(viewLifecycleOwner, { filterDates ->
+            Log.d("Retrofit29", filterDates.toString())
+            customAdapter.setData(filterDates.map { poseFilter ->
+                RetrofitClient.PoseGetage(
+                    id = poseFilter.id,
+                    poseImage = poseFilter.poseImage,
+                    title = poseFilter.title.toString(),
+                    content = poseFilter.content.toString(),
+                    tagnames = poseFilter.tagnames,
+                    date = poseFilter.date,
+                    poseId=poseFilter.poseid,
+                    userId = poseFilter.userId,
+                    view = poseFilter.view
+                )
+            })
+        })
+
+        sharedViewModel.filterPopulates.observe(viewLifecycleOwner, { filterPopulates ->
+            Log.d("Retrofit29-2", filterPopulates.toString())
+            customAdapter.setData(filterPopulates.map { poseFilter ->
+                RetrofitClient.PoseGetage(
+                    id = poseFilter.id,
+                    poseImage = poseFilter.poseImage,
+                    title = poseFilter.title.toString(),
+                    content = poseFilter.content.toString(),
+                    tagnames = poseFilter.tagnames,
+                    date = poseFilter.date,
+                    poseId=poseFilter.poseid,
+                    userId = poseFilter.userId,
+                    view = poseFilter.view
+                )
+            })
         })
     }
 
@@ -97,15 +130,16 @@ class MyFragment2 : Fragment() {
             }
 
             override fun onFailure(call: Call<RetrofitClient.PoseGetageResponse>, t: Throwable) {
-                // 네트워크 요청이 실패한 경우 처리
+                val errorMessage = "Call Failed: ${t.message}"
+                Log.d("Retrofit20", errorMessage)
             }
         })
 
         return rootView
     }
 
-    private val showLargeImageDialog: (String, String, String) -> Unit =
-        { imageUrl, title, content ->
+    private val showLargeImageDialog: (String, String, String, Int,List<String>?) -> Unit =
+        { imageUrl, title, content, imageId, tagnames ->
             // 이미지를 크게 보여주는 AlertDialog를 표시하는 로직을 작성
             val inflater = LayoutInflater.from(requireContext())
             val dialogView = inflater.inflate(R.layout.dialog_large_image, null)
@@ -123,6 +157,15 @@ class MyFragment2 : Fragment() {
             val contentTextView = dialogView.findViewById<TextView>(R.id.textView7)
             contentTextView.text = content
 
+            val tagTextView = dialogView.findViewById<TextView>(R.id.textView13)
+
+            if (tagTextView.text!= null) {
+                val tagsText = tagnames?.filterNotNull()?.joinToString(" ") { tag -> "#$tag" } ?: ""
+                tagTextView.text = tagsText
+            } else {
+                tagTextView.text = ""
+            }
+
             // AlertDialog를 생성합니다.
             val builder = AlertDialog.Builder(requireContext())
             builder.setView(dialogView)
@@ -133,11 +176,11 @@ class MyFragment2 : Fragment() {
 
             val imageButton1 = dialogView.findViewById<ImageButton>(R.id.imageButton)
             imageButton1.setOnClickListener {
-                showPopupMenu(it,largeImageView.id)
+                showPopupMenu(it,imageId,imageUrl)
             }
         }
 
-        private fun showPopupMenu(view: View, imageId: Int) {
+        private fun showPopupMenu(view: View, imageId: Int, imageUrl:String) {
         val popupMenu = PopupMenu(requireContext(), view)
         popupMenu.inflate(R.menu.menu_second)
         popupMenu.setOnMenuItemClickListener { item ->
@@ -145,10 +188,29 @@ class MyFragment2 : Fragment() {
             when (item.itemId) {
                 R.id.item1 -> {
                     Log.d("Popup", "Adding pose with imageId: $imageId")
-                    val viewModel =
-                        ViewModelProvider(requireActivity()).get(MyCustomViewModel::class.java)
-                    viewModel.addImageId(imageId)
-                    rvAdapter.notifyDataSetChanged()
+
+                    val requestBody = RetrofitClient.PoseRequestBody(imageId)
+                    retrofitServiceWithToken.posebasket(requestBody).enqueue(object :
+                        Callback<RetrofitClient.PoseBasket> {
+                        override fun onResponse(
+                            call: Call<RetrofitClient.PoseBasket>,
+                            response: Response<RetrofitClient.PoseBasket>
+                        ) {
+                            Log.d("Retrofit24", response.toString())
+                            if (response.isSuccessful) {
+                                viewModel.addImageId(imageId)
+                                viewModel.addImageUrl(imageId, imageUrl)
+                                Log.d("Retrofit21", viewModel.addImageUrl(imageId, imageUrl).toString())
+                            }
+                        }
+                        override fun onFailure(
+                            call: Call<RetrofitClient.PoseBasket>,
+                            t: Throwable
+                        ) {
+                            val errorMessage = "Call Failed: ${t.message}"
+                            Log.d("Retrofit23", errorMessage)
+                        }
+                    })
 
                     Toast.makeText(requireContext(), "포즈가 장바구니에 담겼어요!", Toast.LENGTH_SHORT).show()
                     true

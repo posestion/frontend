@@ -493,6 +493,40 @@ class RetrofitClient {
         val view: Int,
         @SerializedName("user_id")
         val userId: Int,
+        @SerializedName("pose_id")
+        val poseId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_name")
+        val tagname: List<String>?
+    )
+
+    data class PoseSearchHotResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseSearchHot>
+    )
+
+    data class PoseSearchHot(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("pose_id")
+        val poseId: Int,
         @SerializedName("title")
         val title: String?,
         @SerializedName("content")
@@ -615,12 +649,22 @@ class RetrofitClient {
         val poseImage: String,
         @SerializedName("pose_id")
         val poseid: Int,
-        @SerializedName("tag_name")
-        val tagname: String?,
+        @SerializedName("tag_names")
+        val tagnames: List<String>?,
         @SerializedName("fav_count")
         val favcount: Int
-    )
+    ):java.io.Serializable
 
+    data class PoseFilterpopularResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseFilterpopular>
+    )
     data class PoseFilterpopular(
         @SerializedName("id")
         val id: Int,
@@ -636,9 +680,13 @@ class RetrofitClient {
         val content: String?,
         @SerializedName("pose_image")
         val poseImage: String,
+        @SerializedName("pose_id")
+        val poseid: Int,
+        @SerializedName("tag_names")
+        val tagnames: List<String>?,
         @SerializedName("fav_count")
         val favcount: Int
-    )
+    ):java.io.Serializable
 
     data class PoseDeleteid(
         @SerializedName("isSuccess")
@@ -674,6 +722,8 @@ class RetrofitClient {
         val view: Int,
         @SerializedName("user_id")
         val userId: Int,
+        @SerializedName("pose_id")
+        val poseId: Int,
         @SerializedName("title")
         val title: String,
         @SerializedName("content")
@@ -682,5 +732,9 @@ class RetrofitClient {
         val poseImage: String,
         @SerializedName("tag_names")
         val tagnames: List<String>?
+    )
+
+    data class PoseRequestBody(
+        @SerializedName("pose_id") val poseId: Int
     )
 }
