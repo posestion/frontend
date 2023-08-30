@@ -19,9 +19,7 @@ class AdapterHomehotclass (private val hotclasslist: MutableList<RetrofitClient.
     inner class viewHolder(private val binding: RvHomeHotclassBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(list: RetrofitClient.homehotclass){
-            val dp150 = (150 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = dp150
             val imageUrl = list.image
             val imageView = binding.rvhomehotclassImage
 
@@ -29,12 +27,7 @@ class AdapterHomehotclass (private val hotclasslist: MutableList<RetrofitClient.
                 .load(imageUrl)
                 .into(imageView)
 
-            if (imageView != null) {
-                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((imageView as BitmapDrawable).bitmap, targetSize, targetSize, true))
-
-                imageView.setImageDrawable(scaledDrawable)
-                imageView.clipToOutline = true
-            }
+            imageView.clipToOutline = true
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {

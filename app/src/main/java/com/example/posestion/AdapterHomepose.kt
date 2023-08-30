@@ -19,9 +19,7 @@ class AdapterHomepose (private val poseList: MutableList<RetrofitClient.homepose
     inner class viewHolder(private val binding: MypageRvPoseBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(list : RetrofitClient.homepose){
-            val dp56 = (56 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = dp56
             val imageUrl = list.image
             val imageView = binding.mypageRvPoseImage
 
@@ -29,12 +27,7 @@ class AdapterHomepose (private val poseList: MutableList<RetrofitClient.homepose
                 .load(imageUrl)
                 .into(imageView)
 
-            if (imageView != null) {
-                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((imageView as BitmapDrawable).bitmap, targetSize, targetSize, true))
-
-                imageView.setImageDrawable(scaledDrawable)
-                imageView.clipToOutline = true
-            }
+            imageView.clipToOutline = true
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {

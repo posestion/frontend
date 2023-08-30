@@ -20,7 +20,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AdapterBoxClass (private val classlist: MutableList<RetrofitClient.mypageclass>,
-                       private val resources: Resources,
                        private val context: Context
 ): RecyclerView.Adapter<AdapterBoxClass.viewHolder>() {
 
@@ -30,9 +29,7 @@ class AdapterBoxClass (private val classlist: MutableList<RetrofitClient.mypagec
     inner class viewHolder(private val binding: RvBoxClassBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(list: RetrofitClient.mypageclass){
-            val dp150 = (150 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = dp150
             val imageUrl = list.image
             val imageView = binding.rvboxclassImage
             binding.rvboxclassTitle.text = list.title
@@ -41,12 +38,7 @@ class AdapterBoxClass (private val classlist: MutableList<RetrofitClient.mypagec
                 .load(imageUrl)
                 .into(imageView)
 
-            if (imageView != null) {
-                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((imageView as BitmapDrawable).bitmap, targetSize, targetSize, true))
-
-                imageView.setImageDrawable(scaledDrawable)
-                imageView.clipToOutline = true
-            }
+            imageView.clipToOutline = true
 
             val pixels = (120 * Resources.getSystem().displayMetrics.density).toInt()
             val dp18 = (18 * Resources.getSystem().displayMetrics.density).toInt()

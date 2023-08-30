@@ -18,9 +18,6 @@ class AdapterMypageClass (private val ClassList: MutableList<RetrofitClient.mypa
 
         fun bind(list: RetrofitClient.mypageclass){
 
-            val dp86 = (86 * Resources.getSystem().displayMetrics.density).toInt()
-
-            val targetSize = dp86
             val imageUrl = list.image
             val imageView = binding.mypageRvClassImage
             binding.mypageRvClassTitle.text = list.title
@@ -29,12 +26,7 @@ class AdapterMypageClass (private val ClassList: MutableList<RetrofitClient.mypa
                 .load(imageUrl)
                 .into(imageView)
 
-            if (imageView != null) {
-                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((imageView as BitmapDrawable).bitmap, targetSize, targetSize, true))
-
-                imageView.setImageDrawable(scaledDrawable)
-                imageView.clipToOutline = true
-            }
+            imageView.clipToOutline = true
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {

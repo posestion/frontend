@@ -20,7 +20,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AdapterClass(private val classlist: MutableList<RetrofitClient.mypageclass>,
-                   private val resources: Resources,
                    private val context: Context
 ): RecyclerView.Adapter<AdapterClass.viewHolder>() {
 
@@ -30,12 +29,10 @@ class AdapterClass(private val classlist: MutableList<RetrofitClient.mypageclass
     inner class viewHolder(private val binding: RvClassBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(list: RetrofitClient.mypageclass){
-            val dp150 = (150 * Resources.getSystem().displayMetrics.density).toInt()
             val pixels = (120 * Resources.getSystem().displayMetrics.density).toInt()
             val dp18 = (18 * Resources.getSystem().displayMetrics.density).toInt()
             val dp100 = (100 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = dp150
             val imageUrl = list.image
             val imageView = binding.RvclassCard
             binding.RvclassTitle.text = list.title
@@ -44,12 +41,7 @@ class AdapterClass(private val classlist: MutableList<RetrofitClient.mypageclass
                 .load(imageUrl)
                 .into(imageView)
 
-            if (imageView != null) {
-                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((imageView as BitmapDrawable).bitmap, targetSize, targetSize, true))
-
-                binding.RvclassCard.setImageDrawable(scaledDrawable)
-                binding.RvclassCard.clipToOutline = true
-            }
+            binding.RvclassCard.clipToOutline = true
 
             binding.RvclassBtn.setOnClickListener {
                 val popupMenuView = LayoutInflater.from(context).inflate(R.layout.custom_popup_class, null)
