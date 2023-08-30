@@ -196,13 +196,15 @@ class FragmentHome : Fragment() {
                             if(response.result != null){
                                 homestarclasslist = response.result
                                 val classlist = mutableListOf<RetrofitClient.mypageclass>()
-                                if(homeclasslist.size <= 3){
-                                    for(i in 0..homestarclasslist.size){
-                                        classlist.add(homestarclasslist[i])
-                                    }
-                                }else{
-                                    for(i in 0..2){
-                                        classlist.add(homestarclasslist[i])
+                                if(homestarclasslist.size != 0){
+                                    if(homeclasslist.size <= 3){
+                                        for(i in 0..homestarclasslist.size){
+                                            classlist.add(homestarclasslist[i])
+                                        }
+                                    }else{
+                                        for(i in 0..2){
+                                            classlist.add(homestarclasslist[i])
+                                        }
                                     }
                                 }
                                 starclassrecyclerView = binding.FhomeRvHotclass
