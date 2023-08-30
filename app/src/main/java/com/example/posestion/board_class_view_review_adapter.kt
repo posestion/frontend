@@ -9,10 +9,10 @@ import com.example.posestion.databinding.BoardClassViewReviewListItemBinding
 class board_class_view_review_adapter(private val review: List<RetrofitClient.classdetailreviews>) : RecyclerView.Adapter<board_class_view_review_adapter.board_class_view_review_viewholder>() {
 
     class board_class_view_review_viewholder(private val binding: BoardClassViewReviewListItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(review : review){
-            binding.boardClassViewReviewName.text = review.name
+        fun bind(review : RetrofitClient.classdetailreviews){
+            binding.boardClassViewReviewName.text = review.ni
             binding.boardClassViewReviewDate.text = review.date
-            binding.boardClassViewReviewContents.text = review.contents
+            binding.boardClassViewReviewContents.text = review.text
         }
     }
 
