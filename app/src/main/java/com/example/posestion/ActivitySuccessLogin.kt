@@ -18,174 +18,118 @@ import com.example.posestion.MyApplication.Companion.homehotclasslist
 import com.example.posestion.MyApplication.Companion.homeposelist
 import com.example.posestion.MyApplication.Companion.homestarclasslist
 import com.example.posestion.MyApplication.Companion.poselist
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ActivitySuccessLogin : AppCompatActivity() {
 
     private val binding: ActivitySuccessLoginBinding by lazy { ActivitySuccessLoginBinding.inflate(layoutInflater) }
     private val user = MyApplication.user
     private val editor = user.edit()
-    private var token = ""
-    private var OK = 0
+    private var token = user.getString("jwt","").toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        token = user.getString("jwt","").toString()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val mypageResponse = RetrofitObject.getRetrofitService.mypage(token).execute()
+                val hotclassResponse = RetrofitObject.getRetrofitService.homehotclass(token).execute()
+                val poseResponse = RetrofitObject.getRetrofitService.homepose(token).execute()
+                val classResponse = RetrofitObject.getRetrofitService.homemyclass(token).execute()
+                val starclassResponse = RetrofitObject.getRetrofitService.homestarclass(token).execute()
+                val adResponse = RetrofitObject.getRetrofitService.getad(token).execute()
 
-        val call = RetrofitObject.getRetrofitService.mypage(token)
-        call.enqueue(object : Callback<RetrofitClient.Responsemypage> {
-            override fun onResponse(call: Call<RetrofitClient.Responsemypage>, response: Response<RetrofitClient.Responsemypage>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if (response != null) {
-                        if (response.isSuccess) {
-                            val mypage = response.result[0]
-                            editor.putInt("expert", mypage.expert)
-                            editor.putString("profileimage", mypage.profile)
-                            editor.putString("nick", mypage.nick)
-                            editor.putInt("post", mypage.post)
-                            editor.putInt("following", mypage.following)
-                            editor.putInt("follower", mypage.follower)
-                            editor.putString("intro", mypage.introduction)
-                            editor.apply()
+                if (!mypageResponse.isSuccessful) {
+                    Log.e("Retrofit", "Mypage Request Failed: ${mypageResponse.code()} ${mypageResponse.message()}")
+                }
 
-                            if(mypage.expert != 0) {
-                                if(mypage.mypageclass != null){
-                                    classlist = mypage.mypageclass
-                                }
-                            }
-                            if(mypage.myContent != null){
-                                contentslist = mypage.myContent
-                            }
-                            if(mypage.poseDrawer != null){
-                                poselist = mypage.poseDrawer
-                            }
-                            OK++
+                if (!hotclassResponse.isSuccessful) {
+                    Log.e("Retrofit", "Hotclass Request Failed: ${hotclassResponse.code()} ${hotclassResponse.message()}")
+                }
+
+                if (!poseResponse.isSuccessful) {
+                    Log.e("Retrofit", "Pose Request Failed: ${poseResponse.code()} ${poseResponse.message()}")
+                }
+
+                if (!classResponse.isSuccessful) {
+                    Log.e("Retrofit", "Class Request Failed: ${classResponse.code()} ${classResponse.message()}")
+                }
+
+                if (!starclassResponse.isSuccessful) {
+                    Log.e("Retrofit", "Starclass Request Failed: ${starclassResponse.code()} ${starclassResponse.message()}")
+                }
+
+                if (!adResponse.isSuccessful) {
+                    Log.e("Retrofit", "Ad Request Failed: ${adResponse.code()} ${adResponse.message()}")
+                }
+
+                if (mypageResponse.isSuccessful) {
+                    val mypage = mypageResponse.body()?.result?.get(0)
+                    mypage?.let {
+                        editor.putInt("expert", it.expert)
+                        editor.putString("profileimage", it.profile)
+                        editor.putString("nick", it.nick)
+                        editor.putInt("post", it.post)
+                        editor.putInt("following", it.following)
+                        editor.putInt("follower", it.follower)
+                        editor.putString("intro", it.introduction)
+                        editor.apply()
+
+                        if (it.expert != 0 && it.mypageclass != null) {
+                            classlist = it.mypageclass
                         }
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<RetrofitClient.Responsemypage>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
-
-        val callhot = RetrofitObject.getRetrofitService.homehotclass(token)
-        callhot.enqueue(object : Callback<RetrofitClient.Responsehomehotclass> {
-            override fun onResponse(call: Call<RetrofitClient.Responsehomehotclass>, response: Response<RetrofitClient.Responsehomehotclass>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if(response != null){
-                        if(response.isSuccess){
-                            if(response.result != null){
-                                homehotclasslist = response.result
-                            }
-                            OK++
-                        }
+                if (hotclassResponse.isSuccessful) {
+                    val hotClassList = hotclassResponse.body()?.result
+                    hotClassList?.let {
+                        homehotclasslist = it
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<RetrofitClient.Responsehomehotclass>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
-
-        val callpose = RetrofitObject.getRetrofitService.homepose(token)
-        callpose.enqueue(object : Callback<RetrofitClient.Responsehomepose> {
-            override fun onResponse(call: Call<RetrofitClient.Responsehomepose>, response: Response<RetrofitClient.Responsehomepose>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if(response != null){
-                        if(response.isSuccess){
-                            if(response.result != null){
-                                homeposelist = response.result
-                            }
-                            OK++
-                        }
+                if (poseResponse.isSuccessful) {
+                    val poseList = poseResponse.body()?.result
+                    poseList?.let {
+                        homeposelist = it
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<RetrofitClient.Responsehomepose>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
-
-        val callclass = RetrofitObject.getRetrofitService.homemyclass(token)
-        callclass.enqueue(object : Callback<RetrofitClient.Responsemypageclass> {
-            override fun onResponse(call: Call<RetrofitClient.Responsemypageclass>, response: Response<RetrofitClient.Responsemypageclass>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if(response != null){
-                        if(response.isSuccess){
-                            if(response.result != null){
-                               homeclasslist = response.result
-                            }
-                            OK++
-                        }
+                if (classResponse.isSuccessful) {
+                    val classList = classResponse.body()?.result
+                    classList?.let {
+                        homeclasslist = it
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<RetrofitClient.Responsemypageclass>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
-
-        val callstar = RetrofitObject.getRetrofitService.homestarclass(token)
-        callstar.enqueue(object : Callback<RetrofitClient.Responsemypageclass> {
-            override fun onResponse(call: Call<RetrofitClient.Responsemypageclass>, response: Response<RetrofitClient.Responsemypageclass>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if(response != null){
-                        if(response.isSuccess){
-                            if(response.result != null){
-                                homestarclasslist = response.result
-                            }
-                            OK++
-                        }
+                if (starclassResponse.isSuccessful) {
+                    val starClassList = starclassResponse.body()?.result
+                    starClassList?.let {
+                        homestarclasslist = it
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<RetrofitClient.Responsemypageclass>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
-        val callad = RetrofitObject.getRetrofitService.getad(token)
-        callad.enqueue(object : Callback<RetrofitClient.ResponseHomeAd> {
-            override fun onResponse(call: Call<RetrofitClient.ResponseHomeAd>, response: Response<RetrofitClient.ResponseHomeAd>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if (response != null) {
-                        if (response.isSuccess) {
-                            if(response.result != null){
-                                adlist = response.result
-                            }
-                            OK++
-                        }
+                if (adResponse.isSuccessful) {
+                    val adList = adResponse.body()?.result
+                    adList?.let {
+                        adlist = it
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<RetrofitClient.ResponseHomeAd>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
+                withContext(Dispatchers.Main) {
+                    val intent = Intent(this@ActivitySuccessLogin, ActivityMain::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            } catch (e: Exception) {
+                // 예외 처리 코드 작성
+                e.printStackTrace()
+                // 에러 상황 처리 등을 수행할 수 있습니다.
             }
-        })
-
-        if(OK == 6){
-            val intent = Intent(this, ActivityMain::class.java)
-            startActivity(intent)
-            finish()
         }
     }
 }

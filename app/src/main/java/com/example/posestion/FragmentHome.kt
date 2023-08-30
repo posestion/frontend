@@ -108,15 +108,18 @@ class FragmentHome : Fragment() {
         poseadapter.notifyDataSetChanged()
 
         val classlist = mutableListOf<RetrofitClient.mypageclass>()
-        if(homeclasslist.size <= 3){
-            for(i in 0..homeclasslist.size){
-                classlist.add(homeclasslist[i])
-            }
-        }else{
-            for(i in 0..2){
-                classlist.add(homeclasslist[i])
+        if(homeclasslist.size != 0){
+            if(homeclasslist.size <= 3){
+                for(i in 0..homeclasslist.size){
+                    classlist.add(homeclasslist[i])
+                }
+            }else{
+                for(i in 0..2){
+                    classlist.add(homeclasslist[i])
+                }
             }
         }
+
         myclassrecyclerView = binding.FhomeRvClass
         myclassadapter = AdapterMypageClass(classlist, requireContext())
 
