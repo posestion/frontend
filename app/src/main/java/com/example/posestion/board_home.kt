@@ -8,59 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.posestion.databinding.ActivityBoardClassHomeBinding
-import com.example.posestion.databinding.ActivityBoardListpageBinding
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.FragmentBoardHomeBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class board_home : Fragment() {
     private lateinit var binding: FragmentBoardHomeBinding
 
-    private val listpage = listOf(
-        listpage("전주 여행 가자마자 찍은 사진인데", "어때? 괜찮게 나왔어? 나 이거 인스타에 올리고 싶은데 나름 감성있는 정도라고 봐도 되는 수준이야? 댓글이나 좋아요로 의견 알려줘!!",false, 3, 14),
-        listpage("나 이정도면 괜찮은거야?", "시진 찍는거 넘 어렵다 ㅠ", false,2, 3),
-        listpage("이 사진 잘 나온 편임?", "나 카톡 프사할거야 ㄹㅇ 진지하게 예의", false,19, 4),
-        listpage("전주 여행 가자마자 찍은 사진인데", "어때? 괜찮게 나왔어? 나 이거 인스타에 올리고 싶은데 나름 감성있는 정도라고 봐도 되는 수준이야? 댓글이나 좋아요로 의견 알려줘!!", false,3, 14),
-        listpage("나 이정도면 괜찮은거야?", "시진 찍는거 넘 어렵다 ㅠ", false,2, 3),
-        listpage("이 사진 잘 나온 편임?", "나 카톡 프사할거야 ㄹㅇ 진지하게 예의", false,19, 4),
-        listpage("전주 여행 가자마자 찍은 사진인데", "어때? 괜찮게 나왔어? 나 이거 인스타에 올리고 싶은데 나름 감성있는 정도라고 봐도 되는 수준이야? 댓글이나 좋아요로 의견 알려줘!!", false,3, 14),
-        listpage("전주 여행 가자마자 찍은 사진인데", "어때? 괜찮게 나왔어? 나 이거 인스타에 올리고 싶은데 나름 감성있는 정도라고 봐도 되는 수준이야? 댓글이나 좋아요로 의견 알려줘!!", false,3, 14),
-        listpage("나 이정도면 괜찮은거야?", "시진 찍는거 넘 어렵다 ㅠ", false,2, 3),
-        listpage("이 사진 잘 나온 편임?", "나 카톡 프사할거야 ㄹㅇ 진지하게 예의", false,19, 4),
-        listpage("전주 여행 가자마자 찍은 사진인데", "어때? 괜찮게 나왔어? 나 이거 인스타에 올리고 싶은데 나름 감성있는 정도라고 봐도 되는 수준이야? 댓글이나 좋아요로 의견 알려줘!!", false,3, 14),
-        listpage("전주 여행 가자마자 찍은 사진인데", "어때? 괜찮게 나왔어? 나 이거 인스타에 올리고 싶은데 나름 감성있는 정도라고 봐도 되는 수준이야? 댓글이나 좋아요로 의견 알려줘!!", false,3, 14),
-        listpage("나 이정도면 괜찮은거야?", "시진 찍는거 넘 어렵다 ㅠ", false,2, 3),
-        listpage("이 사진 잘 나온 편임?", "나 카톡 프사할거야 ㄹㅇ 진지하게 예의", false,19, 4),
-        listpage("전주 여행 가자마자 찍은 사진인데", "어때? 괜찮게 나왔어? 나 이거 인스타에 올리고 싶은데 나름 감성있는 정도라고 봐도 되는 수준이야? 댓글이나 좋아요로 의견 알려줘!!", false,3, 14),
-        listpage("전주 여행 가자마자 찍은 사진인데", "어때? 괜찮게 나왔어? 나 이거 인스타에 올리고 싶은데 나름 감성있는 정도라고 봐도 되는 수준이야? 댓글이나 좋아요로 의견 알려줘!!", false,3, 14),
-        listpage("나 이정도면 괜찮은거야?", "시진 찍는거 넘 어렵다 ㅠ", false,2, 3),
-        listpage("이 사진 잘 나온 편임?", "나 카톡 프사할거야 ㄹㅇ 진지하게 예의", false,19, 4),
-
-        )
-    private val hotclass = listOf(
-        hotclass(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
-        hotclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
-        hotclass(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
-        hotclass(false,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
-        hotclass(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
-        hotclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
-        hotclass(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
-        hotclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
-        hotclass(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
-        hotclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
-    )
-
-    private val home_10photo = listOf(
-        home_10photo(R.drawable.board_home_10photo_ex,"인물 구도 예쁘게 잘 찍는 방법","인플루언서"),
-        home_10photo(R.drawable.board_home_10photo_ex1,"유럽여행 가서 인생짤 건지는 방법","인플루언서"),
-        home_10photo(R.drawable.board_home_10photo_ex,"인물 구도 예쁘게 잘 찍는 방법","인플루언서"),
-        home_10photo(R.drawable.board_home_10photo_ex1,"유럽여행 가서 인생짤 건지는 방법","인플루언서"),
-        home_10photo(R.drawable.board_home_10photo_ex,"인물 구도 예쁘게 잘 찍는 방법","인플루언서"),
-        home_10photo(R.drawable.board_home_10photo_ex1,"유럽여행 가서 인생짤 건지는 방법","인플루언서"),
-        home_10photo(R.drawable.board_home_10photo_ex,"인물 구도 예쁘게 잘 찍는 방법","인플루언서"),
-        home_10photo(R.drawable.board_home_10photo_ex1,"유럽여행 가서 인생짤 건지는 방법","인플루언서"),
-        home_10photo(R.drawable.board_home_10photo_ex,"인물 구도 예쁘게 잘 찍는 방법","인플루언서"),
-        home_10photo(R.drawable.board_home_10photo_ex1,"유럽여행 가서 인생짤 건지는 방법","인플루언서")
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,8 +27,41 @@ class board_home : Fragment() {
     ): View? {
         binding = FragmentBoardHomeBinding.inflate(layoutInflater)
 
+        val token = MyApplication.user.getString("jwt", "").toString()
+        val apiservice = RetrofitObject.getRetrofitServiceWithToken(token)
 
+        runBlocking {
+            launch(Dispatchers.IO) {
+
+        val boardClassResponse: Response<RetrofitClient.boardClass> = apiservice.boardclass(token).execute()
+        if (boardClassResponse.isSuccessful) {
+            val boardClassDrawer = boardClassResponse.body()
+            val boardClassDataList: List<RetrofitClient.getclass> = boardClassDrawer?.result ?: emptyList()
+            // hotClassDataList을 사용하여 작업 수행
+            binding.boardHomeClassList.adapter = home_hotclass_list_adapter(boardClassDataList)
+        } else {
+            // hotClassResponse가 실패한 경우 처리
+        }
+        val board10photoResponse: Response<RetrofitClient.AllTensPhoto> = apiservice.alltensphoto(token).execute()
+        if (board10photoResponse.isSuccessful) {
+            val board10photoDrawer = board10photoResponse.body()
+            val board10photoDataList: List<RetrofitClient.TensPhoto> = board10photoDrawer?.result ?: emptyList()
+            // hotClassDataList을 사용하여 작업 수행
+            binding.boardHome10photoList.adapter = home_10photo_adapter(board10photoDataList)
+        } else {
+            // hotClassResponse가 실패한 경우 처리
+        }
+        val boardlistResponse: Response<RetrofitClient.boardPhotowell> = apiservice.boardphotowell(token).execute()
+        if (boardlistResponse.isSuccessful) {
+            val boardlistDrawer = boardlistResponse.body()
+            val boardlistDataList: List<RetrofitClient.photowell> = boardlistDrawer?.result ?: emptyList()
+            // hotClassDataList을 사용하여 작업 수행
+            binding.boardHomeListpageList.adapter = home_listpage_adapter(boardlistDataList)
+        } else {
+            // hotClassResponse가 실패한 경우 처리
+        }}}
         initializeViews()
+
         binding.boardHomeListpageBtn.setOnClickListener {
             val intent = Intent(activity,board_listpage::class.java)
             startActivity(intent)
@@ -81,16 +73,16 @@ class board_home : Fragment() {
 
         return binding.root
     }
-    private fun initializeViews(){
+    fun initializeViews(){
         val LinearLayoutManager0 = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
         val LinearLayoutManager1 = LinearLayoutManager(requireContext())
         val LinearLayoutManager2 = GridLayoutManager(requireContext(),2)
         binding.boardHome10photoList.layoutManager = LinearLayoutManager0
-        binding.boardHome10photoList.adapter = home_10photo_adapter(home_10photo)
+
         binding.boardHomeListpageList.layoutManager = LinearLayoutManager1
-        binding.boardHomeListpageList.adapter = home_listpage_adapter(listpage)
+
         binding.boardHomeClassList.layoutManager = LinearLayoutManager2
-        binding.boardHomeClassList.adapter = home_hotclass_list_adapter(hotclass)
+
 
     }
 }

@@ -4,21 +4,36 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.BoardClassListItemBinding
 
-class board_mypick_adapter (private val hotclass : List<hotclass>):RecyclerView.Adapter<board_mypick_adapter.mypick_viewholder>(){
+class board_mypick_adapter (private val mydibs : List<RetrofitClient.mydibs>):RecyclerView.Adapter<board_mypick_adapter.mypick_viewholder>(){
     class mypick_viewholder(private val binding: BoardClassListItemBinding):RecyclerView.ViewHolder(binding.root){
         private val context = binding.root.context
-        fun bind(hotclass:hotclass){
-            binding.boardHotclassHeart.isClickable = hotclass.heart
-            binding.boardHotclassTitleTxt.text = hotclass.title
-            binding.boardHotclassThumbnail.setImageResource(hotclass.image)
+        var heart:Int = 0
+        fun bind(mydibs:RetrofitClient.mydibs){
+            heart = mydibs.dibs
+            val imageURL = mydibs.Image_url
+            binding.boardHotclassTitleTxt.text = mydibs.title
+            val image = binding.boardHotclassThumbnail
+
+            Glide.with(context)
+                .load(imageURL)
+                .into(image)
+
+            if(heart==0){
+                binding.boardHotclassHeart.setImageResource(R.drawable.hotclass_empty_heart)
+            }
+            else if(heart==1){
+                binding.boardHotclassHeart.setImageResource(R.drawable.hotclass_full_heart)
+            }
 
             itemView.setOnClickListener {
                 val intent = Intent(context,board_class_view::class.java)
-                intent.putExtra("title",hotclass.title)
-                intent.putExtra("thumbnail",hotclass.image)
-                intent.putExtra("heart",hotclass.heart)
+                intent.putExtra("title",mydibs.title)
+                intent.putExtra("thumbnail",mydibs.Image_url)
+                intent.putExtra("heart",heart)
             }
         }
     }
@@ -28,10 +43,10 @@ class board_mypick_adapter (private val hotclass : List<hotclass>):RecyclerView.
     }
 
     override fun getItemCount(): Int {
-        return hotclass.size
+        return mydibs.size
     }
 
     override fun onBindViewHolder(holder: mypick_viewholder, position: Int) {
-        holder.bind(hotclass[position])
+        holder.bind(mydibs[position])
     }
 }

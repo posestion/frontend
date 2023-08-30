@@ -4,23 +4,36 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.BoardBasicListItemBinding
 import timber.log.Timber
 
-class basic_mypick_adapter(private val basic_mypick: List<basic_mypick>):RecyclerView.Adapter<basic_mypick_adapter.basic_mypick_ViewHolder>() {
+class basic_mypick_adapter(private val drawerdibs: List<RetrofitClient.drawerdibs>):RecyclerView.Adapter<basic_mypick_adapter.basic_mypick_ViewHolder>() {
     class basic_mypick_ViewHolder(private val binding: BoardBasicListItemBinding):
             RecyclerView.ViewHolder(binding.root){
         private val context = binding.root.context
-                fun bind(basic_mypick: basic_mypick){
-                    binding.boardHotclassHeart.isClickable = basic_mypick.heart
-                    binding.boardHotclassTitleTxt.text = basic_mypick.title
-                    binding.boardHotclassThumbnail.setImageResource(basic_mypick.image)
+        var heart:Int = 0
+                fun bind(drawerdibs: RetrofitClient.drawerdibs){
+                    heart = drawerdibs.dibs
+                    val imageURL = drawerdibs.Image_url
+                    binding.boardHotclassTitleTxt.text = drawerdibs.title
+                    val image = binding.boardHotclassThumbnail
 
+                    Glide.with(context)
+                        .load(imageURL)
+                        .into(image)
+                    val id = drawerdibs.id
+
+                    if(heart==0){
+                        binding.boardHotclassHeart.setImageResource(R.drawable.hotclass_empty_heart)
+                    }
+                    else if(heart==1){
+                        binding.boardHotclassHeart.setImageResource(R.drawable.hotclass_full_heart)
+                    }
                     itemView.setOnClickListener {
                         val intent = Intent(context,board_class_view::class.java)
-                        intent.putExtra("title",basic_mypick.title)
-                        intent.putExtra("thumbnail",basic_mypick.image)
-                        intent.putExtra("heart",basic_mypick.heart)
+                        intent.putExtra("id",id)
                     }
                 }
             }
@@ -32,11 +45,11 @@ class basic_mypick_adapter(private val basic_mypick: List<basic_mypick>):Recycle
         )
     }
 
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = drawerdibs.size
 
     override fun onBindViewHolder(holder: basic_mypick_ViewHolder, position: Int) {
         Timber.d("onCreateViewHolder")
-        holder.bind(basic_mypick[position])
+        holder.bind(drawerdibs[position])
     }
 }
 

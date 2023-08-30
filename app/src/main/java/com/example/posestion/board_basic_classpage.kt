@@ -4,42 +4,47 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.ActivityBoardBasicClasspageBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class board_basic_classpage : AppCompatActivity() {
     private lateinit var binding: ActivityBoardBasicClasspageBinding
-
-    private val basic_myclass = listOf(
-        basic_myclass(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
-        basic_myclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
-        basic_myclass(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
-        basic_myclass(false,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
-        basic_myclass(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
-        basic_myclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
-        basic_myclass(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
-        basic_myclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
-        basic_myclass(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
-        basic_myclass(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
-    )
-    private val basic_mypick = listOf(
-        basic_mypick(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
-        basic_mypick(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
-        basic_mypick(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
-        basic_mypick(false,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
-        basic_mypick(false,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
-        basic_mypick(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
-        basic_mypick(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_62),
-        basic_mypick(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_142),
-        basic_mypick(true,"인물 사진 잘 찍는 법 종결합니다.",R.drawable.rectangle_142),
-        basic_mypick(true,"똥손 탈출하는 전신샷 잘 찍는법",R.drawable.rectangle_62),
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityBoardBasicClasspageBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        initializeViews()
+        val token = MyApplication.user.getString("jwt", "").toString()
+        val apiservice = RetrofitObject.getRetrofitServiceWithToken(token)
+        val call: Call<RetrofitClient.classdrawer> = apiservice.classdrawer(token)
+        call.enqueue(object : Callback<RetrofitClient.classdrawer> {
+            override fun onResponse(call: Call<RetrofitClient.classdrawer>, response: Response<RetrofitClient.classdrawer>) {
+                if (response.isSuccessful) {
+                    val drawer = response.body()
+                    val dataList1: List<RetrofitClient.drawermyclass> = drawer?.result?.drawermyclass ?: emptyList()
+                    val dataList2: List<RetrofitClient.drawerdibs> = drawer?.result?.drawerdibs ?: emptyList()
+                    initializeViews()
+                    binding.basicMyclassList.adapter = basic_myclass_adapter(dataList1)
+                    binding.basicMypickList.adapter =basic_mypick_adapter(dataList2)
+                    // API 요청이 성공한 경우
+                    // 응답 데이터를 처리하세요.
+                } else {
+                    // API 요청이 실패한 경우
+                    // 오류 처리를 수행하세요.
+                    println("Error")
+                }
+            }
+
+            override fun onFailure(call: Call<RetrofitClient.classdrawer>, t: Throwable) {
+                // 네트워크 오류 또는 예외 처리를 수행하세요.
+                println("Error")
+            }
+        })
+
     }
 
     private fun initializeViews(){
@@ -48,8 +53,8 @@ class board_basic_classpage : AppCompatActivity() {
         gridLayoutManager1.orientation = LinearLayoutManager.VERTICAL
         gridLayoutManager2.orientation = LinearLayoutManager.VERTICAL
         binding.basicMyclassList.layoutManager = gridLayoutManager1
-        binding.basicMyclassList.adapter = basic_myclass_adapter(basic_myclass)
+
         binding.basicMypickList.layoutManager = gridLayoutManager2
-        binding.basicMypickList.adapter =basic_mypick_adapter(basic_mypick)
+
     }
 }
