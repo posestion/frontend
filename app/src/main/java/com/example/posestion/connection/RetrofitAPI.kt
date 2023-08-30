@@ -246,4 +246,28 @@ interface RetrofitAPI {
     fun getad(
         @Header("x-access-token") token: String,
     ) : Call<RetrofitClient.ResponseHomeAd>
+
+    //홈 화면 HOT강의
+    @GET("/board/getHotClass")
+    fun homehotclass(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.Responsehomehotclass>
+
+    //홈 화면 인기 있는 포즈
+    @GET("/pose/filterpopular")
+    fun homepose(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.Responsehomepose>
+
+    //홈 화면 수강중인 강의
+    @GET("/app/class/drawer/myClass")
+    fun homemyclass(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.Responsemypageclass>
+
+    //홈 화면 찜한 강의
+    @GET("/app/class/drawer/myDibs")
+    fun homestarclass(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.Responsemypageclass>
 }

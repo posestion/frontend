@@ -351,6 +351,48 @@ class RetrofitClient {
         val bannerimage: String,
     )
 
+    //홈 화면 핫강의
+    data class Responsehomehotclass(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<homehotclass>?
+    )
+
+    data class homehotclass(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("image_url")
+        val image: String,
+        @SerializedName("hits")
+        val hits: Int, //조회수
+        @SerializedName("dibs")
+        val dibs: Int, //1이면 찜
+    )
+
+    //홈 화면 포즈
+    data class Responsehomepose(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<homepose>?
+    )
+
+    data class homepose(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("pose_image")
+        val image: String
+    )
+
     //포즈상점//
     data class PoseWrite(
         @SerializedName("isSuccess")
