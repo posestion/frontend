@@ -1219,6 +1219,7 @@ class RetrofitClient {
         val code: Int,
         @SerializedName("message")
         val message: String
+        )
 
     data class PoseRequestBody(
         @SerializedName("pose_id") val poseId: Int

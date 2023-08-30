@@ -352,7 +352,7 @@ interface RetrofitAPI {
     fun classtakeout(
         @Header("x-access-token") token: String,
         @Part("id") id: Int,): Call<RetrofitClient.classtakeout>
-=======
+
     //광고
     @GET("/board/getAd")
     fun getad(
