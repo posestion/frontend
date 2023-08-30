@@ -35,6 +35,8 @@ class FragmentHome : Fragment() {
     private lateinit var poseadapter: AdapterHomepose
     private lateinit var myclassrecyclerView: RecyclerView
     private lateinit var myclassadapter: AdapterMypageClass
+    private lateinit var starclassrecyclerView: RecyclerView
+    private lateinit var starclassadapter: AdapterMypageClass
     private val user = MyApplication.user
     private val token = user.getString("jwt", "").toString()
     private var currentPage = 0
@@ -203,13 +205,13 @@ class FragmentHome : Fragment() {
                                         classlist.add(homestarclasslist[i])
                                     }
                                 }
-                                myclassrecyclerView = binding.FhomeRvHotclass
-                                myclassadapter = AdapterMypageClass(classlist, resources, requireContext())
+                                starclassrecyclerView = binding.FhomeRvHotclass
+                                starclassadapter = AdapterMypageClass(classlist, resources, requireContext())
 
-                                myclassrecyclerView.layoutManager =
+                                starclassrecyclerView.layoutManager =
                                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                                myclassrecyclerView.adapter = myclassadapter
-                                myclassadapter.notifyDataSetChanged()
+                                starclassrecyclerView.adapter = starclassadapter
+                                starclassadapter.notifyDataSetChanged()
                             }
                         }
                     }
