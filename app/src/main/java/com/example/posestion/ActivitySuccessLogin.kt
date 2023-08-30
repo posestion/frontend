@@ -90,10 +90,5 @@ class ActivitySuccessLogin : AppCompatActivity() {
                 Log.d("Retrofit", errorMessage)
             }
         })
-//        adlist.add(RetrofitClient.HomeAd("a", "https://live.staticflickr.com/65535/51912889686_49cfeda022_o.jpg"))
-//        adlist.add(RetrofitClient.HomeAd("b", "https://live.staticflickr.com/65535/51911926992_6515125df4_o.jpg"))
-//        adlist.add(RetrofitClient.HomeAd("c", "https://cdn.spotvnews.co.kr/news/photo/202209/549252_767956_254.jpg"))
-//        adlist.add(RetrofitClient.HomeAd("d", "https://file2.nocutnews.co.kr/newsroom/image/2022/03/01/202203011752223108_0.jpg"))
-
     }
 }
