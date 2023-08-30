@@ -131,6 +131,7 @@
             android:exported="false" />
         <activity
             android:name=".ActivityMain"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".ActivityChangeUser"

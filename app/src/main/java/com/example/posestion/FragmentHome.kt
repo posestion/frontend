@@ -38,7 +38,6 @@ class FragmentHome : Fragment() {
     private lateinit var starclassrecyclerView: RecyclerView
     private lateinit var starclassadapter: AdapterMypageClass
     private val user = MyApplication.user
-    private val token = user.getString("jwt", "").toString()
     private var currentPage = 0
     private var page = 1
 
@@ -92,139 +91,59 @@ class FragmentHome : Fragment() {
 
         viewPager.setCurrentItem(currentPage)
 
-        val callhot = RetrofitObject.getRetrofitService.homehotclass(token)
-        callhot.enqueue(object : Callback<RetrofitClient.Responsehomehotclass> {
-            override fun onResponse(call: Call<RetrofitClient.Responsehomehotclass>, response: Response<RetrofitClient.Responsehomehotclass>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if(response != null){
-                        if(response.isSuccess){
-                            if(response.result != null){
-                                homehotclasslist = response.result
-                                hotclassrecyclerView = binding.FhomeRvHotclass
-                                hotclassadapter = AdapterHomehotclass(homehotclasslist, requireContext())
+        hotclassrecyclerView = binding.FhomeRvHotclass
+        hotclassadapter = AdapterHomehotclass(homehotclasslist, requireContext())
 
-                                hotclassrecyclerView.layoutManager =
-                                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                                hotclassrecyclerView.adapter = hotclassadapter
-                                hotclassadapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
+        hotclassrecyclerView.layoutManager =
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        hotclassrecyclerView.adapter = hotclassadapter
+        hotclassadapter.notifyDataSetChanged()
+
+        poserecyclerView = binding.FhomeRvPose
+        poseadapter = AdapterHomepose(homeposelist, requireContext())
+
+        poserecyclerView.layoutManager =
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        poserecyclerView.adapter = poseadapter
+        poseadapter.notifyDataSetChanged()
+
+        val classlist = mutableListOf<RetrofitClient.mypageclass>()
+        if(homeclasslist.size <= 3){
+            for(i in 0..homeclasslist.size){
+                classlist.add(homeclasslist[i])
+            }
+        }else{
+            for(i in 0..2){
+                classlist.add(homeclasslist[i])
+            }
+        }
+        myclassrecyclerView = binding.FhomeRvClass
+        myclassadapter = AdapterMypageClass(classlist, requireContext())
+
+        myclassrecyclerView.layoutManager =
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        myclassrecyclerView.adapter = myclassadapter
+        myclassadapter.notifyDataSetChanged()
+
+        val classstarlist = mutableListOf<RetrofitClient.mypageclass>()
+        if(homestarclasslist.size != 0){
+            if(homeclasslist.size <= 3){
+                for(i in 0..homestarclasslist.size){
+                    classstarlist.add(homestarclasslist[i])
+                }
+            }else{
+                for(i in 0..2){
+                    classstarlist.add(homestarclasslist[i])
                 }
             }
+        }
+        starclassrecyclerView = binding.FhomeRvStarclass
+        starclassadapter = AdapterMypageClass(classlist, requireContext())
 
-            override fun onFailure(call: Call<RetrofitClient.Responsehomehotclass>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
-
-        val callpose = RetrofitObject.getRetrofitService.homepose(token)
-        callpose.enqueue(object : Callback<RetrofitClient.Responsehomepose> {
-            override fun onResponse(call: Call<RetrofitClient.Responsehomepose>, response: Response<RetrofitClient.Responsehomepose>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if(response != null){
-                        if(response.isSuccess){
-                            if(response.result != null){
-                                homeposelist = response.result
-                                poserecyclerView = binding.FhomeRvPose
-                                poseadapter = AdapterHomepose(homeposelist, requireContext())
-
-                                poserecyclerView.layoutManager =
-                                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                                poserecyclerView.adapter = poseadapter
-                                poseadapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<RetrofitClient.Responsehomepose>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
-
-        val callclass = RetrofitObject.getRetrofitService.homemyclass(token)
-        callclass.enqueue(object : Callback<RetrofitClient.Responsemypageclass> {
-            override fun onResponse(call: Call<RetrofitClient.Responsemypageclass>, response: Response<RetrofitClient.Responsemypageclass>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if(response != null){
-                        if(response.isSuccess){
-                            if(response.result != null){
-                                homeclasslist = response.result
-                                val classlist = mutableListOf<RetrofitClient.mypageclass>()
-                                if(homeclasslist.size <= 3){
-                                    for(i in 0..homeclasslist.size){
-                                        classlist.add(homeclasslist[i])
-                                    }
-                                }else{
-                                    for(i in 0..2){
-                                        classlist.add(homeclasslist[i])
-                                    }
-                                }
-                                myclassrecyclerView = binding.FhomeRvClass
-                                myclassadapter = AdapterMypageClass(classlist, requireContext())
-
-                                myclassrecyclerView.layoutManager =
-                                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                                myclassrecyclerView.adapter = myclassadapter
-                                myclassadapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<RetrofitClient.Responsemypageclass>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
-
-        val callstar = RetrofitObject.getRetrofitService.homestarclass(token)
-        callstar.enqueue(object : Callback<RetrofitClient.Responsemypageclass> {
-            override fun onResponse(call: Call<RetrofitClient.Responsemypageclass>, response: Response<RetrofitClient.Responsemypageclass>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if(response != null){
-                        if(response.isSuccess){
-                            if(response.result != null){
-                                homestarclasslist = response.result
-                                val classlist = mutableListOf<RetrofitClient.mypageclass>()
-                                if(homestarclasslist.size != 0){
-                                    if(homeclasslist.size <= 3){
-                                        for(i in 0..homestarclasslist.size){
-                                            classlist.add(homestarclasslist[i])
-                                        }
-                                    }else{
-                                        for(i in 0..2){
-                                            classlist.add(homestarclasslist[i])
-                                        }
-                                    }
-                                }
-                                starclassrecyclerView = binding.FhomeRvStarclass
-                                starclassadapter = AdapterMypageClass(classlist, requireContext())
-
-                                starclassrecyclerView.layoutManager =
-                                    StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                                starclassrecyclerView.adapter = starclassadapter
-                                starclassadapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<RetrofitClient.Responsemypageclass>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
+        starclassrecyclerView.layoutManager =
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        starclassrecyclerView.adapter = starclassadapter
+        starclassadapter.notifyDataSetChanged()
 
         //수강중인 강의 전체보기
         binding.FhomeBtnClassall.setOnClickListener {
