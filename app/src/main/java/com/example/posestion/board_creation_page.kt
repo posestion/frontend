@@ -13,6 +13,10 @@ import com.example.posestion.databinding.ActivityBoardCreationPageBinding
 import android.Manifest
 import android.text.Editable
 import android.text.TextWatcher
+import com.example.posestion.connection.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class board_creation_page : AppCompatActivity() {
     private lateinit var binding: ActivityBoardCreationPageBinding
@@ -40,18 +44,31 @@ class board_creation_page : AppCompatActivity() {
         }
 
         binding.boardCreationUploadBtn.setOnClickListener {
-            var titletext = binding.boardCreationTitle.text.toString()
-            var contentstext = binding.boardCreationContent.text.toString()
-            val heart:Boolean = false
-            val heartcount:Int = 0
-            val commentcount:Int = 0
+            var title = binding.boardCreationTitle.text.toString()
+            var content = binding.boardCreationContent.text.toString()
+
+            val requestBody = RetrofitClient.requestclasscreation(imageUriString, title, content)
+
+            val token = MyApplication.user.getString("jwt", "").toString()
+            val apiservice = RetrofitObject.getRetrofitServiceWithToken(token)
+
+            apiservice.wdytupload(requestBody).enqueue(object :
+                Callback<RetrofitClient.responseboardcreation> {
+                override fun onResponse(call: Call<RetrofitClient.responseboardcreation>, response: Response<RetrofitClient.responseboardcreation>) {
+                    if (response.isSuccessful) {
+                        val responseData = response.body()
+                        // 성공적으로 요청을 보내고 응답을 처리하는 로직을 작성하세요.
+                    } else {
+                        // 서버에서 오류 응답을 받은 경우 처리
+                    }
+                }
+
+                override fun onFailure(call: Call<RetrofitClient.responseboardcreation>, t: Throwable) {
+                    // 통신 실패 처리
+                }
+            })
+
             var intent = Intent(this,board_contents_view::class.java)
-            intent.putExtra("titletext","${titletext}")
-            intent.putExtra("contentstext","${contentstext}")
-            intent.putExtra("heart",heart)
-            intent.putExtra("heartcount",heartcount)
-            intent.putExtra("commentcount",commentcount)
-            intent.putExtra("imageUriString", imageUriString)
             startActivity(intent)
         }
 

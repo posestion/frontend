@@ -11,6 +11,10 @@ import androidx.core.content.ContextCompat
 import com.example.posestion.databinding.ActivityBoardClassCreationPageBinding
 import android.Manifest
 import android.app.Activity
+import com.example.posestion.connection.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class board_class_creation_page : AppCompatActivity() {
     private lateinit var binding: ActivityBoardClassCreationPageBinding
@@ -37,8 +41,29 @@ class board_class_creation_page : AppCompatActivity() {
         }
 
         binding.boardClassCreationUploadBtn.setOnClickListener {
-            var titletext = binding.boardClassCreationTitle.text.toString()
-            var contentstext = binding.boardClassCreationContent.text.toString()
+            var title = binding.boardClassCreationTitle.text.toString()
+            var image = imageUriString
+            var content = binding.boardClassCreationContent.text.toString()
+
+            val requestBody =RetrofitClient.requestclasscreation(imageUriString, title, content)
+
+            val token = MyApplication.user.getString("jwt", "").toString()
+            val apiservice = RetrofitObject.getRetrofitServiceWithToken(token)
+
+            apiservice.classpostclass(requestBody).enqueue(object : Callback<RetrofitClient.responseclasscreation> {
+                override fun onResponse(call: Call<RetrofitClient.responseclasscreation>, response: Response<RetrofitClient.responseclasscreation>) {
+                    if (response.isSuccessful) {
+                        val responseData = response.body()
+                        // 성공적으로 요청을 보내고 응답을 처리하는 로직을 작성하세요.
+                    } else {
+                        // 서버에서 오류 응답을 받은 경우 처리
+                    }
+                }
+
+                override fun onFailure(call: Call<RetrofitClient.responseclasscreation>, t: Throwable) {
+                    // 통신 실패 처리
+                }
+            })
         }
     }
     private fun checkPermissionsAndOpenGallery(){

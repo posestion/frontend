@@ -3,9 +3,10 @@ package com.example.posestion
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.BoardClassViewReviewListItemBinding
 
-class board_class_view_review_adapter(private val review: List<review>) : RecyclerView.Adapter<board_class_view_review_adapter.board_class_view_review_viewholder>() {
+class board_class_view_review_adapter(private val review: List<RetrofitClient.classdetailreviews>) : RecyclerView.Adapter<board_class_view_review_adapter.board_class_view_review_viewholder>() {
 
     class board_class_view_review_viewholder(private val binding: BoardClassViewReviewListItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(review : review){

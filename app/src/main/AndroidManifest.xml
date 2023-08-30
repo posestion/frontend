@@ -25,6 +25,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+
+            android:name=".board_class_view_before"
+
             android:name=".ActivityBoxClass"
             android:exported="false" />
         <activity
@@ -41,6 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".ActivityMyContents"
+
             android:exported="false" />
         <activity
             android:name=".board_10photo"
@@ -98,7 +102,10 @@
             android:name=".PoseshopMainFragment"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
+
+           
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <activity
             android:name=".camera.GlideExampleActivity"
             android:exported="false" />

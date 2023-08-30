@@ -4,24 +4,30 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.BoardClassListItemBinding
 import timber.log.Timber
 
-class home_hotclass_list_adapter (private val hotclass: List<hotclass>) : RecyclerView.Adapter<home_hotclass_list_adapter.home_hotclass_ViewHolder>(){
+class home_hotclass_list_adapter (private val getclass: List<RetrofitClient.getclass>) : RecyclerView.Adapter<home_hotclass_list_adapter.home_hotclass_ViewHolder>(){
 
     class home_hotclass_ViewHolder(private val binding: BoardClassListItemBinding):
         RecyclerView.ViewHolder(binding.root){
         private val context = binding.root.context
-        fun bind(hotclass : hotclass){
-            binding.boardHotclassHeart.isClickable = hotclass.heart
-            binding.boardHotclassTitleTxt.text = hotclass.title
-            binding.boardHotclassThumbnail.setImageResource(hotclass.image)
+        fun bind(getclass : RetrofitClient.getclass){
+            val imageURL = getclass.Image_url
+            binding.boardHotclassTitleTxt.text = getclass.title
+            val image = binding.boardHotclassThumbnail
+
+            Glide.with(context)
+                .load(imageURL)
+                .into(image)
+
 
             itemView.setOnClickListener {
                 val intent = Intent(context,board_class_view::class.java)
-                intent.putExtra("title",hotclass.title)
-                intent.putExtra("thumbnail",hotclass.image)
-                intent.putExtra("heart",hotclass.heart)
+                intent.putExtra("title",getclass.title)
+                intent.putExtra("thumbnail",getclass.Image_url)
             }
         }
     }
@@ -40,7 +46,7 @@ class home_hotclass_list_adapter (private val hotclass: List<hotclass>) : Recycl
         position: Int
     ) {
         Timber.d("onCreateViewHolder")
-        holder.bind(hotclass[position])
+        holder.bind(getclass[position])
     }
 
-    override fun getItemCount(): Int = 4}
+    override fun getItemCount(): Int = getclass.size}
