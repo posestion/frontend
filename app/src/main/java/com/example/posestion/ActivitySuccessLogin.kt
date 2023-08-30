@@ -55,10 +55,6 @@ class ActivitySuccessLogin : AppCompatActivity() {
                             if(mypage.poseDrawer != null){
                                 poselist = mypage.poseDrawer
                             }
-
-                            val intent = Intent(this@ActivitySuccessLogin, ActivityMain::class.java)
-                            startActivity(intent)
-                            finish()
                         }
                     }
                 }
@@ -90,5 +86,9 @@ class ActivitySuccessLogin : AppCompatActivity() {
                 Log.d("Retrofit", errorMessage)
             }
         })
+
+        val intent = Intent(this@ActivitySuccessLogin, ActivityMain::class.java)
+        startActivity(intent)
+        finish()
     }
 }
