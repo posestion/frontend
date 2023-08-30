@@ -129,7 +129,7 @@ class FragmentHome : Fragment() {
                         if(response.isSuccess){
                             if(response.result != null){
                                 homeposelist = response.result
-                                poserecyclerView = binding.FhomeRvHotclass
+                                poserecyclerView = binding.FhomeRvPose
                                 poseadapter = AdapterHomepose(homeposelist, requireContext())
 
                                 poserecyclerView.layoutManager =
@@ -167,7 +167,7 @@ class FragmentHome : Fragment() {
                                         classlist.add(homeclasslist[i])
                                     }
                                 }
-                                myclassrecyclerView = binding.FhomeRvHotclass
+                                myclassrecyclerView = binding.FhomeRvClass
                                 myclassadapter = AdapterMypageClass(classlist, requireContext())
 
                                 myclassrecyclerView.layoutManager =
@@ -207,7 +207,7 @@ class FragmentHome : Fragment() {
                                         }
                                     }
                                 }
-                                starclassrecyclerView = binding.FhomeRvHotclass
+                                starclassrecyclerView = binding.FhomeRvStarclass
                                 starclassadapter = AdapterMypageClass(classlist, requireContext())
 
                                 starclassrecyclerView.layoutManager =
