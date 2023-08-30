@@ -55,6 +55,30 @@ class ActivitySuccessLogin : AppCompatActivity() {
                             if(mypage.poseDrawer != null){
                                 poselist = mypage.poseDrawer
                             }
+                            val callad = RetrofitObject.getRetrofitService.getad(token)
+                            callad.enqueue(object : Callback<RetrofitClient.ResponseHomeAd> {
+                                override fun onResponse(call: Call<RetrofitClient.ResponseHomeAd>, response: Response<RetrofitClient.ResponseHomeAd>) {
+                                    if (response.isSuccessful) {
+                                        val response = response.body()
+                                        if (response != null) {
+                                            if (response.isSuccess) {
+                                                if(response.result != null){
+                                                    adlist = response.result
+
+                                                    val intent = Intent(this@ActivitySuccessLogin, ActivityMain::class.java)
+                                                    startActivity(intent)
+                                                    finish()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<RetrofitClient.ResponseHomeAd>, t: Throwable) {
+                                    val errorMessage = "Call Failed: ${t.message}"
+                                    Log.d("Retrofit", errorMessage)
+                                }
+                            })
                         }
                     }
                 }
@@ -65,30 +89,5 @@ class ActivitySuccessLogin : AppCompatActivity() {
                 Log.d("Retrofit", errorMessage)
             }
         })
-
-        val callad = RetrofitObject.getRetrofitService.getad(token)
-        callad.enqueue(object : Callback<RetrofitClient.ResponseHomeAd> {
-            override fun onResponse(call: Call<RetrofitClient.ResponseHomeAd>, response: Response<RetrofitClient.ResponseHomeAd>) {
-                if (response.isSuccessful) {
-                    val response = response.body()
-                    if (response != null) {
-                        if (response.isSuccess) {
-                            if(response.result != null){
-                                adlist = response.result
-                            }
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<RetrofitClient.ResponseHomeAd>, t: Throwable) {
-                val errorMessage = "Call Failed: ${t.message}"
-                Log.d("Retrofit", errorMessage)
-            }
-        })
-
-        val intent = Intent(this@ActivitySuccessLogin, ActivityMain::class.java)
-        startActivity(intent)
-        finish()
     }
 }
