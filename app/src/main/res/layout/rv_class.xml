@@ -20,7 +20,7 @@
     <ImageView
         android:id="@+id/Rvclass_card"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="15dp"
@@ -43,4 +43,14 @@
         app:layout_constraintBottom_toBottomOf="@+id/Rvclass_image"
         app:layout_constraintStart_toEndOf="@+id/Rvclass_image"
         app:layout_constraintTop_toTopOf="@+id/Rvclass_image" />
+
+    <ImageButton
+        android:id="@+id/Rvclass_btn"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        android:background="@drawable/solid_transparent"
+        app:layout_constraintEnd_toEndOf="@+id/Rvclass_card"
+        app:layout_constraintTop_toTopOf="@+id/Rvclass_card"
+        app:srcCompat="@drawable/svg_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

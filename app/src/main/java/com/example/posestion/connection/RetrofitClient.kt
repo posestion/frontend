@@ -66,15 +66,6 @@ class RetrofitClient {
         val userpw: String
     )
 
-    data class Responsepwreset(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String
-    )
-
     //아이디 중복확인
     data class Responsecheckid(
         @SerializedName("isSuccess")
@@ -109,16 +100,6 @@ class RetrofitClient {
         val nickname: String
     )
 
-    //회원가입
-    data class ResponseSignup(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String
-    )
-
     //회원 정보
     data class ResponseAll(
         @SerializedName("user_id")
@@ -133,58 +114,6 @@ class RetrofitClient {
         val nick: String,
         @SerializedName("username")
         val name: String
-    )
-
-    //내가 올린 컨텐츠
-    data class ResponsemyContent(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String,
-        @SerializedName("result")
-        val result: List<myContent>
-    )
-
-    data class myContent(
-        @SerializedName("category")
-        val category: String,
-        @SerializedName("id")
-        val id: Int,
-        @SerializedName("title")
-        val title: String,
-        @SerializedName("image")
-        val image: String,
-        @SerializedName("content")
-        val content: String,
-        @SerializedName("like") // 0 : 내가 좋아요하지 않음 , 1 : 내가 좋아요함
-        val like: Int,
-        @SerializedName("Number_of_like")
-        val likeNum: Int,
-        @SerializedName("Number_of_reply")
-        val replyNum: Int
-    )
-
-    //내가 올린 강의
-    data class ResponsemyClass(
-        @SerializedName("isSuccess")
-        val isSuccess: Boolean,
-        @SerializedName("code")
-        val code: Int,
-        @SerializedName("message")
-        val message: String,
-        @SerializedName("result")
-        val result: List<myClass>
-    )
-
-    data class myClass(
-        @SerializedName("id")
-        val id: Int,
-        @SerializedName("title")
-        val title: String,
-        @SerializedName("image_url")
-        val image: String,
     )
 
     //마이페이지
@@ -213,21 +142,147 @@ class RetrofitClient {
         @SerializedName("following")
         val following: Int,
         @SerializedName("inroduction")
-        val inroduction: String?,
+        val introduction: String?,
+        @SerializedName("class") //최대 3개
+        val mypageclass: MutableList<mypageclass>?,
+        @SerializedName("poseDrawer") //최대 5개
+        val poseDrawer: MutableList<mypageposeDrawer>?,
+        @SerializedName("myContent") //최대 4개
+        val myContent: MutableList<mypageContent>?,
     )
 
-    //이사잘 게시물 삭제
-    data class ResponseDeletepost(
+    data class mypageclass(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("image_url")
+        val image: String,
+        @SerializedName("hits")
+        val hits: Int, //조회수
+        @SerializedName("dibs")
+        val dibs: Int, //1이면 찜
+    )
+
+    data class mypageposeDrawer(
+        @SerializedName("image")
+        val image: String
+    )
+
+    data class mypageContent(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("image")
+        val image: String,
+        @SerializedName("content")
+        val content: String,
+        @SerializedName("like")
+        val like: Int, //1 내가 좋아요 누름 0 안누름
+        @SerializedName("Number_of_like")
+        val likenum: Int,
+        @SerializedName("Number_of_reply")
+        val replynum: Int,
+        @SerializedName("date")
+        val date: String
+    )
+
+    //마이페이지->내가 올린 강의
+    data class Responsemypageclass(
         @SerializedName("isSuccess")
         val isSuccess: Boolean,
         @SerializedName("code")
         val code: Int,
         @SerializedName("message")
-        val message: String
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<mypageclass>?
     )
 
-    //문의하기
-    data class ResponseAsk(
+    //마이페이지->내가 올린 포즈
+    data class Responsemypagepose(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<mypose>?
+    )
+
+    data class mypose(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("image_url")
+        val image: String,
+        @SerializedName("hits")
+        val hits: Int, //조회수
+    )
+
+    //마이페이지->내가 올린 컨텐츠
+    data class Responsemypagecontents(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: contestsResult
+    )
+
+    data class contestsResult(
+        @SerializedName("wdyt")
+        val wdyt: MutableList<mypageContent>?,
+        @SerializedName("10s_photo")
+        val photo: MutableList<mypagephoto>?
+    )
+
+    data class mypagephoto(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("title")
+        val title: String,
+        @SerializedName("expertTF")
+        val expert: Int, //1이면 전문가
+        @SerializedName("pose_image")
+        val poseimage: String,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("profile_image")
+        val profileimage: String
+    )
+
+    //내가 올린 10초 사진 전부
+    data class Responsemypagephoto(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<mypagephoto>?
+    )
+
+    //내가 올린 이사잘 전부
+    data class Responsemypagewdyt(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<mypageContent>?
+    )
+
+    //보편적인 Response
+    data class Responseusually(
         @SerializedName("isSuccess")
         val isSuccess: Boolean,
         @SerializedName("code")
@@ -275,6 +330,67 @@ class RetrofitClient {
         val ansname: String,
         @SerializedName("ans_content")
         val anscontent: String
+    )
+
+    //홈화면의 광고
+    data class ResponseHomeAd(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<HomeAd>
+    )
+
+    data class HomeAd(
+        @SerializedName("brand_name")
+        val brandname: String,
+        @SerializedName("banner_image")
+        val bannerimage: String,
+    )
+
+    //홈 화면 핫강의
+    data class Responsehomehotclass(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<homehotclass>?
+    )
+
+    data class homehotclass(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("image_url")
+        val image: String,
+        @SerializedName("hits")
+        val hits: Int, //조회수
+        @SerializedName("dibs")
+        val dibs: Int, //1이면 찜
+    )
+
+    //홈 화면 포즈
+    data class Responsehomepose(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: MutableList<homepose>?
+    )
+
+    data class homepose(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("pose_image")
+        val image: String
     )
 
     //포즈상점//
@@ -377,6 +493,40 @@ class RetrofitClient {
         val view: Int,
         @SerializedName("user_id")
         val userId: Int,
+        @SerializedName("pose_id")
+        val poseId: Int,
+        @SerializedName("title")
+        val title: String?,
+        @SerializedName("content")
+        val content: String?,
+        @SerializedName("pose_image")
+        val poseImage: String,
+        @SerializedName("tag_name")
+        val tagname: List<String>?
+    )
+
+    data class PoseSearchHotResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseSearchHot>
+    )
+
+    data class PoseSearchHot(
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("date")
+        val date: String,
+        @SerializedName("view")
+        val view: Int,
+        @SerializedName("user_id")
+        val userId: Int,
+        @SerializedName("pose_id")
+        val poseId: Int,
         @SerializedName("title")
         val title: String?,
         @SerializedName("content")
@@ -499,12 +649,22 @@ class RetrofitClient {
         val poseImage: String,
         @SerializedName("pose_id")
         val poseid: Int,
-        @SerializedName("tag_name")
-        val tagname: String?,
+        @SerializedName("tag_names")
+        val tagnames: List<String>?,
         @SerializedName("fav_count")
         val favcount: Int
-    )
+    ):java.io.Serializable
 
+    data class PoseFilterpopularResponse(
+        @SerializedName("isSuccess")
+        val isSuccess: Boolean,
+        @SerializedName("code")
+        val code: Int,
+        @SerializedName("message")
+        val message: String,
+        @SerializedName("result")
+        val result: List<PoseFilterpopular>
+    )
     data class PoseFilterpopular(
         @SerializedName("id")
         val id: Int,
@@ -520,9 +680,13 @@ class RetrofitClient {
         val content: String?,
         @SerializedName("pose_image")
         val poseImage: String,
+        @SerializedName("pose_id")
+        val poseid: Int,
+        @SerializedName("tag_names")
+        val tagnames: List<String>?,
         @SerializedName("fav_count")
         val favcount: Int
-    )
+    ):java.io.Serializable
 
     data class PoseDeleteid(
         @SerializedName("isSuccess")
@@ -558,6 +722,8 @@ class RetrofitClient {
         val view: Int,
         @SerializedName("user_id")
         val userId: Int,
+        @SerializedName("pose_id")
+        val poseId: Int,
         @SerializedName("title")
         val title: String,
         @SerializedName("content")
@@ -1053,5 +1219,9 @@ class RetrofitClient {
         val code: Int,
         @SerializedName("message")
         val message: String
+
+    data class PoseRequestBody(
+        @SerializedName("pose_id") val poseId: Int
+
     )
 }

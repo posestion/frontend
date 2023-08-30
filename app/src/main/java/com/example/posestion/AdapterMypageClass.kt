@@ -11,21 +11,19 @@ import com.bumptech.glide.Glide
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.MypageRvClassBinding
 
-class AdapterMypageClass (private val resources: Resources,
+class AdapterMypageClass (private val ClassList: MutableList<RetrofitClient.mypageclass>,
+                          private val resources: Resources,
                           private val context: Context): RecyclerView.Adapter<AdapterMypageClass.viewHolder>() {
-
-    private var myclass = listOf<RetrofitClient.myClass>()
     inner class viewHolder(private val binding: MypageRvClassBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(pos: Int){
-            val response = myclass[pos]
+        fun bind(list: RetrofitClient.mypageclass){
 
             val dp86 = (86 * Resources.getSystem().displayMetrics.density).toInt()
 
             val targetSize = dp86
-            val imageUrl = response.image
+            val imageUrl = list.image
             val imageView = binding.mypageRvClassImage
-            binding.mypageRvClassTitle.text = response.title
+            binding.mypageRvClassTitle.text = list.title
 
             Glide.with(context)
                 .load(imageUrl)
@@ -34,8 +32,8 @@ class AdapterMypageClass (private val resources: Resources,
             if (imageView != null) {
                 val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((imageView as BitmapDrawable).bitmap, targetSize, targetSize, true))
 
-                binding.mypageRvClassImage.setImageDrawable(scaledDrawable)
-                binding.mypageRvClassImage.clipToOutline = true
+                imageView.setImageDrawable(scaledDrawable)
+                imageView.clipToOutline = true
             }
         }
     }
@@ -45,12 +43,8 @@ class AdapterMypageClass (private val resources: Resources,
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        holder.bind(position)
+        holder.bind(ClassList[position])
     }
 
-    override fun getItemCount() = myclass.size
-
-    fun setList(list: List<RetrofitClient.myClass>) {
-        myclass = list
-    }
+    override fun getItemCount() = ClassList.size
 }

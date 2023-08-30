@@ -17,6 +17,10 @@ class ActivityWithdraw : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        binding.AwithdrawBtnKeep.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

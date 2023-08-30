@@ -6,33 +6,43 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.MypageRvContentsBinding
 
-class AdapterMypageContents(private val ContentsList: MutableList<com.example.posestion.DataContents>,
-                            private val resources: Resources
+class AdapterMypageContents(private val ContentsList: MutableList<RetrofitClient.mypageContent>,
+                            private val resources: Resources,
+                            private val context: Context
 ): RecyclerView.Adapter<AdapterMypageContents.viewHolder>() {
 
     inner class viewHolder(private val binding: MypageRvContentsBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(list : com.example.posestion.DataContents){
+        fun bind(list : RetrofitClient.mypageContent){
             binding.mypageRvContentsTitle.text = list.title
-            binding.mypageRvContentsText.text = list.text
-            binding.mypageRvContentsTextHeart.text = list.heart
-            binding.mypageRvContentsTextComment.text = list.comment
+            binding.mypageRvContentsText.text = list.content
+            binding.mypageRvContentsTextHeart.text = list.likenum.toString()
+            binding.mypageRvContentsTextReply.text = list.replynum.toString()
 
-            val dp55 = (55 * Resources.getSystem().displayMetrics.density).toInt()
+            val dp56 = (56 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = dp55
-            val drawableRes = list.image
-            val drawable = ResourcesCompat.getDrawable(resources, drawableRes, null)
+            val targetSize = dp56
+            val imageUrl = list.image
+            val imageView = binding.mypageRvContentsImageMain
 
-            if (drawable != null) {
-                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((drawable as BitmapDrawable).bitmap, targetSize, targetSize, true))
+            Glide.with(context)
+                .load(imageUrl)
+                .into(imageView)
 
-                binding.mypageRvContentsImageMain.setImageDrawable(scaledDrawable)
-                binding.mypageRvContentsImageMain.clipToOutline = true
+            if (imageView != null) {
+                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((imageView as BitmapDrawable).bitmap, targetSize, targetSize, true))
+
+                imageView.setImageDrawable(scaledDrawable)
+                imageView.clipToOutline = true
+            }
+
+            if(list.like == 1){
+                binding.mypageRvContentsImage1.setImageResource(R.drawable.svg_heart)
             }
         }
     }

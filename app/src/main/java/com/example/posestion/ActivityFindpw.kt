@@ -118,8 +118,8 @@ class ActivityFindpw : AppCompatActivity() {
 
             val call = RetrofitObject.getRetrofitService
             call.resetpw(RetrofitClient.Requestpwreset(id, name, phone, pw))
-                .enqueue(object : Callback<RetrofitClient.Responsepwreset> {
-                    override fun onResponse(call: Call<RetrofitClient.Responsepwreset>, response: Response<RetrofitClient.Responsepwreset>) {
+                .enqueue(object : Callback<RetrofitClient.Responseusually> {
+                    override fun onResponse(call: Call<RetrofitClient.Responseusually>, response: Response<RetrofitClient.Responseusually>) {
                         if (response.isSuccessful) {
                             Log.d("Retrofit", "왜안돼")
                             val result = response.body()
@@ -135,7 +135,7 @@ class ActivityFindpw : AppCompatActivity() {
                             Log.d("Retrofit", "Response Error: $errorBody")
                         }
                     }
-                    override fun onFailure(call: Call<RetrofitClient.Responsepwreset>, t: Throwable) {
+                    override fun onFailure(call: Call<RetrofitClient.Responseusually>, t: Throwable) {
                         val errorMessage = "Call Failed: ${t.message}"
                         Log.d("Retrofit", errorMessage)
                     }

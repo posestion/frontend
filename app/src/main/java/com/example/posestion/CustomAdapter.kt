@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +16,11 @@ import com.example.posestion.connection.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import timber.log.Timber.Forest.tag
 
-class CustomAdapter(    private val sharedViewModel: SharedViewModel,
-                        private val retrofitServiceWithToken: RetrofitAPI,
-                        private val lifecycleOwner: LifecycleOwner,
-                        private val showLargeImageDialog: (String, String, String) -> Unit
+class CustomAdapter(private val sharedViewModel: SharedViewModel,
+                    private val retrofitServiceWithToken: RetrofitAPI,
+                    private val lifecycleOwner: LifecycleOwner,
+                    private val showLargeImageDialog: (String, String, String, Int, List<String>?) -> Unit
 ) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     private val getAgeDataList = mutableListOf<RetrofitClient.PoseGetage>()
@@ -45,7 +43,7 @@ class CustomAdapter(    private val sharedViewModel: SharedViewModel,
         holder.tvMain.text = (position + 1).toString()
 
         if (holder.textTag!= null) {
-            val tagsText = item.tagnames?.filterNotNull()?.joinToString(", ") { tag -> "#$tag" } ?: ""
+            val tagsText = item.tagnames?.filterNotNull()?.joinToString(" ") { tag -> "#$tag" } ?: ""
             holder.textTag.text = tagsText
         } else {
             holder.textTag.text = ""
@@ -72,7 +70,7 @@ class CustomAdapter(    private val sharedViewModel: SharedViewModel,
                     val getage = getAgeDataList[position]
                     if (isButtonFilled) {
                         imageButton.setBackgroundResource(R.drawable.fillheart)
-                        onHeartButtonClick(getage.id, getage.poseImage, getage.tagnames)
+                        onHeartButtonClick(getage.id, getage.poseImage,getage.title,getage.content, getage.tagnames)
                         Log.d("HeartButtonClick1", getage.id.toString())
                     } else {
                         imageButton.setBackgroundResource(R.drawable._icon__heart_)
@@ -97,9 +95,12 @@ class CustomAdapter(    private val sharedViewModel: SharedViewModel,
             imageView.setOnClickListener{
                 val item = getAgeDataList[adapterPosition]
                 val imageUrl = item.poseImage
+                val imageId = item.id
                 val title = item.title
                 val content = item.content
-                showLargeImageDialog(imageUrl, title, content)
+                val poseId= item.poseId
+                val tagNames=item.tagnames
+                showLargeImageDialog(imageUrl, title, content,poseId,tagNames)
             }
 
         }
@@ -111,7 +112,7 @@ class CustomAdapter(    private val sharedViewModel: SharedViewModel,
                 .into(imageView)
         }
     }
-    private fun onHeartButtonClick(imageId: Int,imageUrl: String, tagNames: List<String>?) {
+    private fun onHeartButtonClick(imageId: Int,imageUrl: String,imageTitle: String,imageContent: String, tagNames: List<String>?) {
         Log.d(imageId.toString(),"bbb")
 
         retrofitServiceWithToken.poseaddfavorite(imageId).enqueue(object :
@@ -122,7 +123,7 @@ class CustomAdapter(    private val sharedViewModel: SharedViewModel,
             ) {
                 if (response.isSuccessful) {
                     sharedViewModel.addNewImage(imageId)
-                    sharedViewModel.addImageUrl(imageId, imageUrl, tagNames)
+                    sharedViewModel.addImageUrl(imageId, imageUrl,imageTitle, imageContent,tagNames)
                 }
             }
             override fun onFailure(call: Call<RetrofitClient.PoseAddfavoriteResponse>, t: Throwable) {

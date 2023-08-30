@@ -23,18 +23,22 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.ActivityChangeUserBinding
 import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,15 +57,21 @@ class ActivityChangeUser : AppCompatActivity() {
     private lateinit var pwchecktext : TextView
     private lateinit var pwtext : TextView
     private lateinit var timerTask : Timer
-    private lateinit var pw : String
-    private lateinit var phonenum : String
     private lateinit var imagePart: MultipartBody.Part
     private lateinit var changeprofileimage: ImageButton
     private lateinit var profilenickname: String
-    private var profile: CircleImageView? = null
+    private lateinit var profile : CircleImageView
+    private lateinit var nickname: RequestBody
+    private lateinit var intro: RequestBody
+    private val user = MyApplication.user
+    private val editor = user.edit()
+    private val token = user.getString("jwt", "").toString()
     private var pwcheck = false
     private var nickcheck = false
     private var timer = 0
+    private var y = "0000"
+    private var m2 = "00"
+    private var d2 = "00"
 
     //비밀번호 일치하는지 확인
     private val pwcheckwatcherListener = object : TextWatcher {
@@ -120,6 +130,7 @@ class ActivityChangeUser : AppCompatActivity() {
             if (nickchecktext.visibility == View.VISIBLE) {
                 nickchecktext.visibility = View.INVISIBLE
             }
+            nickcheck = false
         }
 
         override fun afterTextChanged(s: Editable?) {}
@@ -177,6 +188,26 @@ class ActivityChangeUser : AppCompatActivity() {
         nickedit.addTextChangedListener(nickcheckwatcherListener)
         binding.AchangeEditIntro.addTextChangedListener(introwatcherListener)
 
+        //프로필 받아오기
+        val imageUrl = user.getString("profileimage", "")
+
+        Glide.with(this)
+            .load(imageUrl)
+            .into(profile)
+
+        //프로필 이미지 초기화
+        binding.AchangeBtnDeleteprofile.setOnClickListener {
+            profile.setImageResource(R.drawable.profilejpg)
+
+            val resourceId = R.drawable.profilejpg
+            val newfile = saveResourceImageToFile(this, resourceId)
+            val path = newfile.absolutePath
+            val file = File(path)
+            val mediaType = "image/*".toMediaTypeOrNull()
+            val imageRequestBody = file.asRequestBody(mediaType)
+            imagePart = MultipartBody.Part.createFormData("image", file.name, imageRequestBody)
+        }
+
         //toolbar 설정
         setSupportActionBar(binding.AchangeToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -196,7 +227,7 @@ class ActivityChangeUser : AppCompatActivity() {
             spinner_phone.adapter = adapter
         }
 
-        //회원 탈퇴 눌렀을 때
+        //회원 탈퇴 버튼 만들기
         val out = binding.AchangeTextOut
         val spanout = SpannableStringBuilder("회원 탈퇴")
         val clickout = object : ClickableSpan() {
@@ -240,7 +271,6 @@ class ActivityChangeUser : AppCompatActivity() {
         binding.AchangeBtnChecknum.setOnClickListener {
             timerTask.cancel()
             binding.AchangeTextNum.text = "03:00"
-            //binding.AsignupBtnChecknum.isClickable = false
         }
 
         spanresend.setSpan(clickresend, 0, spanresend.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -249,7 +279,57 @@ class ActivityChangeUser : AppCompatActivity() {
 
         //회원정보 수정 눌렀을 때 동작
         binding.AchangeBtnChange.setOnClickListener {
+            if(binding.AchangeEditBirth.text.length == 8){
+                val birthday = binding.AchangeEditBirth.text.toString().toInt()
+                y = (birthday/10000).toString()
+                val m = (birthday%10000)/100
+                val d = (birthday%10000)%100
+                m2 = String.format("%02d", m)
+                d2 = String.format("%02d", d)
+            }
 
+            var password: RequestBody? = null
+            if(pwcheck){
+                password = intent.getStringExtra("pw").toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            }
+            if(nickcheck){
+                nickname = profilenickname.toRequestBody("text/plain".toMediaTypeOrNull())
+            }else{
+                nickname = user.getString("nick", "").toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            }
+            val phoneNumber = binding.AchangeEditPhone.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            val birth = "${y}-${m2}-${d2}".toRequestBody("text/plain".toMediaTypeOrNull())
+
+            if(binding.AchangeEditIntro.text.length != 0){
+                intro = binding.AchangeEditIntro.text.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            }else{
+                intro = user.getString("intro", "").toString().toRequestBody("text/plain".toMediaTypeOrNull())
+            }
+
+            val call = RetrofitObject.getRetrofitService
+            call.changeuser(token, imagePart, nickname, password, birth, phoneNumber, intro)
+                .enqueue(object : Callback<RetrofitClient.Responseusually> {
+                    override fun onResponse(call: Call<RetrofitClient.Responseusually>, response: Response<RetrofitClient.Responseusually>) {
+                        if (response.isSuccessful) {
+                            val response = response.body()
+                            if(response != null){
+                                if(response.isSuccess){
+                                    if(user.getBoolean("autologin", false)){
+                                        editor.putBoolean("autologin", false)
+                                        editor.apply()
+                                    }
+                                    val intent = Intent(this@ActivityChangeUser, ActivityLogin::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }
+                        }
+                    }
+                    override fun onFailure(call: Call<RetrofitClient.Responseusually>, t: Throwable) {
+                        val errorMessage = "Call Failed: ${t.message}"
+                        Log.d("Retrofit", errorMessage)
+                    }
+                })
         }
 
         //닉네임 중복확인

@@ -4,11 +4,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.example.posestion.databinding.ItemRecyclerviewBinding
 
 class MyRecyclerViewAdapter(private val viewModel: MyCustomViewModel):  RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder>(){
@@ -30,17 +34,10 @@ class MyRecyclerViewAdapter(private val viewModel: MyCustomViewModel):  Recycler
         Log.d("MyRecyclerViewAdapter2", "updateData() called with newImageList size: ${newImageList.size}")
     }
     inner class ViewHolder(private val binding: ItemRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(imageId: Int, position: Int) {
-            Log.d("MyRecyclerViewAdapter6", "bind() called for position: $position")
-            binding.tvMain.text = "${position + 1}"
-
-            binding.imageButton1.setOnClickListener {
-                popupMenuClickListener?.onPopupMenuClick(it, position)
-            }
-
-            binding.imageView.setImageResource(imageId)
-
-        }
+        val imageView: ImageView = binding.imageView
+        val tvMain: TextView = binding.tvMain
+        val imageButton1: ImageButton = binding.imageButton1
+        var imageId: Int = 0 // 추가: 이미지 ID를 저장할 변수
     }
     fun addPose(poseImageResource: Int) {
         addedImageIds.add(poseImageResource)
@@ -54,6 +51,8 @@ class MyRecyclerViewAdapter(private val viewModel: MyCustomViewModel):  Recycler
             notifyItemRemoved(position)
             notifyDataSetChanged()
             // 뷰모델에서도 해당 아이템을 삭제
+            viewModel.deleteImage(imageIdToRemove)
+            Log.d("MyRecyclerViewAdapter62", viewModel.deleteImage(imageIdToRemove).toString())
             viewModel.removeImageId(imageIdToRemove)
             Log.d("MyRecyclerViewAdapter61", addedImageIds.toString())
         }
@@ -66,7 +65,25 @@ class MyRecyclerViewAdapter(private val viewModel: MyCustomViewModel):  Recycler
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("MyRecyclerViewAdapter8", "onBindViewHolder called for position: $position")
-        holder.bind(addedImageIds[position], position)
+        val imageId = addedImageIds[position]
+        Log.d("MyRecyclerViewAdapter81", imageId.toString())
+        val imageUrl = viewModel.getImageUrlForId(imageId) // 이미지 아이디에 해당하는 URL 가져오기
+
+
+        Log.d("Image ID34", imageUrl.toString())
+        Glide.with(holder.imageView.context)
+            .load(imageUrl)
+            .centerCrop()
+            .into(holder.imageView)
+
+
+        holder.tvMain.text = (position + 1).toString()
+        Log.d("Image ID33", imageId.toString())
+        holder.imageId = imageId
+
+        holder.imageButton1.setOnClickListener{
+            popupMenuClickListener?.onPopupMenuClick(it, position)
+        }
     }
 
     override fun getItemCount(): Int {

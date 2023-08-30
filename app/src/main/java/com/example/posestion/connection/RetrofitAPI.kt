@@ -26,8 +26,9 @@ interface RetrofitAPI {
         @Part("birth") birth: RequestBody,
         @Part("nickname") nickname: RequestBody,
         @Part("username") username: RequestBody,
+        @Part("introduction") introduction: RequestBody,
         @Part image: MultipartBody.Part
-    ): Call<RetrofitClient.ResponseSignup>
+    ): Call<RetrofitClient.Responseusually>
 
     //로그인
     @POST("/app/login")
@@ -39,7 +40,7 @@ interface RetrofitAPI {
 
     //비밀번호 초기화
     @PATCH("/app/users/pwReset")
-    fun resetpw(@Body request: RetrofitClient.Requestpwreset): Call<RetrofitClient.Responsepwreset>
+    fun resetpw(@Body request: RetrofitClient.Requestpwreset): Call<RetrofitClient.Responseusually>
 
     //아이디 중복확인
     @GET("/app/users/checkid/{id}")
@@ -66,19 +67,18 @@ interface RetrofitAPI {
         @Part image: MultipartBody.Part
     ): Call<RetrofitClient.PoseWrite>
 
+
     @POST("/pose/basket")
-    fun posebasket(
-        @Part("pose_id") poseid: Int,
-    ): Call<RetrofitClient.PoseBasket>
+    fun posebasket(@Body requestBody: RetrofitClient.PoseRequestBody): Call<RetrofitClient.PoseBasket>
 
     @GET("/pose/:id")
     fun poseid(
         @Part("id") id: Int,
     ): Call<RetrofitClient.PoseId>
 
-    @GET("/pose/posebasketDelete/:id")
+    @GET("/pose/posebasketDelete/{id}")
     fun posebasektdelete(
-        @Part("id") id: Int,
+        @Path("id") id: Int,
     ): Call<RetrofitClient.PoseBasketDelete>
 
     @GET("/pose/allView")
@@ -89,6 +89,9 @@ interface RetrofitAPI {
 
     @GET("/pose/search")
     fun posesearch( @Query("word") word: String?=null): Call<RetrofitClient.PoseSearchResponse>
+
+    @GET("/pose/hotSearch")
+    fun posesearchhot( @Query("hot") hot: String?=null): Call<RetrofitClient.PoseSearchHotResponse>
 
     @POST("/pose/addfavorite/{pose_id}")
     fun poseaddfavorite(@Path("pose_id") poseId: Int): Call<RetrofitClient.PoseAddfavoriteResponse>
@@ -102,44 +105,126 @@ interface RetrofitAPI {
     @GET("/pose/hotboard")
     fun posehotboard(): Call<RetrofitClient.PoseHotboardResponse>
 
-    @GET("/pose/filterdate")
+    @GET("/pose/ageNewest")
     fun posefilterdate(): Call<RetrofitClient.PoseFilterdateResponse>
 
-    @GET("/pose/filterpopular")
-    fun posefilterpopular(): Call<RetrofitClient.PoseFilterpopular>
+    @GET("/pose/agePopular")
+    fun posefilterpopular(): Call<RetrofitClient.PoseFilterpopularResponse>
 
     @GET("/pose/delete/:id")
     fun posedeletid(): Call<RetrofitClient.PoseDeleteid>
 
-    //내가 올린 컨텐츠
-    @GET("/app/profile/{nickname}/content")
-    fun mycontents(
-        @Header("x-access-token") token: String,
-        @Path("nickname") nickname: String
-    ): Call<RetrofitClient.ResponsemyContent>
-
-    //내가 올린 강의
-    @GET("/app/profile/{nickname}/class")
-    fun myclass(
-        @Header("x-access-token") token: String,
-        @Path("nickname") nickname: String
-    ): Call<RetrofitClient.ResponsemyClass>
-
     //마이페이지
-    @GET("/app/mypage")
+    @GET("/app/myPage")
     fun mypage(
         @Header("x-access-token") token: String
     ) : Call<RetrofitClient.Responsemypage>
 
+    //마이페이지 내가올린 강의
+    @GET("/app/myPage/myClass")
+    fun mypageclass(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypageclass>
+
+    //마이페이지 내가올린 포즈
+    @GET("/app/mypage/poseDrawer")
+    fun mypagepose(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagepose>
+
+    //마이페이지 내가 올린 컨텐츠 4개씩
+    @GET("/app/mypage/myContent")
+    fun mypagecontents(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagecontents>
+
+    //마이페이지 내가 올린 10초 사진 전부
+    @GET("/app/mypage/myContent/10sPhoto")
+    fun mypagephoto(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagephoto>
+
+    //마이페이지 내가 올린 이사잘 전부
+    @GET("/app/mypage/myContent/wdyt")
+    fun mypagewdyt(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagewdyt>
+
+    //게시글 보관함
+    @GET("/app/myPage/store/wdyt")
+    fun mypagestorewdyt(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagewdyt>
+
+    //10초사진 보관함
+    @GET("/app/myPage/store/10sPhoto")
+    fun mypagestorephoto(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypagephoto>
+
+    //강의 보관함
+    @GET("/app/myPage/store/class")
+    fun mypagestoreclass(
+        @Header("x-access-token") token: String
+    ) : Call<RetrofitClient.Responsemypageclass>
+
     @GET("/pose/getAge")
     fun posegetage(): Call<RetrofitClient.PoseGetageResponse>
+
+    //이사잘 보관함에 넣기
+    @GET("/app/wdyt/store/{id}")
+    fun boxinpost(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
   
     //이사잘 삭제
     @GET("/app/wdyt/delete/{id}")
     fun deletepost(
         @Header("x-access-token") token: String,
         @Path("id") id: String
-    ) : Call<RetrofitClient.ResponseDeletepost>
+    ) : Call<RetrofitClient.Responseusually>
+
+    //이사잘 보관함 꺼내기
+    @GET("/app/wdyt/takeOut/{id}")
+    fun boxoutpost(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
+
+    //클라스 삭제
+    @GET("/app/class/deleteClass/{id}")
+    fun deleteclass(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
+
+    //클래스 보관함에 넣기
+    @GET("/app/class/takeOut/{id}")
+    fun boxinclass(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
+
+    //클라스 꺼내기
+    @GET("/app/class/takeOut/{id}")
+    fun boxoutclass(
+        @Header("x-access-token") token: String,
+        @Path("id") id: String
+    ) : Call<RetrofitClient.Responseusually>
+
+    //회원정보 수정
+    @Multipart
+    @PATCH("/app/userchange")
+    fun changeuser(
+        @Header("x-access-token") token: String,
+        @Part image: MultipartBody.Part,
+        @Part("nickname") nickname: RequestBody,
+        @Part("password") password: RequestBody?,
+        @Part("birth") birth: RequestBody,
+        @Part("phone_num") phoneNumber: RequestBody,
+        @Part("introduction") introduction: RequestBody
+    ): Call<RetrofitClient.Responseusually>
 
     //문의하기
     @Multipart
@@ -149,7 +234,7 @@ interface RetrofitAPI {
         @Part("title") marketingAgreement: RequestBody,
         @Part("content") userId: RequestBody,
         @Part files: List<MultipartBody.Part>
-    ): Call<RetrofitClient.ResponseAsk>
+    ): Call<RetrofitClient.Responseusually>
 
     @GET("/app/cs/inquiry")
     fun myask(
@@ -267,4 +352,35 @@ interface RetrofitAPI {
     fun classtakeout(
         @Header("x-access-token") token: String,
         @Part("id") id: Int,): Call<RetrofitClient.classtakeout>
+=======
+    //광고
+    @GET("/board/getAd")
+    fun getad(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.ResponseHomeAd>
+
+    //홈 화면 HOT강의
+    @GET("/board/getHotClass")
+    fun homehotclass(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.Responsehomehotclass>
+
+    //홈 화면 인기 있는 포즈
+    @GET("/pose/filterpopular")
+    fun homepose(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.Responsehomepose>
+
+    //홈 화면 수강중인 강의
+    @GET("/app/class/drawer/myClass")
+    fun homemyclass(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.Responsemypageclass>
+
+    //홈 화면 찜한 강의
+    @GET("/app/class/drawer/myDibs")
+    fun homestarclass(
+        @Header("x-access-token") token: String,
+    ) : Call<RetrofitClient.Responsemypageclass>
+
 }
