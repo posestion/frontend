@@ -6,51 +6,39 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/Rvclass_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Rvclass_card"
-        app:srcCompat="@drawable/svg_heart" />
-
-    <ImageView
-        android:id="@+id/Rvclass_card"
+        android:id="@+id/rvboxclass_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/corners_7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/Rvclass_title"
-        android:layout_width="120dp"
+        android:id="@+id/rvboxclass_title"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="TextView"
         android:textSize="10sp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        app:layout_constraintBottom_toBottomOf="@+id/Rvclass_image"
-        app:layout_constraintStart_toEndOf="@+id/Rvclass_image"
-        app:layout_constraintTop_toTopOf="@+id/Rvclass_image" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rvboxclass_image"
+        app:layout_constraintTop_toBottomOf="@+id/rvboxclass_image" />
 
     <ImageButton
-        android:id="@+id/Rvclass_btn"
+        android:id="@+id/rvboxclass_btn"
         android:layout_width="30dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:background="@drawable/solid_transparent"
-        app:layout_constraintEnd_toEndOf="@+id/Rvclass_card"
-        app:layout_constraintTop_toTopOf="@+id/Rvclass_card"
+        app:layout_constraintEnd_toEndOf="@+id/rvboxclass_image"
+        app:layout_constraintTop_toTopOf="@+id/rvboxclass_image"
         app:srcCompat="@drawable/svg_menu" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

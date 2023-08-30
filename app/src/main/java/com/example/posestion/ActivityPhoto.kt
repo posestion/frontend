@@ -8,54 +8,54 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.posestion.MyApplication.Companion.classlistall
+import com.example.posestion.MyApplication.Companion.photolistall
 import com.example.posestion.connection.RetrofitClient
-import com.example.posestion.databinding.ActivityClassBinding
+import com.example.posestion.databinding.ActivityPhotoBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ActivityClass : AppCompatActivity() {
+class ActivityPhoto : AppCompatActivity() {
 
-    private val binding: ActivityClassBinding by lazy { ActivityClassBinding.inflate(layoutInflater) }
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var classadapter: AdapterClass
+    private val binding: ActivityPhotoBinding by lazy { ActivityPhotoBinding.inflate(layoutInflater) }
     private val user = MyApplication.user
     private val token = user.getString("jwt", "").toString()
+    private lateinit var recyclerViewphoto: RecyclerView
+    private lateinit var photoadapter: AdapterPhoto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.AclassToolbar)
+        setSupportActionBar(binding.aphotoToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.svg_back)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        val call = RetrofitObject.getRetrofitService.mypageclass(token)
-        call.enqueue(object : Callback<RetrofitClient.Responsemypageclass> {
-            override fun onResponse(call: Call<RetrofitClient.Responsemypageclass>, response: Response<RetrofitClient.Responsemypageclass>) {
+        val call = RetrofitObject.getRetrofitService.mypagephoto(token)
+        call.enqueue(object : Callback<RetrofitClient.Responsemypagephoto> {
+            override fun onResponse(call: Call<RetrofitClient.Responsemypagephoto>, response: Response<RetrofitClient.Responsemypagephoto>) {
                 if (response.isSuccessful) {
                     val response = response.body()
-                    if (response != null) {
-                        Log.d("Retrofit", response.message)
-                        if (response.isSuccess) {
+                    if(response != null){
+                        if(response.isSuccess){
                             if(response.result != null){
-                                classlistall = response.result
-                                recyclerView = binding.AclassRv
-                                classadapter = AdapterClass(classlistall, resources, this@ActivityClass)
-                                recyclerView.layoutManager =
-                                    StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                                recyclerView.adapter = classadapter
+                                photolistall = response.result
+                                recyclerViewphoto = binding.aphotoRv
+                                photoadapter = AdapterPhoto(photolistall, this@ActivityPhoto)
 
-                                recyclerView.adapter?.notifyDataSetChanged()
+                                recyclerViewphoto.layoutManager =
+                                    StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+                                recyclerViewphoto.adapter = photoadapter
+                                photoadapter.notifyDataSetChanged()
                             }
+
                         }
                     }
                 }
             }
 
-            override fun onFailure(call: Call<RetrofitClient.Responsemypageclass>, t: Throwable) {
+            override fun onFailure(call: Call<RetrofitClient.Responsemypagephoto>, t: Throwable) {
                 val errorMessage = "Call Failed: ${t.message}"
                 Log.d("Retrofit", errorMessage)
             }

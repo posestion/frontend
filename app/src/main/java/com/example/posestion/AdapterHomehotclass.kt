@@ -9,21 +9,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.posestion.connection.RetrofitClient
-import com.example.posestion.databinding.MypageRvClassBinding
+import com.example.posestion.databinding.RvHomeHotclassBinding
 
-class AdapterMypageClass (private val ClassList: MutableList<RetrofitClient.mypageclass>,
-                          private val resources: Resources,
-                          private val context: Context): RecyclerView.Adapter<AdapterMypageClass.viewHolder>() {
-    inner class viewHolder(private val binding: MypageRvClassBinding) : RecyclerView.ViewHolder(binding.root){
+class AdapterHomehotclass (private val hotclasslist: MutableList<RetrofitClient.homehotclass>,
+                           private val resources: Resources,
+                           private val context: Context
+): RecyclerView.Adapter<AdapterHomehotclass.viewHolder>() {
 
-        fun bind(list: RetrofitClient.mypageclass){
+    inner class viewHolder(private val binding: RvHomeHotclassBinding) : RecyclerView.ViewHolder(binding.root){
 
-            val dp86 = (86 * Resources.getSystem().displayMetrics.density).toInt()
+        fun bind(list: RetrofitClient.homehotclass){
+            val dp150 = (150 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = dp86
+            val targetSize = dp150
             val imageUrl = list.image
-            val imageView = binding.mypageRvClassImage
-            binding.mypageRvClassTitle.text = list.title
+            val imageView = binding.rvhomehotclassImage
 
             Glide.with(context)
                 .load(imageUrl)
@@ -38,13 +38,13 @@ class AdapterMypageClass (private val ClassList: MutableList<RetrofitClient.mypa
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
-        val binding = MypageRvClassBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RvHomeHotclassBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return viewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        holder.bind(ClassList[position])
+        holder.bind(hotclasslist[position])
     }
 
-    override fun getItemCount() = ClassList.size
+    override fun getItemCount() = hotclasslist.size
 }

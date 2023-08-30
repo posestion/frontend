@@ -4,40 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityJim">
+    tools:context=".ActivityBoxClass">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/Ajim_toolbar"
+        android:id="@+id/aboxclass_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_toolbar"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:menu="@menu/jim_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/search_menu">
 
         <TextView
-            android:id="@+id/Ajim_title"
+            android:id="@+id/aboxclass_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="기본 서랍"
+            android:text="강의 보관함"
             android:textColor="@color/maincolor"
             android:textSize="20sp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="178dp"
+            tools:layout_editor_absoluteX="165dp"
             tools:layout_editor_absoluteY="16dp" />
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Ajim_rv"
-        android:layout_width="match_parent"
+        android:id="@+id/aboxclass_rv"
+        android:layout_width="350dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Ajim_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/aboxclass_toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

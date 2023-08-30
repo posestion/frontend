@@ -9,21 +9,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.posestion.connection.RetrofitClient
-import com.example.posestion.databinding.MypageRvClassBinding
+import com.example.posestion.databinding.MypageRvPoseBinding
 
-class AdapterMypageClass (private val ClassList: MutableList<RetrofitClient.mypageclass>,
-                          private val resources: Resources,
-                          private val context: Context): RecyclerView.Adapter<AdapterMypageClass.viewHolder>() {
-    inner class viewHolder(private val binding: MypageRvClassBinding) : RecyclerView.ViewHolder(binding.root){
+class AdapterMypagePose (private val poseList: MutableList<RetrofitClient.mypageposeDrawer>,
+                         private val resources: Resources,
+                         private val context: Context
+): RecyclerView.Adapter<AdapterMypagePose.viewHolder>() {
 
-        fun bind(list: RetrofitClient.mypageclass){
+    inner class viewHolder(private val binding: MypageRvPoseBinding) : RecyclerView.ViewHolder(binding.root){
 
-            val dp86 = (86 * Resources.getSystem().displayMetrics.density).toInt()
+        fun bind(list : RetrofitClient.mypageposeDrawer){
+            val dp56 = (56 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = dp86
+            val targetSize = dp56
             val imageUrl = list.image
-            val imageView = binding.mypageRvClassImage
-            binding.mypageRvClassTitle.text = list.title
+            val imageView = binding.mypageRvPoseImage
 
             Glide.with(context)
                 .load(imageUrl)
@@ -38,13 +38,13 @@ class AdapterMypageClass (private val ClassList: MutableList<RetrofitClient.mypa
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
-        val binding = MypageRvClassBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = MypageRvPoseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return viewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        holder.bind(ClassList[position])
+        holder.bind(poseList[position])
     }
 
-    override fun getItemCount() = ClassList.size
+    override fun getItemCount() = poseList.size
 }

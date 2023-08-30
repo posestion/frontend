@@ -18,9 +18,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AdapterContents(private val ContentsList: MutableList<RetrofitClient.mypageContent>,
-                      private val context: Context,
-                      private val resources: Resources): RecyclerView.Adapter<AdapterContents.viewHolder>() {
+class AdapterBoxContents (private val ContentsList: MutableList<RetrofitClient.mypageContent>,
+                          private val context: Context,
+                          private val resources: Resources
+): RecyclerView.Adapter<AdapterBoxContents.viewHolder>() {
 
     private val user = MyApplication.user
     private val token = user.getString("jwt", "").toString()
@@ -49,12 +50,11 @@ class AdapterContents(private val ContentsList: MutableList<RetrofitClient.mypag
             }
 
             binding.RvcontentsBtnMenu.setOnClickListener {
-                val popupMenuView = LayoutInflater.from(context).inflate(R.layout.custom_popup, null)
+                val popupMenuView = LayoutInflater.from(context).inflate(R.layout.custom_box_popup, null)
                 val popupWindow = PopupWindow(popupMenuView, pixels, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-                val deleteButton = popupMenuView.findViewById<Button>(R.id.popup_delete)
-                val editButton = popupMenuView.findViewById<Button>(R.id.popup_edit)
-                val keepButton = popupMenuView.findViewById<Button>(R.id.popup_keep)
+                val deleteButton = popupMenuView.findViewById<Button>(R.id.cboxpopup_btn_delete)
+                val outboxButton = popupMenuView.findViewById<Button>(R.id.cboxpopup_btn_out)
 
                 deleteButton.setOnClickListener {
                     val call = RetrofitObject.getRetrofitService.deletepost(token, list.id.toString())
@@ -80,20 +80,17 @@ class AdapterContents(private val ContentsList: MutableList<RetrofitClient.mypag
                     popupWindow.dismiss()
                 }
 
-                editButton.setOnClickListener {
-                    Toast.makeText(context, "Edit 버튼 클릭", Toast.LENGTH_SHORT).show()
-                    popupWindow.dismiss()
-                }
-
-                keepButton.setOnClickListener {
-                    val call = RetrofitObject.getRetrofitService.boxinpost(token, list.id.toString())
+                outboxButton.setOnClickListener {
+                    val call = RetrofitObject.getRetrofitService.boxoutpost(token, list.id.toString())
                     call.enqueue(object : Callback<RetrofitClient.Responseusually> {
                         override fun onResponse(call: Call<RetrofitClient.Responseusually>, response: Response<RetrofitClient.Responseusually>) {
                             if (response.isSuccessful) {
                                 val response = response.body()
                                 if(response != null){
                                     if(response.isSuccess){
-                                        Toast.makeText(context, "이사잘이 보관함에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                                        ContentsList.removeAt(adapterPosition)
+                                        notifyItemRemoved(adapterPosition)
+                                        Toast.makeText(context, "이사잘이 보관함에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             }

@@ -49,7 +49,7 @@
                 android:layout_width="143dp"
                 android:layout_height="143dp"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/iamge_profile"
+                android:src="@drawable/image_profile"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout8" />

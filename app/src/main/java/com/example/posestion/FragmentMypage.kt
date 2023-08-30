@@ -13,8 +13,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.posestion.MyApplication.Companion.classlist
+import com.example.posestion.MyApplication.Companion.contentslist
+import com.example.posestion.MyApplication.Companion.poselist
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.FragmentMypageBinding
 import retrofit2.Call
@@ -26,9 +27,11 @@ class FragmentMypage : Fragment() {
     private lateinit var binding: FragmentMypageBinding
     private lateinit var recyclerViewcontents: RecyclerView
     private lateinit var recyclerViewclass: RecyclerView
+    private lateinit var recyclerViewpose: RecyclerView
     private lateinit var classadapter: AdapterMypageClass
+    private lateinit var contentsadapter: AdapterMypageContents
+    private lateinit var poseadapter: AdapterMypagePose
     lateinit var activityMain: ActivityMain
-    private val ContentsData = mutableListOf<DataContents>()
     private var expert = false
     private val user = MyApplication.user
     private val editor = user.edit()
@@ -49,38 +52,58 @@ class FragmentMypage : Fragment() {
         token = user.getString("jwt", "").toString()
         expert = user.getInt("expert", 0) != 0
 
+        //내가 올린 강의
         if(expert){
             binding.fmypageViewGone.visibility = View.VISIBLE
             binding.fmypageTextGone.visibility = View.VISIBLE
             binding.fmypageRvClass.visibility = View.VISIBLE
             binding.fmypageBtnClass.visibility = View.VISIBLE
+            binding.fmypageImage3.visibility = View.VISIBLE
 
             val dp28 = (28 * Resources.getSystem().displayMetrics.density).toInt()
 
             val itemSpacingDecoration = ItemSpacingDecoration(dp28)
 
-            classadapter = AdapterMypageClass(resources, activityMain)
+            classadapter = AdapterMypageClass(classlist, resources, activityMain)
             recyclerViewclass = binding.fmypageRvClass
             recyclerViewclass.addItemDecoration(itemSpacingDecoration)
-            AdapterMypageClass(resources, activityMain).setList(classlist)
             recyclerViewclass.layoutManager =
                 StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
             recyclerViewclass.adapter = classadapter
-            classadapter.setList(classlist)
             classadapter.notifyDataSetChanged()
         }
 
+        //내가 올린 컨텐츠
+        contentsadapter = AdapterMypageContents(contentslist, resources, requireContext())
+        recyclerViewcontents = binding.fmypageRvContent
+        recyclerViewcontents.layoutManager =
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+        recyclerViewcontents.adapter = contentsadapter
+        contentsadapter.notifyDataSetChanged()
+
+        //내가 올린 포즈
+        poseadapter = AdapterMypagePose(poselist, resources, requireContext())
+        recyclerViewpose = binding.fmypageRvPose
+        recyclerViewpose.layoutManager =
+            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerViewpose.adapter = poseadapter
+        poseadapter.notifyDataSetChanged()
+
+        //마이페이지 기본
         binding.fmypagePostNum.text = "${user.getInt("post", 0)}"
         binding.fmypageFollowNum.text = "${user.getInt("follower", 0)}"
         binding.fmypageFollowingNum.text = "${user.getInt("following", 0)}"
         binding.fmypageTextNick.text = "${user.getString("nick", "")}"
+        binding.fmypageTextIntroduce.text = "${user.getString("intro", "")}"
+        if(binding.fmypageTextIntroduce.text == ""){
+            binding.fmypageTextIntroduce.visibility = View.GONE
+        }
 
         val imageUrl = user.getString("profileimage", "")
         val imageView = binding.fmypageProfile
 
         Glide.with(requireContext())
             .load(imageUrl)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
 
         //새로고침 했을 때
@@ -99,44 +122,27 @@ class FragmentMypage : Fragment() {
                                 val mypage = response.result[0]
                                 expert = mypage.expert != 0
                                 if(expert){
-                                    //내가 올린 강의 받아오기
-                                    val call2 = RetrofitObject.getRetrofitService.myclass(token, mypage.nick)
-                                    call2.enqueue(object : Callback<RetrofitClient.ResponsemyClass> {
-                                        override fun onResponse(call: Call<RetrofitClient.ResponsemyClass>, response: Response<RetrofitClient.ResponsemyClass>) {
-                                            if (response.isSuccessful) {
-                                                val response = response.body()
-                                                if (response != null) {
-                                                    Log.d("Retrofit", response.message)
-                                                    if (response.isSuccess) {
-                                                        classlist = response.result
-                                                        binding.fmypageViewGone.visibility = View.VISIBLE
-                                                        binding.fmypageTextGone.visibility = View.VISIBLE
-                                                        binding.fmypageRvClass.visibility = View.VISIBLE
-                                                        binding.fmypageBtnClass.visibility = View.VISIBLE
+                                    binding.fmypageViewGone.visibility = View.VISIBLE
+                                    binding.fmypageTextGone.visibility = View.VISIBLE
+                                    binding.fmypageRvClass.visibility = View.VISIBLE
+                                    binding.fmypageBtnClass.visibility = View.VISIBLE
+                                    binding.fmypageImage3.visibility = View.VISIBLE
 
-                                                        val dp28 = (28 * Resources.getSystem().displayMetrics.density).toInt()
+                                    if(mypage.mypageclass != null){
+                                        classlist = mypage.mypageclass
+                                    }
 
-                                                        val itemSpacingDecoration = ItemSpacingDecoration(dp28)
+                                    val dp28 = (28 * Resources.getSystem().displayMetrics.density).toInt()
 
-                                                        classadapter = AdapterMypageClass(resources, activityMain)
-                                                        recyclerViewclass = binding.fmypageRvClass
-                                                        recyclerViewclass.addItemDecoration(itemSpacingDecoration)
-                                                        AdapterMypageClass(resources, activityMain).setList(classlist)
-                                                        recyclerViewclass.layoutManager =
-                                                            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-                                                        recyclerViewclass.adapter = classadapter
-                                                        classadapter.setList(classlist)
-                                                        classadapter.notifyDataSetChanged()
-                                                    }
-                                                }
-                                            }
-                                        }
+                                    val itemSpacingDecoration = ItemSpacingDecoration(dp28)
 
-                                        override fun onFailure(call: Call<RetrofitClient.ResponsemyClass>, t: Throwable) {
-                                            val errorMessage = "Call Failed: ${t.message}"
-                                            Log.d("Retrofit", errorMessage)
-                                        }
-                                    })
+                                    classadapter = AdapterMypageClass(classlist, resources, activityMain)
+                                    recyclerViewclass = binding.fmypageRvClass
+                                    recyclerViewclass.addItemDecoration(itemSpacingDecoration)
+                                    recyclerViewclass.layoutManager =
+                                        StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+                                    recyclerViewclass.adapter = classadapter
+                                    classadapter.notifyDataSetChanged()
                                 }
                                 binding.fmypagePostNum.text = "${mypage.post}"
                                 binding.fmypageFollowNum.text = "${mypage.follower}"
@@ -148,8 +154,16 @@ class FragmentMypage : Fragment() {
 
                                 Glide.with(requireContext())
                                     .load(imageUrl)
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into(imageView)
+
+                                if(mypage.myContent != null){
+                                    contentslist = mypage.myContent
+                                    contentsadapter.notifyDataSetChanged()
+                                }
+                                if(mypage.poseDrawer != null){
+                                    poselist = mypage.poseDrawer
+                                    poseadapter.notifyDataSetChanged()
+                                }
 
                                 editor.putInt("expert", mypage.expert)
                                 editor.putString("profileimage", mypage.profile)
@@ -158,6 +172,11 @@ class FragmentMypage : Fragment() {
                                 editor.putInt("following", mypage.following)
                                 editor.putInt("follower", mypage.follower)
                                 editor.apply()
+
+                                binding.fmypagePostNum.text = "${user.getInt("post", 0)}"
+                                binding.fmypageFollowNum.text = "${user.getInt("follower", 0)}"
+                                binding.fmypageFollowingNum.text = "${user.getInt("following", 0)}"
+                                binding.fmypageTextNick.text = "${user.getString("nick", "")}"
                             }
                             binding.fmypageScroll.visibility = View.VISIBLE
                             binding.fmypageLoading.visibility = View.GONE
@@ -172,20 +191,13 @@ class FragmentMypage : Fragment() {
             })
         }
 
-        //리사이클러뷰 컨텐츠
-        recyclerViewcontents = binding.fmypageRvContent
-        recyclerViewcontents.layoutManager =
-            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
-        recyclerViewcontents.adapter = AdapterMypageContents(ContentsData, resources)
-
-
         binding.fmypageBtnPen.setOnClickListener {
             val intent = Intent(activity, ActivityChangeUser::class.java)
             startActivity(intent)
         }
 
         binding.fmypageBtnContent.setOnClickListener {
-            val intent = Intent(activity, ActivityContents::class.java)
+            val intent = Intent(activity, ActivityMyContents::class.java)
             startActivity(intent)
         }
 
@@ -194,15 +206,19 @@ class FragmentMypage : Fragment() {
             startActivity(intent)
         }
 
-        binding.fmypageBtnJim.setOnClickListener {
-            val intent = Intent(activity, ActivityJim::class.java)
+        binding.fmypageBtnPose.setOnClickListener {
+            val intent = Intent(activity, ActivityPose::class.java)
+            startActivity(intent)
+        }
+
+        binding.fmypageBtnBox.setOnClickListener {
+            val intent = Intent(activity, ActivityBox::class.java)
             startActivity(intent)
         }
 
         return binding.root
     }
 
-    //사진 28dp로 강제 변환
     class ItemSpacingDecoration(private val spacing: Int) : RecyclerView.ItemDecoration() {
 
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {

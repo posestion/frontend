@@ -79,7 +79,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/cpopup_view1"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />

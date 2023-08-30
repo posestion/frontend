@@ -33,13 +33,14 @@
             <TextView
                 android:id="@+id/Fhome_text_page"
                 android:layout_width="60dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/corners_10dp_black"
                 android:gravity="center_horizontal"
                 android:text="1/15"
-                android:textColor="@color/white"
+                android:textColor="#ddffffff"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/Fhome_viewpager"
                 app:layout_constraintEnd_toEndOf="@+id/Fhome_viewpager" />
 
@@ -142,12 +143,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Fhome_rv_hotclass"
-                android:layout_width="328dp"
+                android:layout_width="340dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/Fhome_text3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Fhome_text3" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -171,6 +171,51 @@
                 app:layout_constraintBottom_toBottomOf="@+id/Fhome_btn_hotclassall"
                 app:layout_constraintEnd_toEndOf="@+id/Fhome_btn_hotclassall"
                 app:layout_constraintTop_toTopOf="@+id/Fhome_btn_hotclassall" />
+
+            <TextView
+                android:id="@+id/Fhome_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="내가 찜한 강의"
+                android:textColor="@color/maincolor"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/Fhome_text3"
+                app:layout_constraintTop_toBottomOf="@+id/Fhome_rv_hotclass" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Fhome_btn_starclass"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:background="@drawable/solid_transparent"
+                android:text="전체보기"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/Fhome_text4"
+                app:layout_constraintEnd_toEndOf="@+id/Fhome_btn_hotclassall"
+                app:layout_constraintTop_toTopOf="@+id/Fhome_text4" />
+
+            <ImageView
+                android:id="@+id/Fhome_image4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/svg_right"
+                app:layout_constraintBottom_toBottomOf="@+id/Fhome_btn_starclass"
+                app:layout_constraintEnd_toEndOf="@+id/Fhome_btn_starclass"
+                app:layout_constraintTop_toTopOf="@+id/Fhome_btn_starclass" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/Fhome_rv_starclass"
+                android:layout_width="328dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Fhome_text4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
