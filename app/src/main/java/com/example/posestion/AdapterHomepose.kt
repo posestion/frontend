@@ -12,7 +12,6 @@ import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.MypageRvPoseBinding
 
 class AdapterHomepose (private val poseList: MutableList<RetrofitClient.homepose>,
-                       private val resources: Resources,
                        private val context: Context
 ): RecyclerView.Adapter<AdapterHomepose.viewHolder>() {
 

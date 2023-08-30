@@ -56,7 +56,7 @@ class ActivityBox : AppCompatActivity() {
                                     contentslist.add(boxcontentslist[0])
 
                                     recyclerViewcontents = binding.aboxRvContents
-                                    contentsadapter = AdapterMypageContents(contentslist, resources, this@ActivityBox)
+                                    contentsadapter = AdapterMypageContents(contentslist, this@ActivityBox)
 
                                     val dividerItemDecoration = DividerItemDecoration(this@ActivityBox, LinearLayoutManager.VERTICAL)
                                     recyclerViewcontents.addItemDecoration(dividerItemDecoration)
@@ -141,7 +141,7 @@ class ActivityBox : AppCompatActivity() {
                                         }
                                     }
                                     recyclerViewclass = binding.aboxRvClass
-                                    classadapter = AdapterMypageClass(classlist, resources, this@ActivityBox)
+                                    classadapter = AdapterMypageClass(classlist, this@ActivityBox)
 
                                     recyclerViewclass.layoutManager =
                                         StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)

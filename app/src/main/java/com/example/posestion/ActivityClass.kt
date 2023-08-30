@@ -43,7 +43,7 @@ class ActivityClass : AppCompatActivity() {
                             if(response.result != null){
                                 classlistall = response.result
                                 recyclerView = binding.AclassRv
-                                classadapter = AdapterClass(classlistall, resources, this@ActivityClass)
+                                classadapter = AdapterClass(classlistall, this@ActivityClass)
                                 recyclerView.layoutManager =
                                     StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                                 recyclerView.adapter = classadapter

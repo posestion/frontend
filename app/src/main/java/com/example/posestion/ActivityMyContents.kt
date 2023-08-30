@@ -59,7 +59,7 @@ class ActivityMyContents : AppCompatActivity() {
                             if(result.wdyt != null){
                                 contentslist = result.wdyt
                                 recyclerViewcontents = binding.amycontentsRvContents
-                                contentsadapter = AdapterMypageContents(contentslist, resources,this@ActivityMyContents)
+                                contentsadapter = AdapterMypageContents(contentslist, this@ActivityMyContents)
 
                                 recyclerViewcontents.layoutManager =
                                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)

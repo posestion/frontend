@@ -26,7 +26,7 @@ class ActivityBoxContents : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         recyclerViewcontents = binding.aboxcontentsRv
-        contentsadapter = AdapterBoxContents(boxcontentslist, this, resources)
+        contentsadapter = AdapterBoxContents(boxcontentslist, this)
 
         recyclerViewcontents.layoutManager =
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)

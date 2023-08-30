@@ -12,7 +12,6 @@ import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.MypageRvPoseBinding
 
 class AdapterMypagePose (private val poseList: MutableList<RetrofitClient.mypageposeDrawer>,
-                         private val resources: Resources,
                          private val context: Context
 ): RecyclerView.Adapter<AdapterMypagePose.viewHolder>() {
 

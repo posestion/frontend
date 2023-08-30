@@ -12,7 +12,6 @@ import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.MypageRvClassBinding
 
 class AdapterMypageClass (private val ClassList: MutableList<RetrofitClient.mypageclass>,
-                          private val resources: Resources,
                           private val context: Context): RecyclerView.Adapter<AdapterMypageClass.viewHolder>() {
     inner class viewHolder(private val binding: MypageRvClassBinding) : RecyclerView.ViewHolder(binding.root){
 

@@ -64,7 +64,7 @@ class FragmentMypage : Fragment() {
 
             val itemSpacingDecoration = ItemSpacingDecoration(dp28)
 
-            classadapter = AdapterMypageClass(classlist, resources, activityMain)
+            classadapter = AdapterMypageClass(classlist, activityMain)
             recyclerViewclass = binding.fmypageRvClass
             recyclerViewclass.addItemDecoration(itemSpacingDecoration)
             recyclerViewclass.layoutManager =
@@ -74,7 +74,7 @@ class FragmentMypage : Fragment() {
         }
 
         //내가 올린 컨텐츠
-        contentsadapter = AdapterMypageContents(contentslist, resources, requireContext())
+        contentsadapter = AdapterMypageContents(contentslist, requireContext())
         recyclerViewcontents = binding.fmypageRvContent
         recyclerViewcontents.layoutManager =
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
@@ -82,7 +82,7 @@ class FragmentMypage : Fragment() {
         contentsadapter.notifyDataSetChanged()
 
         //내가 올린 포즈
-        poseadapter = AdapterMypagePose(poselist, resources, requireContext())
+        poseadapter = AdapterMypagePose(poselist, requireContext())
         recyclerViewpose = binding.fmypageRvPose
         recyclerViewpose.layoutManager =
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
@@ -136,7 +136,7 @@ class FragmentMypage : Fragment() {
 
                                     val itemSpacingDecoration = ItemSpacingDecoration(dp28)
 
-                                    classadapter = AdapterMypageClass(classlist, resources, activityMain)
+                                    classadapter = AdapterMypageClass(classlist, activityMain)
                                     recyclerViewclass = binding.fmypageRvClass
                                     recyclerViewclass.addItemDecoration(itemSpacingDecoration)
                                     recyclerViewclass.layoutManager =

@@ -102,7 +102,7 @@ class FragmentHome : Fragment() {
                             if(response.result != null){
                                 homehotclasslist = response.result
                                 hotclassrecyclerView = binding.FhomeRvHotclass
-                                hotclassadapter = AdapterHomehotclass(homehotclasslist, resources, requireContext())
+                                hotclassadapter = AdapterHomehotclass(homehotclasslist, requireContext())
 
                                 hotclassrecyclerView.layoutManager =
                                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
@@ -130,7 +130,7 @@ class FragmentHome : Fragment() {
                             if(response.result != null){
                                 homeposelist = response.result
                                 poserecyclerView = binding.FhomeRvHotclass
-                                poseadapter = AdapterHomepose(homeposelist, resources, requireContext())
+                                poseadapter = AdapterHomepose(homeposelist, requireContext())
 
                                 poserecyclerView.layoutManager =
                                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
@@ -168,7 +168,7 @@ class FragmentHome : Fragment() {
                                     }
                                 }
                                 myclassrecyclerView = binding.FhomeRvHotclass
-                                myclassadapter = AdapterMypageClass(classlist, resources, requireContext())
+                                myclassadapter = AdapterMypageClass(classlist, requireContext())
 
                                 myclassrecyclerView.layoutManager =
                                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
@@ -206,7 +206,7 @@ class FragmentHome : Fragment() {
                                     }
                                 }
                                 starclassrecyclerView = binding.FhomeRvHotclass
-                                starclassadapter = AdapterMypageClass(classlist, resources, requireContext())
+                                starclassadapter = AdapterMypageClass(classlist, requireContext())
 
                                 starclassrecyclerView.layoutManager =
                                     StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)

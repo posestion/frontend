@@ -40,7 +40,7 @@ class ActivityContents : AppCompatActivity() {
                             if(response.result != null){
                                 contentslistall = response.result
                                 recyclerView = binding.AcontentsRv
-                                contentadapter = AdapterContents(contentslistall, this@ActivityContents, resources)
+                                contentadapter = AdapterContents(contentslistall, this@ActivityContents)
 
                                 val dividerItemDecoration = DividerItemDecoration(this@ActivityContents, LinearLayoutManager.VERTICAL)
                                 recyclerView.addItemDecoration(dividerItemDecoration)
