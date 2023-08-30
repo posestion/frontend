@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.posestion.connection.RetrofitClient
 import com.example.posestion.databinding.RvContentsBinding
 import retrofit2.Call
@@ -19,8 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AdapterBoxContents (private val ContentsList: MutableList<RetrofitClient.mypageContent>,
-                          private val context: Context,
-                          private val resources: Resources
+                          private val context: Context
 ): RecyclerView.Adapter<AdapterBoxContents.viewHolder>() {
 
     private val user = MyApplication.user
@@ -37,17 +37,15 @@ class AdapterBoxContents (private val ContentsList: MutableList<RetrofitClient.m
             val pixels = (120 * Resources.getSystem().displayMetrics.density).toInt()
             val dp18 = (18 * Resources.getSystem().displayMetrics.density).toInt()
             val dp100 = (100 * Resources.getSystem().displayMetrics.density).toInt()
-            val dp56 = (56 * Resources.getSystem().displayMetrics.density).toInt()
 
-            val targetSize = dp56
-            val drawable = list.image
+            val imageUrl = list.image
+            val imageView = binding.RvcontentsImageMain
 
-            if (drawable != null) {
-                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((drawable as BitmapDrawable).bitmap, targetSize, targetSize, true))
+            Glide.with(context)
+                .load(imageUrl)
+                .into(imageView)
 
-                binding.RvcontentsImageMain.setImageDrawable(scaledDrawable)
-                binding.RvcontentsImageMain.clipToOutline = true
-            }
+            binding.RvcontentsImageMain.clipToOutline = true
 
             binding.RvcontentsBtnMenu.setOnClickListener {
                 val popupMenuView = LayoutInflater.from(context).inflate(R.layout.custom_box_popup, null)

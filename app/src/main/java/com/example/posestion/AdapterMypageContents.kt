@@ -24,9 +24,6 @@ class AdapterMypageContents(private val ContentsList: MutableList<RetrofitClient
             binding.mypageRvContentsTextHeart.text = list.likenum.toString()
             binding.mypageRvContentsTextReply.text = list.replynum.toString()
 
-            val dp56 = (56 * Resources.getSystem().displayMetrics.density).toInt()
-
-            val targetSize = dp56
             val imageUrl = list.image
             val imageView = binding.mypageRvContentsImageMain
 
@@ -34,12 +31,7 @@ class AdapterMypageContents(private val ContentsList: MutableList<RetrofitClient
                 .load(imageUrl)
                 .into(imageView)
 
-            if (imageView != null) {
-                val scaledDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((imageView as BitmapDrawable).bitmap, targetSize, targetSize, true))
-
-                imageView.setImageDrawable(scaledDrawable)
-                imageView.clipToOutline = true
-            }
+            imageView.clipToOutline = true
 
             if(list.like == 1){
                 binding.mypageRvContentsImage1.setImageResource(R.drawable.svg_heart)

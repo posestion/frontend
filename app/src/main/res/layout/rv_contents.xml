@@ -55,7 +55,8 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginEnd="27dp"
-        android:background="@drawable/corners_7dp"
+        android:background="@drawable/solid_basic_7dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/Rvcontents_image1"
         app:layout_constraintEnd_toEndOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
